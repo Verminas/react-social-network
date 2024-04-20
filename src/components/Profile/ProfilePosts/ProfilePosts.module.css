@@ -1,0 +1,28 @@
+.myPost{
+  display: grid;
+  grid-template-rows: 2fr 4fr 1fr;
+  grid-template-columns: 2fr 4fr 1fr;
+  grid-gap: 20px;
+  grid-template-areas: 'title . .'
+                      'textarea textarea textarea'
+                        '. . button'
+  
+}
+.myPostTitle{
+  grid-area: title;
+}
+.myPostTextarea{
+  margin: 0 auto;
+  width: 80%;
+  min-height: 50px;
+  grid-area: textarea;
+}
+.myPostButton{
+  grid-area: button;
+}
+
+.posts{
+  grid-area: posts;
+  display: grid;
+  
+}
