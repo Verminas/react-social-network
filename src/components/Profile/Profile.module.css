@@ -26,6 +26,9 @@
 .info{
   grid-area: info;
 }
+.info li{
+  list-style-type: none;
+}
 .myPost{
   display: grid;
   grid-template-rows: 2fr 4fr 1fr;
