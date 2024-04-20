@@ -1,38 +1,106 @@
-.App {
-  text-align: center;
+.app-wrapper{
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 1fr 4fr;
+  grid-gap: 10px;
+  grid-template-areas: 'header header'
+                        'nav profile';
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.header{
+  grid-area: header;
+  background-color: indianred;
+}
+.header__logo{
+  width: 50px;
+  heigth: 50px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navBar{
+  grid-area: nav;
+  background-color: burlywood;
+  
+  display: grid;
+  grid-auto-rows: minmax(30px, 50px);
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+}
+.navBar a{
+  text-decoration: none;
+  color: brown;
+  font-size: 2rem;
+}
+.navBar a:last-of-type{
+  margin-top: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+.profile{
+  grid-area: profile;
+  background-color: silver;
+}
+.profile__backImg{
+  width: 100%;
+  height: 30%;
+  object-fit: cover;
+}
+
+.profile__content{
+  padding: 20px;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  grid-template-columns: 1fr 4fr;
+  grid-gap: 30px;
+  grid-template-areas: 'img info '
+                        'posts posts ';
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+.profile__img{
+  width: 100%;
+  
+  grid-area: img;
+}
+.profile__info{
+  grid-area: info;
+}
+.profile__myPost{
+  display: grid;
+  grid-template-rows: 2fr 4fr 1fr;
+  grid-template-columns: 2fr 4fr 1fr;
+  grid-gap: 20px;
+  grid-template-areas: 'title . .'
+                      'textarea textarea textarea'
+                        '. . button'
+  
+}
+.profile__myPost___title{
+  grid-area: title;
+}
+.profile__myPosts__textarea{
+  margin: 0 auto;
+  width: 80%;
+  min-height: 50px;
+  grid-area: textarea;
+}
+.profile__myPosts__button{
+  grid-area: button;
 }
 
-.App-link {
-  color: #61dafb;
+.profile__posts{
+  grid-area: posts;
+  display: grid;
+  
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.profile__posts_item{
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+.profile__posts_itemImg{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
 }
