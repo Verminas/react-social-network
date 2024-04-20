@@ -1,12 +1,12 @@
 import React from "react";
-import "./NavBar.css";
+import s from "./NavBar.module.css";
 
-type NavBarPropsType = {
-  className: string
-}
-export const NavBar = (props: NavBarPropsType) => {
+// type NavBarPropsType = {
+//   className: string
+// }
+export const NavBar = () => {
   return (
-    <nav className={'navBar'}>
+    <nav className={s.navBar}>
       <a href="#">Profile</a>
       <a href="#">Message</a>
       <a href="#">News</a>

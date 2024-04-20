@@ -2,7 +2,7 @@
   grid-area: header;
   background-color: indianred;
 }
-.header__logo{
+.logo{
   width: 50px;
   heigth: 50px;
 }
