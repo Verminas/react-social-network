@@ -24,5 +24,10 @@
 .posts{
   grid-area: posts;
   display: grid;
-  
+  grid-gap: 30px;
+}
+.postsItems{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

@@ -1,9 +1,6 @@
 import React from "react";
 import s from "./Header.module.css";
 
-// type HeaderPropsType = {
-//   className: string
-// }
 export const Header = () => {
   return (
     <header className={s.header}>

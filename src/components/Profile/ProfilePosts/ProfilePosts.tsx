@@ -23,7 +23,10 @@ const MyPost = () => {
 const PostItems = () => {
   return (
     <div className={s.postsItems}>
-      <PostItem/>
+      <PostItem message={'hi, i would like to talk with someone'}/>
+      <PostItem message={'hi, nice to meet you'}/>
+      <PostItem message={'do you want to find friends'}/>
+      <PostItem message={'yes, of course'}/>
     </div>
   )
 }

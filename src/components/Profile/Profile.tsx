@@ -18,5 +18,3 @@ const BackImg = () => {
          alt="profile-background"/>
   )
 }
-
-

@@ -1,9 +1,6 @@
 import React from "react";
 import s from "./NavBar.module.css";
 
-// type NavBarPropsType = {
-//   className: string
-// }
 export const NavBar = () => {
   return (
     <nav className={s.navBar}>
