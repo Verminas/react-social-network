@@ -2,7 +2,7 @@
   display: flex;
   gap: 20px;
   align-items: center;
-  background-color: burlywood;
+  background-color: indianred;
   border-radius: 15px;
   width: fit-content;
   padding: 10px;
@@ -11,6 +11,7 @@
 }
 .postsItem:nth-child(odd){
   align-self: end;
+  background-color: burlywood;
 }
 .postsItemImg{
   width: 40px;
