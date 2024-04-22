@@ -8,18 +8,40 @@ export const Dialogs = () => {
       <div className={s.dialogsItems}>
         <h2 className={s.title}>Dialogs</h2>
         <ul>
-          <li><NavLink to="/dialogs/1" className={s.dialog}>Dmitry</NavLink></li>
-          <li><NavLink to="/dialogs/2" className={s.dialog}>Sveta</NavLink></li>
-          <li><NavLink to="/dialogs/3" className={s.dialog}>Valera</NavLink></li>
-          <li><NavLink to="/dialogs/4" className={s.dialog}>Alex</NavLink></li>
-          <li><NavLink to="/dialogs/5" className={s.dialog}>Natali</NavLink></li>
+          <DialogItem name={'Dmitry'} id={'1'}/>
+          <DialogItem name={'Sveta'} id={'2'}/>
+          <DialogItem name={'Valera'} id={'3'}/>
+          <DialogItem name={'Alex'} id={'4'}/>
+          <DialogItem name={'Natali'} id={'5'}/>
         </ul>
       </div>
       <div className={s.messages}>
-        <p className={s.message}>Hello</p>
-        <p className={s.message}>How are you</p>
-        <p className={s.message}>I'm fine</p>
+        <MessageItem message={'Hello'}/>
+        <MessageItem message={'How are you?'}/>
+        <MessageItem message={'I am fine. Thank you. What do you do?'}/>
+        <MessageItem message={'I am working for my studying project now. It is my homework'}/>
+        <MessageItem message={'Oh, I hope it is not mathematics :('}/>
       </div>
     </section>
+  )
+}
+type DialogItemProps = {
+  name: string,
+  id: string
+}
+
+const DialogItem = (props: DialogItemProps) => {
+  return (
+    <li><NavLink to={`/dialogs/${props.id}`} className={s.dialog}>{props.name}</NavLink></li>
+  )
+}
+
+type MessageItemProps = {
+  message: string
+}
+
+const MessageItem = (props: MessageItemProps) => {
+  return (
+    <p className={s.message}>{props.message}</p>
   )
 }
