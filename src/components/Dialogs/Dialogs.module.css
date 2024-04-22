@@ -1,0 +1,27 @@
+.dialogs{
+    display: grid;
+    grid-template-columns:1fr 2fr;
+}
+.dialogsItems{
+    border-right: 3px solid saddlebrown;
+}
+.dialogsItems li {
+    padding: 10px;
+    font-size: 1.5rem;
+}
+.messages{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.message{
+    padding: 10px;
+    background-color: chocolate;
+    border-radius: 10px;
+    width: fit-content;
+    font-size: 1.2rem;
+}
+.message:nth-child(odd){
+    align-self: end;
+    background-color: burlywood;
+}

@@ -6,6 +6,7 @@
   grid-auto-rows: minmax(30px, 50px);
   grid-template-columns: 1fr;
   grid-gap: 10px;
+  padding: 10px;
 }
 .navBar a{
   text-decoration: none;
