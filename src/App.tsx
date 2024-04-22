@@ -10,9 +10,18 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 
 type AppPropsType = {
-  dialogItemsData: object[],
-  messageItemsData: object[],
-  postItemsData: object[]
+  dialogItemsData: Array<{
+    id: string,
+    name: string,
+  }>,
+  messageItemsData: Array<{
+    id: string,
+    message: string,
+  }>,
+  postItemsData: Array<{
+    id: string,
+    postMessage: string,
+  }>,
 }
 
 function App(props: AppPropsType) {

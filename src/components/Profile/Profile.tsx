@@ -3,7 +3,10 @@ import s from "./Profile.module.css";
 import {ProfileContent} from "./ProfileContent/ProfileContent";
 
 type ProfilePropsType = {
-  postItemsData: object[]
+  postItemsData: Array<{
+    id: string,
+    postMessage: string,
+  }>,
 }
 
 export const Profile = (props: ProfilePropsType) => {

@@ -3,7 +3,10 @@ import React from "react";
 import {ProfilePosts} from "../ProfilePosts/ProfilePosts";
 
 type ProfileContentPropsType = {
-  postItemsData: object[]
+  postItemsData: Array<{
+    id: string,
+    postMessage: string,
+  }>,
 }
 
 export const ProfileContent = (props: ProfileContentPropsType) => {

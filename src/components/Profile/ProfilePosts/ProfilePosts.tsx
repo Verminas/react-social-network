@@ -4,7 +4,10 @@ import {PostItem} from "../ProfilePost/ProfilePost";
 
 
 type ProfilePostsPropsType = {
-  postItemsData: object[]
+  postItemsData: Array<{
+    id: string,
+    postMessage: string,
+  }>,
 }
 
 export const ProfilePosts = (props: ProfilePostsPropsType) => {
@@ -27,15 +30,16 @@ const MyPost = () => {
 }
 
 type PostItemsPropsType = {
-  postItemsData: object[]
+  postItemsData: Array<{
+    id: string,
+    postMessage: string,
+  }>,
 }
-
-type itemPostType = any;
 
 const PostItems = (props: PostItemsPropsType) => {
 
   let postItemsElements = props.postItemsData
-    .map((i: itemPostType) => <PostItem message={i.postMessage} />);
+    .map(i => <PostItem message={i.postMessage} />);
 
   return (
     <div className={s.postsItems}>

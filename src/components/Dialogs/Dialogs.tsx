@@ -3,27 +3,22 @@ import s from './Dialogs.module.css';
 import {NavLink} from "react-router-dom";
 
 type DialogsPropsType = {
-  dialogItemsData: object[],
-  messageItemsData: object[],
+  dialogItemsData: Array<{
+    id: string,
+    name: string,
+  }>,
+  messageItemsData: Array<{
+    id: string,
+    message: string,
+  }>,
 };
-type itemDialogType = any;
-
-// type itemDialogType = {
-//   id: string,
-//   name: string,
-// }
- type itemMessageType = any;
-// {
-//   id: string,
-//   message: string
-// }
 
 export const Dialogs = (props: DialogsPropsType) => {
 
   let dialogItemsElements = props.dialogItemsData
-    .map((i: itemDialogType) => <DialogItem name={i.name} id={i.id}/>);
+    .map(i => <DialogItem name={i.name} id={i.id}/>);
   let messageItemsElements = props.messageItemsData
-    .map((i: itemMessageType) => <MessageItem message={i.message}/>);
+    .map(i => <MessageItem message={i.message}/>);
 
 
   return (
