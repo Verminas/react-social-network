@@ -10,18 +10,28 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 
 type AppPropsType = {
-  dialogItemsData: Array<{
-    id: string,
-    name: string,
-  }>,
-  messageItemsData: Array<{
-    id: string,
-    message: string,
-  }>,
-  postItemsData: Array<{
-    id: string,
-    postMessage: string,
-  }>,
+  stateData: {
+    profilePage: {
+      postItemsData: Array<{
+        id: string,
+        postMessage: string,
+      }>
+    },
+    messagesPage: {
+      dialogItemsData: Array<{
+        id: string,
+        name: string,
+      }>,
+      messageItemsData: Array<{
+        id: string,
+        message: string,
+      }>
+    },
+    newsPage: {},
+    musicPage: {},
+    settingsPage: {},
+    sideBar: {}
+  }
 }
 
 function App(props: AppPropsType) {
@@ -32,9 +42,9 @@ function App(props: AppPropsType) {
       <NavBar/>
       <div className="app-wrapper-content">
         <Routes>
-          <Route index element={<Profile postItemsData={props.postItemsData}/>}></Route>
-          <Route path={'/profile'}  element={<Profile postItemsData={props.postItemsData}/>}></Route>
-          <Route path={'/dialogs/*'} element={<Dialogs dialogItemsData={props.dialogItemsData} messageItemsData={props.messageItemsData}/>}></Route>
+          <Route index element={<Profile profilePage={props.stateData.profilePage}/>}></Route>
+          <Route path={'/profile'}  element={<Profile profilePage={props.stateData.profilePage}/>}></Route>
+          <Route path={'/dialogs/*'} element={<Dialogs messagesPage={props.stateData.messagesPage} />}></Route>
           <Route path={'/news'} element={<News/>}></Route>
           <Route path={'/music'} element={<Music/>}></Route>
           <Route path={'/settings'} element={<Settings/>}></Route>

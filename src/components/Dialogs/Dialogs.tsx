@@ -2,22 +2,24 @@ import React from "react";
 import s from './Dialogs.module.css';
 import {NavLink} from "react-router-dom";
 
-type DialogsPropsType = {
-  dialogItemsData: Array<{
-    id: string,
-    name: string,
-  }>,
-  messageItemsData: Array<{
-    id: string,
-    message: string,
-  }>,
+type messagesPageStatePropsType = {
+  messagesPage: {
+    dialogItemsData: Array<{
+      id: string,
+      name: string,
+    }>,
+    messageItemsData: Array<{
+      id: string,
+      message: string,
+    }>,
+  },
 };
 
-export const Dialogs = (props: DialogsPropsType) => {
+export const Dialogs = (props: messagesPageStatePropsType) => {
 
-  let dialogItemsElements = props.dialogItemsData
+  let dialogItemsElements = props.messagesPage.dialogItemsData
     .map(i => <DialogItem name={i.name} id={i.id}/>);
-  let messageItemsElements = props.messageItemsData
+  let messageItemsElements = props.messagesPage.messageItemsData
     .map(i => <MessageItem message={i.message}/>);
 
 
