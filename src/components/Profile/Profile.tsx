@@ -2,11 +2,15 @@ import React from "react";
 import s from "./Profile.module.css";
 import {ProfileContent} from "./ProfileContent/ProfileContent";
 
-export const Profile = () => {
+type ProfilePropsType = {
+  postItemsData: object[]
+}
+
+export const Profile = (props: ProfilePropsType) => {
   return (
     <section className={s.profile}>
       <BackImg/>
-      <ProfileContent />
+      <ProfileContent postItemsData={props.postItemsData}/>
     </section>
   )
 }

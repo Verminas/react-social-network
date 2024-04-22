@@ -2,12 +2,16 @@ import s from "./ProfileContent.module.css";
 import React from "react";
 import {ProfilePosts} from "../ProfilePosts/ProfilePosts";
 
-export const ProfileContent = () => {
+type ProfileContentPropsType = {
+  postItemsData: object[]
+}
+
+export const ProfileContent = (props: ProfileContentPropsType) => {
   return (
     <div className={s.content}>
       <ProfileLogo/>
       <ProfileInfo/>
-      <ProfilePosts/>
+      <ProfilePosts postItemsData={props.postItemsData}/>
     </div>
   )
 }

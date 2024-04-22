@@ -1,13 +1,17 @@
 import s from "./ProfilePosts.module.css";
 import React from "react";
 import {PostItem} from "../ProfilePost/ProfilePost";
-import {postItemsData} from "../../../index";
 
-export const ProfilePosts = () => {
+
+type ProfilePostsPropsType = {
+  postItemsData: object[]
+}
+
+export const ProfilePosts = (props: ProfilePostsPropsType) => {
   return (
     <div className={s.posts}>
       <MyPost/>
-      <PostItems/>
+      <PostItems postItemsData={props.postItemsData}/>
     </div>
   )
 }
@@ -21,10 +25,17 @@ const MyPost = () => {
     </div>
   )
 }
-const PostItems = () => {
 
-  let postItemsElements = postItemsData
-    .map(i => <PostItem message={i.postMessage} />);
+type PostItemsPropsType = {
+  postItemsData: object[]
+}
+
+type itemPostType = any;
+
+const PostItems = (props: PostItemsPropsType) => {
+
+  let postItemsElements = props.postItemsData
+    .map((i: itemPostType) => <PostItem message={i.postMessage} />);
 
   return (
     <div className={s.postsItems}>
