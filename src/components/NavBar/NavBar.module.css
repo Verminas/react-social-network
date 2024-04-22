@@ -1,16 +1,21 @@
-.navBar{
+.wrapperNavAside{
   grid-area: nav;
   background-color: burlywood;
-  
+  display: grid;
+  grid-auto-rows: minmax(150px, 400px);
+
+  text-decoration: none;
+  color: saddlebrown;
+  padding: 10px;
+}
+.navBar{
   display: grid;
   grid-auto-rows: minmax(30px, 50px);
   grid-template-columns: 1fr;
   grid-gap: 10px;
-  padding: 10px;
+
 }
-.navBar a{
-  text-decoration: none;
-  color: saddlebrown;
+.navBar a, .myFriendsList{
   font-size: 2rem;
 }
 
@@ -19,4 +24,24 @@
 }
 .navBar a:last-of-type{
   margin-top: 20px;
+}
+
+.asideTitle{
+  font-size: 2rem;
+  text-align: center;
+}
+.friendsList{
+  font-size: 1.5rem;
+  display: flex;
+  gap: 15px;
+}
+.friendsList > li{
+  background-color: blanchedalmond;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
