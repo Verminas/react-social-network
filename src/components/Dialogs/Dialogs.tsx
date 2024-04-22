@@ -1,5 +1,6 @@
 import React from "react";
 import s from './Dialogs.module.css';
+import {NavLink} from "react-router-dom";
 
 export const Dialogs = () => {
   return (
@@ -7,11 +8,11 @@ export const Dialogs = () => {
       <div className={s.dialogsItems}>
         <h2 className={s.title}>Dialogs</h2>
         <ul>
-          <li><a href="" className={s.dialog}>Dmitry</a></li>
-          <li><a href="" className={s.dialog}>Sveta</a></li>
-          <li><a href="" className={s.dialog}>Valera</a></li>
-          <li><a href="" className={s.dialog}>Alex</a></li>
-          <li><a href="" className={s.dialog}>Natali</a></li>
+          <li><NavLink to="/dialogs/1" className={s.dialog}>Dmitry</NavLink></li>
+          <li><NavLink to="/dialogs/2" className={s.dialog}>Sveta</NavLink></li>
+          <li><NavLink to="/dialogs/3" className={s.dialog}>Valera</NavLink></li>
+          <li><NavLink to="/dialogs/4" className={s.dialog}>Alex</NavLink></li>
+          <li><NavLink to="/dialogs/5" className={s.dialog}>Natali</NavLink></li>
         </ul>
       </div>
       <div className={s.messages}>
