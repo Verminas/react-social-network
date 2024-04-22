@@ -8,24 +8,55 @@
 .dialogsItems li {
     padding: 10px;
     font-size: 1.5rem;
+    display: flex;
+    gap: 20px;
+    align-items: center;
 }
 .dialogsItems a:focus{
-    color: red;
+    color: chocolate;
+}
+.dialogLogo{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }
 .messages{
     padding: 10px;
     display: flex;
     flex-direction: column;
 }
-.message{
+.messageItem{
     padding: 10px;
     margin: 10px;
     background-color: chocolate;
     border-radius: 10px;
     width: fit-content;
     font-size: 1.2rem;
+    display: flex;
+    gap: 10px;
 }
-.message:nth-child(odd){
+.messageItem:nth-child(odd){
     align-self: end;
     background-color: burlywood;
+}
+.messageItem:nth-child(odd) .messageLogo{
+    background: url("https://avatars.mds.yandex.net/get-shedevrum/10502823/video_preview_b179629eed0e11eebd92aa8321cbabb8_1/orig");
+    object-fit: cover;
+    background-size: cover;
+    background-position: center;
+
+}
+.messageItem:nth-child(even) .messageLogo{
+    background: url("https://avatars.mds.yandex.net/get-shedevrum/12368819/video_preview_35a18d4cfe6511eeab15b2af142faf58_2/orig");
+    object-fit: cover;
+    background-size: cover;
+    background-position: center;
+
+}
+.messageLogo{
+    width: 40px;
+    height: 40px;
+    min-width: 30px;
+    min-height: 30px;
+    border-radius: 50%;
 }
