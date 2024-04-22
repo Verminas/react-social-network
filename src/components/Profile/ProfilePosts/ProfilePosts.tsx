@@ -1,6 +1,7 @@
 import s from "./ProfilePosts.module.css";
 import React from "react";
 import {PostItem} from "../ProfilePost/ProfilePost";
+import {postItemsData} from "../../../index";
 
 export const ProfilePosts = () => {
   return (
@@ -21,25 +22,6 @@ const MyPost = () => {
   )
 }
 const PostItems = () => {
-
-  const postItemsData = [
-    {
-      id: '1',
-      postMessage: 'hi, i would like to talk with someone',
-    },
-    {
-      id: '2',
-      postMessage: 'hi, nice to meet you',
-    },
-    {
-      id: '3',
-      postMessage: 'do you want to find friends',
-    },
-    {
-      id: '4',
-      postMessage: 'yes, of course',
-    },
-  ];
 
   let postItemsElements = postItemsData
     .map(i => <PostItem message={i.postMessage} />);
