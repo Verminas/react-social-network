@@ -32,7 +32,8 @@ function App(props: AppPropsType) {
       <NavBar/>
       <div className="app-wrapper-content">
         <Routes>
-          <Route path={'/profile'} element={<Profile postItemsData={props.postItemsData}/>}></Route>
+          <Route index element={<Profile postItemsData={props.postItemsData}/>}></Route>
+          <Route path={'/profile'}  element={<Profile postItemsData={props.postItemsData}/>}></Route>
           <Route path={'/dialogs/*'} element={<Dialogs dialogItemsData={props.dialogItemsData} messageItemsData={props.messageItemsData}/>}></Route>
           <Route path={'/news'} element={<News/>}></Route>
           <Route path={'/music'} element={<Music/>}></Route>
