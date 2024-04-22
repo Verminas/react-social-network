@@ -9,8 +9,12 @@
 }
 .navBar a{
   text-decoration: none;
-  color: brown;
+  color: saddlebrown;
   font-size: 2rem;
+}
+
+.navBar a.activeLink{
+  color: chocolate;
 }
 .navBar a:last-of-type{
   margin-top: 20px;
