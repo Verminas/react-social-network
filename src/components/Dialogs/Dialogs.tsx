@@ -80,8 +80,9 @@ type DialogItemProps = {
 }
 
 const DialogItem = (props: DialogItemProps) => {
+  let dialogPath = `/dialogs/${props.id}`;
   return (
-    <li><NavLink to={`/dialogs/${props.id}`} className={s.dialog}>{props.name}</NavLink></li>
+    <li><NavLink to={dialogPath} className={s.dialog}>{props.name}</NavLink></li>
   )
 }
 
