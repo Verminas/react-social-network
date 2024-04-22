@@ -21,12 +21,30 @@ const MyPost = () => {
   )
 }
 const PostItems = () => {
+
+  const postItemsData = [
+    {
+      id: '1',
+      postMessage: 'hi, i would like to talk with someone',
+    },
+    {
+      id: '2',
+      postMessage: 'hi, nice to meet you',
+    },
+    {
+      id: '3',
+      postMessage: 'do you want to find friends',
+    },
+    {
+      id: '4',
+      postMessage: 'yes, of course',
+    },
+  ];
+
+
   return (
     <div className={s.postsItems}>
-      <PostItem message={'hi, i would like to talk with someone'}/>
-      <PostItem message={'hi, nice to meet you'}/>
-      <PostItem message={'do you want to find friends'}/>
-      <PostItem message={'yes, of course'}/>
+      {postItemsData.map(i => <PostItem message={i.postMessage} />)}
     </div>
   )
 }
