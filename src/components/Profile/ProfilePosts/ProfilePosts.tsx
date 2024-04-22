@@ -41,10 +41,12 @@ const PostItems = () => {
     },
   ];
 
+  let postItemsElements = postItemsData
+    .map(i => <PostItem message={i.postMessage} />);
 
   return (
     <div className={s.postsItems}>
-      {postItemsData.map(i => <PostItem message={i.postMessage} />)}
+      {postItemsElements}
     </div>
   )
 }
