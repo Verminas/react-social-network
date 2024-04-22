@@ -3,24 +3,68 @@ import s from './Dialogs.module.css';
 import {NavLink} from "react-router-dom";
 
 export const Dialogs = () => {
+
+  const dialogItemsData = [
+    {
+      id: '1',
+      name: 'Dmitry',
+    },
+    {
+      id: '2',
+      name: 'Sveta',
+    },
+    {
+      id: '3',
+      name: 'Valera',
+    },
+    {
+      id: '4',
+      name: 'Alex',
+    },
+    {
+      id: '5',
+      name: 'Natali',
+    },
+    {
+      id: '6',
+      name: 'Kevin',
+    },
+  ];
+
+  const messageItemsData = [
+    {
+      id: '1',
+      message: 'Hello',
+    },
+    {
+      id: '2',
+      message: 'How are you?',
+    },
+    {
+      id: '3',
+      message: 'I am fine. Thank you. What do you do?',
+    },
+    {
+      id: '4',
+      message: 'I am working for my studying project now. It is my homework',
+    },
+    {
+      id: '5',
+      message: 'Oh, I hope it is not mathematics :(',
+    },
+  ];
+
+
   return (
     <section className={s.dialogs}>
       <div className={s.dialogsItems}>
         <h2 className={s.title}>Dialogs</h2>
         <ul>
-          <DialogItem name={'Dmitry'} id={'1'}/>
-          <DialogItem name={'Sveta'} id={'2'}/>
-          <DialogItem name={'Valera'} id={'3'}/>
-          <DialogItem name={'Alex'} id={'4'}/>
-          <DialogItem name={'Natali'} id={'5'}/>
+          {dialogItemsData.map((i) => <DialogItem name={i.name} id={i.id}/>)}
         </ul>
       </div>
       <div className={s.messages}>
-        <MessageItem message={'Hello'}/>
-        <MessageItem message={'How are you?'}/>
-        <MessageItem message={'I am fine. Thank you. What do you do?'}/>
-        <MessageItem message={'I am working for my studying project now. It is my homework'}/>
-        <MessageItem message={'Oh, I hope it is not mathematics :('}/>
+        {messageItemsData.map(i => <MessageItem message={i.message}/>)}
       </div>
     </section>
   )
