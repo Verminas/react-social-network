@@ -1,5 +1,5 @@
 import s from "./ProfilePosts.module.css";
-import React from "react";
+import React, {useRef} from "react";
 import {PostItem} from "../ProfilePost/ProfilePost";
 
 
@@ -19,12 +19,22 @@ export const ProfilePosts = (props: ProfilePostsPropsType) => {
   )
 }
 const MyPost = () => {
+  let postTextArea = useRef<HTMLTextAreaElement>(null);
+  let sendMyPost = () => {
+    let textPostTextArea: string | undefined = postTextArea.current?.value;
+    alert(textPostTextArea);
+  }
+
   return (
     <div className={s.myPost}>
       <h2 className={s.myPostTitle}>My posts</h2>
-      <textarea className={s.myPostTextarea} name="textarea" id="1"
-                placeholder={'your news...'}></textarea>
-      <button className={s.myPostButton} type={"submit"}>Send</button>
+      <textarea className={s.myPostTextarea}
+                name="textarea"
+                id="1"
+                placeholder={'your news...'}
+                ref={postTextArea}>
+      </textarea>
+      <button className={s.myPostButton} type={"submit"} onClick={() => sendMyPost()}>Send</button>
     </div>
   )
 }
@@ -38,7 +48,7 @@ type PostItemsPropsType = {
 
 const PostItems = (props: PostItemsPropsType) => {
 
-  let postItemsElements = props.postItemsData
+  const postItemsElements = props.postItemsData
     .map(i => <PostItem message={i.postMessage} />);
 
   return (

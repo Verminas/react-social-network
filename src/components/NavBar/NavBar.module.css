@@ -25,23 +25,3 @@
 .navBar a:last-of-type{
   margin-top: 20px;
 }
-
-.asideTitle{
-  font-size: 2rem;
-  text-align: center;
-}
-.friendsList{
-  font-size: 1.5rem;
-  display: flex;
-  gap: 15px;
-}
-.friendsList > li{
-  background-color: blanchedalmond;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}

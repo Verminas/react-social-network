@@ -72,5 +72,17 @@ export const stateData = {
   newsPage: {},
   musicPage: {},
   settingsPage: {},
-  sideBar: {}
+  sideBar: {
+    friends: [
+      {
+        name: 'Sveta'
+      },
+      {
+        name: 'Sasha'
+      },
+      {
+        name: 'Valera'
+      },
+    ]
+  }
 }

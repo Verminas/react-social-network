@@ -1,0 +1,19 @@
+.asideTitle{
+    font-size: 2rem;
+    text-align: center;
+}
+.friendsList{
+    font-size: 1.4rem;
+    display: flex;
+    gap: 15px;
+}
+.friendsList > li{
+    background-color: blanchedalmond;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
