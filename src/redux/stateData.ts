@@ -1,21 +1,77 @@
-export const stateData = {
+
+
+const profileImg = 'https://img.freepik.com/premium-vector/man-character_665280-46970.jpg'
+
+export type StateDataType = {
+  profilePage: ProfilePageType
+  messagesPage: MessagesPageType
+  newsPage: Object
+  musicPage:Object
+  settingsPage: Object
+  sideBar: SideBarType
+}
+
+export type ProfilePageType = {
+  profileInfo: ProfileInfoType
+  postItemsData: MessageType[]
+
+}
+export type ProfileInfoType = {
+  name: string,
+  profileImage: string,
+  dateBirth: string,
+  country: string,
+  city: string,
+  website: string,
+  education: string,
+}
+export type MessageType = {
+  id: string
+  message: string
+}
+export type DialogItemType = {
+  id: string
+  name: string
+}
+export type MessagesPageType = {
+  dialogItemsData: DialogItemType[]
+  messageItemsData: MessageType[]
+}
+export type FriendItemType = {
+  id: string
+  name: string
+}
+export type SideBarType = {
+  friends: FriendItemType[]
+}
+
+export const stateData: StateDataType = {
   profilePage: {
+    profileInfo: {
+      name: 'John Doe',
+      profileImage: profileImg,
+      dateBirth: '19.01.1984',
+      country: 'USA',
+      city: 'New York',
+      website: 'https://www.linkedin.com/',
+      education: 'BSU 19',
+    },
     postItemsData: [
       {
         id: '1',
-        postMessage: 'hi, i would like to talk with someone',
+        message: 'hi, i would like to talk with someone',
       },
       {
         id: '2',
-        postMessage: 'hi, nice to meet you',
+        message: 'hi, nice to meet you',
       },
       {
         id: '3',
-        postMessage: 'do you want to find friends',
+        message: 'do you want to find friends',
       },
       {
         id: '4',
-        postMessage: 'yes, of course',
+        message: 'yes, of course',
       },
     ],
   },
@@ -75,12 +131,15 @@ export const stateData = {
   sideBar: {
     friends: [
       {
+        id: '1',
         name: 'Sveta'
       },
       {
+        id: '2',
         name: 'Sasha'
       },
       {
+        id: '3',
         name: 'Valera'
       },
     ]

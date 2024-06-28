@@ -3,12 +3,13 @@ import React from "react";
 
 type MessageItemProps = {
   message: string
+  id: string
 }
-export const MessageItem = (props: MessageItemProps) => {
+export const MessageItem = ({message, id}: MessageItemProps) => {
   return (
-    <div className={s.messageItem}>
+    <div className={s.messageItem} id={id}>
       <div className={s.messageLogo}/>
-      <p className={s.messageText}>{props.message}</p>
+      <p className={s.messageText}>{message}</p>
     </div>
 
   )

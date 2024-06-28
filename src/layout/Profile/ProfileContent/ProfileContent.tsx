@@ -2,32 +2,32 @@ import s from "./ProfileContent.module.css";
 import React from "react";
 import {ProfilePosts} from "../ProfilePosts/ProfilePosts";
 import {Avatar} from "../../../components/Avatar/Avatar";
+import {ProfilePagePropsType} from "../Profile";
+import {ProfileInfoType} from "../../../redux/stateData";
 
-type ProfileContentPropsType = {
-  postItemsData: Array<{
-    id: string,
-    postMessage: string,
-  }>,
-}
-
-export const ProfileContent = (props: ProfileContentPropsType) => {
+export const ProfileContent = ({profilePage: {profileInfo, postItemsData}}: ProfilePagePropsType) => {
   return (
     <div className={s.content}>
-      <Avatar isProfileImg/>
-      <ProfileInfo/>
-      <ProfilePosts postItemsData={props.postItemsData}/>
+      <Avatar isProfileImg src={profileInfo.profileImage}/>
+      <ProfileInfo profileInfo={profileInfo}/>
+      <ProfilePosts postItemsData={postItemsData}/>
     </div>
   )
 }
-const ProfileInfo = () => {
+
+type ProfileInfoPropsType = {
+  profileInfo: ProfileInfoType
+}
+
+const ProfileInfo = ({profileInfo:{country, name, city, website, dateBirth, education}}: ProfileInfoPropsType) => {
   return (
     <div className={s.info}>
-      <h2>Dmitry K.</h2>
+      <h2>{name}</h2>
       <ul>
-        <li>Date of Birth: <span>2 january</span></li>
-        <li>City: <span>Minsk</span></li>
-        <li>Education: <span>BSU'11</span></li>
-        <li>Web-Site: <span>https: //it-kamasutra.com</span></li>
+        <li>Date of Birth: <span>{dateBirth}</span></li>
+        <li>City: <span>{`${country}, ${city}`}</span></li>
+        <li>Education: <span>{education}</span></li>
+        <li>Web-Site: <a href={website}>{website}</a></li>
       </ul>
     </div>
   )

@@ -8,44 +8,22 @@ import {Dialogs} from "./layout/Dialogs/Dialogs";
 import {News} from "./layout/News/News";
 import {Music} from "./layout/Music/Music";
 import {Settings} from "./layout/Settings/Settings";
+import {StateDataType} from "./redux/stateData";
 
 type AppPropsType = {
-  stateData: {
-    profilePage: {
-      postItemsData: Array<{
-        id: string,
-        postMessage: string,
-      }>
-    },
-    messagesPage: {
-      dialogItemsData: Array<{
-        id: string,
-        name: string,
-      }>,
-      messageItemsData: Array<{
-        id: string,
-        message: string,
-      }>
-    },
-    newsPage: {},
-    musicPage: {},
-    settingsPage: {},
-    sideBar: {
-      friends: Array<{name: string}>
-    }
-  }
+  stateData: StateDataType
 }
 
-function App(props: AppPropsType) {
+function App({stateData: {profilePage, messagesPage, sideBar}}: AppPropsType) {
   return (
     <div className="app-wrapper">
       <Header/>
-      <NavBar sideBar={props.stateData.sideBar}/>
+      <NavBar sideBar={sideBar}/>
       <div className="app-wrapper-content">
         <Routes>
-          <Route index element={<Profile profilePage={props.stateData.profilePage}/>}></Route>
-          <Route path={'/profile'}  element={<Profile profilePage={props.stateData.profilePage}/>}></Route>
-          <Route path={'/dialogs/*'} element={<Dialogs messagesPage={props.stateData.messagesPage} />}></Route>
+          <Route index element={<Profile profilePage={profilePage}/>}></Route>
+          <Route path={'/profile'}  element={<Profile profilePage={profilePage}/>}></Route>
+          <Route path={'/dialogs/*'} element={<Dialogs messagesPage={messagesPage} />}></Route>
           <Route path={'/news'} element={<News/>}></Route>
           <Route path={'/music'} element={<Music/>}></Route>
           <Route path={'/settings'} element={<Settings/>}></Route>

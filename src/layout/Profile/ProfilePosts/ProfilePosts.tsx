@@ -3,13 +3,11 @@ import React, {useRef} from "react";
 import {PostItem} from "../ProfilePost/ProfilePost";
 import {MessageSubmitForm} from "../../../components/MessageSubmitForm/MessageSubmitForm";
 import {MessageItem} from "../../../components/MessageItem/MessageItem";
+import {MessageType} from "../../../redux/stateData";
 
 
 type ProfilePostsPropsType = {
-  postItemsData: Array<{
-    id: string,
-    postMessage: string,
-  }>,
+  postItemsData: MessageType[]
 }
 
 export const ProfilePosts = (props: ProfilePostsPropsType) => {
@@ -36,16 +34,13 @@ const MyPost = () => {
 }
 
 type PostItemsPropsType = {
-  postItemsData: Array<{
-    id: string,
-    postMessage: string,
-  }>,
+  postItemsData: MessageType[]
 }
 
 const PostItems = (props: PostItemsPropsType) => {
 
   const postItemsElements = props.postItemsData
-    .map(i => <MessageItem message={i.postMessage} />);
+    .map(i => <MessageItem message={i.message} key={i.id} id={i.id} />);
 
   return (
     <div className={s.postsItems}>

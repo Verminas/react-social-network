@@ -3,18 +3,10 @@ import s from './Dialogs.module.css';
 import {MessageSubmitForm} from "../../components/MessageSubmitForm/MessageSubmitForm";
 import {DialogLink} from "../../components/DialogLink/DialogLink";
 import {MessageItem} from "../../components/MessageItem/MessageItem";
+import {MessagesPageType} from "../../redux/stateData";
 
 type messagesPageStatePropsType = {
-  messagesPage: {
-    dialogItemsData: Array<{
-      id: string,
-      name: string,
-    }>,
-    messageItemsData: Array<{
-      id: string,
-      message: string,
-    }>,
-  },
+  messagesPage: MessagesPageType
 };
 
 export const Dialogs = (props: messagesPageStatePropsType) => {
@@ -25,9 +17,9 @@ export const Dialogs = (props: messagesPageStatePropsType) => {
   }
   // elements
   let dialogItemsElements = props.messagesPage.dialogItemsData
-    .map(i => <DialogLink name={i.name} id={i.id}/>);
+    .map(i => <DialogLink name={i.name} id={i.id} key={i.id} />);
   let messageItemsElements = props.messagesPage.messageItemsData
-    .map(i => <MessageItem message={i.message}/>);
+    .map(i => <MessageItem message={i.message} id={i.id} key={i.id}/>);
 
   return (
     <section className={s.dialogs}>
