@@ -67,7 +67,7 @@ export const stateData = {
         id: '5',
         message: 'Oh, I hope it is not mathematics :(',
       },
-    ]
+    ] // нужно изменить стурктуру данных для сообщений на ассоциативный массив
   },
   newsPage: {},
   musicPage: {},
@@ -86,3 +86,4 @@ export const stateData = {
     ]
   }
 }
+

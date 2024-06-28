@@ -1,0 +1,12 @@
+.imgProfile{
+    width: 100%;
+    grid-area: img;
+    object-fit: cover;
+}
+
+.dialogLogo{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}

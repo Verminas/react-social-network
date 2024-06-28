@@ -8,11 +8,6 @@
                         'posts posts ';
   align-items: center;
 }
-.img{
-  width: 100%;
-  
-  grid-area: img;
-}
 .info{
   grid-area: info;
 }

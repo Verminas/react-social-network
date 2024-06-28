@@ -1,6 +1,7 @@
 import s from "./ProfileContent.module.css";
 import React from "react";
 import {ProfilePosts} from "../ProfilePosts/ProfilePosts";
+import {Avatar} from "../../../components/Avatar/Avatar";
 
 type ProfileContentPropsType = {
   postItemsData: Array<{
@@ -12,17 +13,10 @@ type ProfileContentPropsType = {
 export const ProfileContent = (props: ProfileContentPropsType) => {
   return (
     <div className={s.content}>
-      <ProfileLogo/>
+      <Avatar isProfileImg/>
       <ProfileInfo/>
       <ProfilePosts postItemsData={props.postItemsData}/>
     </div>
-  )
-}
-const ProfileLogo = () => {
-  return (
-    <img className={s.img}
-         src="https://www.purina.ru/sites/default/files/2022-10/1140_shutterstock_1517123654.jpg"
-         alt="profile-logo"/>
   )
 }
 const ProfileInfo = () => {

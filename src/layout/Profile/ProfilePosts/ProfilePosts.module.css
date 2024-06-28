@@ -1,12 +1,7 @@
 .myPost{
-  display: grid;
-  grid-template-rows: 2fr 4fr 1fr;
-  grid-template-columns: 2fr 4fr 1fr;
-  grid-gap: 20px;
-  grid-template-areas: 'title . .'
-                      'textarea textarea textarea'
-                        '. . button'
-  
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 .myPostTitle{
   grid-area: title;
@@ -29,5 +24,4 @@
 .postsItems{
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }

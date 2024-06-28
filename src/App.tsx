@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./components/Header/Header";
-import {NavBar} from "./components/NavBar/NavBar";
-import {Profile} from "./components/Profile/Profile";
+import {Header} from "./layout/Header/Header";
+import {NavBar} from "./layout/NavBar/NavBar";
+import {Profile} from "./layout/Profile/Profile";
 import {Route, Routes} from "react-router-dom";
-import {Dialogs} from "./components/Dialogs/Dialogs";
-import {News} from "./components/News/News";
-import {Music} from "./components/Music/Music";
-import {Settings} from "./components/Settings/Settings";
+import {Dialogs} from "./layout/Dialogs/Dialogs";
+import {News} from "./layout/News/News";
+import {Music} from "./layout/Music/Music";
+import {Settings} from "./layout/Settings/Settings";
 
 type AppPropsType = {
   stateData: {
