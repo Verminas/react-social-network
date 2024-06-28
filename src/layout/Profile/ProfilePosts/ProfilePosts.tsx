@@ -3,19 +3,20 @@ import React, {useRef} from "react";
 import {PostItem} from "../ProfilePost/ProfilePost";
 import {MessageSubmitForm} from "../../../components/MessageSubmitForm/MessageSubmitForm";
 import {MessageItem} from "../../../components/MessageItem/MessageItem";
-import {MessageType, myUser} from "../../../redux/stateData";
+import {MessageType} from "../../../redux/stateData";
 
 
 type ProfilePostsPropsType = {
   posts: MessageType[]
   addNewPost: (message: string) => void
+  userID: string
 }
 
-export const ProfilePosts = ({posts, addNewPost}: ProfilePostsPropsType) => {
+export const ProfilePosts = ({posts, addNewPost, userID}: ProfilePostsPropsType) => {
   return (
     <div className={s.posts}>
       <MyPost addNewPost={addNewPost}/>
-      <PostItems postItemsData={posts}/>
+      <PostItems postItemsData={posts} userID={userID}/>
     </div>
   )
 }
@@ -35,16 +36,17 @@ const MyPost = ({addNewPost}: {addNewPost: (message: string) => void}) => {
 
 type PostItemsPropsType = {
   postItemsData: MessageType[]
+  userID: string
 }
 
-const PostItems = ({postItemsData}: PostItemsPropsType) => {
+const PostItems = ({postItemsData, userID}: PostItemsPropsType) => {
 
   const postItemsElements = postItemsData.map(i => <MessageItem message={i.message}
                                                                 key={i.messageID}
                                                                 id={i.messageID}
                                                                 name={i.name}
                                                                 avatarSrc={i.avatarSrc}
-                                                                isMyMessage={i.userID === myUser.id}
+                                                                isMyMessage={i.userID === userID}
   />);
 
   return (

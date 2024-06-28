@@ -3,11 +3,10 @@ import s from "./NavBar.module.css";
 import {NavLink} from "react-router-dom";
 import {SideBar} from "../SideBar/SideBar";
 import {PageLink} from "../../components/PageLink/PageLink";
+import {FriendItemType} from "../../redux/stateData";
 
 type NavBarPropsType = {
-  sideBar: {
-    friends: Array<{name: string}>
-  }
+  sideBar: FriendItemType[]
 }
 
 export type PageItemType = {
@@ -39,14 +38,15 @@ const pagesData: PagesDataType = [
   }
 ]
 
-export const NavBar = (props: NavBarPropsType) => {
+export const NavBar = ({sideBar}: NavBarPropsType) => {
   const pagesLinks = pagesData.map(i => <PageLink data={i} key={i.title} />)
+
   return (
     <div className={s.wrapperNavAside}>
       <nav className={s.navBar}>
         {pagesLinks}
       </nav>
-      <SideBar sideBar={props.sideBar}/>
+      <SideBar sideBar={sideBar}/>
     </div>
   )
 }

@@ -3,15 +3,16 @@ import s from './Dialogs.module.css';
 import {MessageSubmitForm} from "../../components/MessageSubmitForm/MessageSubmitForm";
 import {DialogLink} from "../../components/DialogLink/DialogLink";
 import {MessageItem} from "../../components/MessageItem/MessageItem";
-import {MessageItemsData, MessagesPageType, myUser} from "../../redux/stateData";
+import {DialogItemType, MessageItemsType} from "../../redux/stateData";
 
 type messagesPageStatePropsType = {
-  messagesPage: MessagesPageType
+  dialogs: DialogItemType[]
   addNewMessage: (userID: string, message: string) => void
-  messages: MessageItemsData
+  messages: MessageItemsType
+  userID: string
 };
 
-export const Dialogs = ({messagesPage: {dialogItemsData}, addNewMessage, messages}: messagesPageStatePropsType) => {
+export const Dialogs = ({dialogs, messages, addNewMessage, userID}: messagesPageStatePropsType) => {
   const [userDialogID, setUserDialogID] = useState<string>('1')
   console.log(userDialogID)
 
@@ -19,13 +20,13 @@ export const Dialogs = ({messagesPage: {dialogItemsData}, addNewMessage, message
     addNewMessage(userDialogID, value);
   }
   // elements
-  const dialogItemsElements = dialogItemsData.map(i => <DialogLink onClick={setUserDialogID} name={i.name} id={i.id} key={i.id} src={i.avatarSrc}/>);
+  const dialogItemsElements = dialogs.map(i => <DialogLink onClick={setUserDialogID} name={i.name} id={i.id} key={i.id} src={i.avatarSrc}/>);
   const messageItemsElements = messages[userDialogID].map(i => <MessageItem message={i.message}
                                                                             id={i.messageID}
                                                                             key={i.message}
                                                                             name={i.name}
                                                                             avatarSrc={i.avatarSrc}
-                                                                            isMyMessage={i.userID === myUser.id}
+                                                                            isMyMessage={i.userID === userID}
   />);
 
   return (

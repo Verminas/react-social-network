@@ -1,18 +1,13 @@
 import React from 'react';
 import s from "./SideBar.module.css";
+import {FriendItemType} from "../../redux/stateData";
 
 type SideBarPropsType ={
-  sideBar: {
-    friends: Array<{name: string}>
-  }
+  sideBar: FriendItemType[]
 }
 
-export const SideBar = (props: SideBarPropsType) => {
-  const friendsListElements = props.sideBar.friends.map((f, index) => {
-    return (
-      <li key={index}>{f.name}</li>
-    )
-  })
+export const SideBar = ({sideBar}: SideBarPropsType) => {
+  const friendsListElements = sideBar.map(f => <li key={f.id} id={f.id}>{f.name}</li>)
   return (
     <aside className={s.aside}>
       <h2 className={s.asideTitle}>Friends</h2>

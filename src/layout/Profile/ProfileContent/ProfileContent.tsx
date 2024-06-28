@@ -2,21 +2,20 @@ import s from "./ProfileContent.module.css";
 import React from "react";
 import {ProfilePosts} from "../ProfilePosts/ProfilePosts";
 import {Avatar} from "../../../components/Avatar/Avatar";
-import {ProfilePagePropsType} from "../Profile";
-import {MessageType, ProfileInfoType, ProfilePageType} from "../../../redux/stateData";
+import {MessageType, ProfileInfoType} from "../../../redux/stateData";
 
 type ProfileContentPropsType = {
-  profilePage: ProfilePageType
+  profileInfo: ProfileInfoType
   posts: MessageType[]
   addNewPost: (message: string) => void
 }
 
-export const ProfileContent = ({profilePage: {profileInfo}, posts, addNewPost}: ProfileContentPropsType) => {
+export const ProfileContent = ({profileInfo, addNewPost, posts}: ProfileContentPropsType) => {
   return (
     <div className={s.content}>
-      <Avatar isProfileImg src={profileInfo.avatarSrc}/>
+      <Avatar src={profileInfo.avatarSrc} isProfileImg/>
       <ProfileInfo profileInfo={profileInfo}/>
-      <ProfilePosts posts={posts} addNewPost={addNewPost}/>
+      <ProfilePosts posts={posts} addNewPost={addNewPost} userID={profileInfo.id}/>
     </div>
   )
 }

@@ -2,19 +2,19 @@ import React from "react";
 import s from "./Profile.module.css";
 import {ProfileContent} from "./ProfileContent/ProfileContent";
 import {BackImg} from "../../components/BackImg/BackImg";
-import {MessageType, ProfilePageType} from "../../redux/stateData";
+import {MessageType, ProfileInfoType} from "../../redux/stateData";
 
 export type ProfilePagePropsType = {
-  profilePage: ProfilePageType
+  profileInfo: ProfileInfoType
   posts: MessageType[]
   addNewPost: (message: string) => void
 }
 
-export const Profile = ({profilePage, posts, addNewPost}: ProfilePagePropsType) => {
+export const Profile = ({profileInfo, addNewPost, posts}: ProfilePagePropsType) => {
   return (
     <section className={s.profile}>
       <BackImg/>
-      <ProfileContent profilePage={profilePage} posts={posts} addNewPost={addNewPost}/>
+      <ProfileContent profileInfo={profileInfo} posts={posts} addNewPost={addNewPost}/>
     </section>
   )
 }

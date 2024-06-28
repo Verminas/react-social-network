@@ -8,24 +8,24 @@ import {Dialogs} from "./layout/Dialogs/Dialogs";
 import {News} from "./layout/News/News";
 import {Music} from "./layout/Music/Music";
 import {Settings} from "./layout/Settings/Settings";
-import {MessageItemsData, MessageType, myUser, StateDataType} from "./redux/stateData";
+import {MessageItemsType, MessageType, StateDataType} from "./redux/stateData";
 import {v1} from "uuid";
 
 type AppPropsType = {
   stateData: StateDataType
 }
 
-function App({stateData: {profilePage, messagesPage, sideBar}}: AppPropsType) {
-  const [messages, setMessages] = useState<MessageItemsData>(messagesPage.messageItemsData);
-  const [posts, setPosts] = useState<MessageType[]>(profilePage.postItemsData);
+function App({stateData: {postsData, profileInfoData, dialogsData, messagesData, sideBarFriendsData}}: AppPropsType) {
+  const [messages, setMessages] = useState<MessageItemsType>(messagesData);
+  const [posts, setPosts] = useState<MessageType[]>(postsData);
 
   const addNewMessage = (userID: string, message: string) => {
     const newMessage:MessageType = {
-      userID: myUser.id,
+      userID: profileInfoData.id,
       messageID: v1(),
-      name: myUser.name,
+      name: profileInfoData.name,
       message,
-      avatarSrc: myUser.avatarSrc
+      avatarSrc: profileInfoData.avatarSrc
     }
 
     setMessages({...messages, [userID]: [...messages[userID], newMessage]});
@@ -33,11 +33,11 @@ function App({stateData: {profilePage, messagesPage, sideBar}}: AppPropsType) {
 
   const addNewPost = (message: string) => {
     const newPost:MessageType = {
-      userID: myUser.id,
+      userID: profileInfoData.id,
       messageID: v1(),
-      name: myUser.name,
+      name: profileInfoData.name,
       message,
-      avatarSrc: myUser.avatarSrc
+      avatarSrc: profileInfoData.avatarSrc
     }
 
     setPosts([newPost, ...posts]);
@@ -46,20 +46,21 @@ function App({stateData: {profilePage, messagesPage, sideBar}}: AppPropsType) {
   return (
     <div className="app-wrapper">
       <Header/>
-      <NavBar sideBar={sideBar}/>
+      <NavBar sideBar={sideBarFriendsData}/>
       <div className="app-wrapper-content">
         <Routes>
-          <Route index element={<Profile profilePage={profilePage}
+          <Route index element={<Profile profileInfo={profileInfoData}
                                          posts={posts}
                                          addNewPost={addNewPost}
           />}></Route>
-          <Route path={'/profile'}  element={<Profile profilePage={profilePage}
+          <Route path={'/profile'}  element={<Profile profileInfo={profileInfoData}
                                                       posts={posts}
                                                       addNewPost={addNewPost}
           />}></Route>
-          <Route path={'/dialogs/*'} element={<Dialogs messagesPage={messagesPage}
+          <Route path={'/dialogs/*'} element={<Dialogs dialogs={dialogsData}
                                                        addNewMessage={addNewMessage}
                                                        messages={messages}
+                                                       userID={profileInfoData.id}
           />}></Route>
           <Route path={'/news'} element={<News/>}></Route>
           <Route path={'/music'} element={<Music/>}></Route>
