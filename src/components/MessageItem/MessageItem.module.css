@@ -1,0 +1,32 @@
+.messageItem{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #ffdc00;
+    width: fit-content;
+}
+.avatarName{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+
+    img{
+        width: 20px;
+        height: 20px;
+    }
+}
+.name{
+    font-size: 8px;
+}
+.messageText{
+    text-align: left;
+}
+.myMessage{
+    align-self: flex-end;
+}

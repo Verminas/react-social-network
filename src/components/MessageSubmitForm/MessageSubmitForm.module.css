@@ -8,4 +8,6 @@
 .textarea{
     width: 80%;
     min-height: 80px;
+    padding: 5px 10px;
+    border-radius: 5px;
 }

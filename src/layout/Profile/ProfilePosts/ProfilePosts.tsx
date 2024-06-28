@@ -3,32 +3,32 @@ import React, {useRef} from "react";
 import {PostItem} from "../ProfilePost/ProfilePost";
 import {MessageSubmitForm} from "../../../components/MessageSubmitForm/MessageSubmitForm";
 import {MessageItem} from "../../../components/MessageItem/MessageItem";
-import {MessageType} from "../../../redux/stateData";
+import {MessageType, myUser} from "../../../redux/stateData";
 
 
 type ProfilePostsPropsType = {
-  postItemsData: MessageType[]
+  posts: MessageType[]
+  addNewPost: (message: string) => void
 }
 
-export const ProfilePosts = (props: ProfilePostsPropsType) => {
+export const ProfilePosts = ({posts, addNewPost}: ProfilePostsPropsType) => {
   return (
     <div className={s.posts}>
-      <MyPost/>
-      <PostItems postItemsData={props.postItemsData}/>
+      <MyPost addNewPost={addNewPost}/>
+      <PostItems postItemsData={posts}/>
     </div>
   )
 }
-const MyPost = () => {
-  let postTextArea = useRef<HTMLTextAreaElement>(null);
-  let sendMyPost = () => {
-    let textPostTextArea: string | undefined = postTextArea.current?.value;
-    alert(textPostTextArea);
+const MyPost = ({addNewPost}: {addNewPost: (message: string) => void}) => {
+
+  const onClickHandler = (value: string) => {
+    addNewPost(value)
   }
 
   return (
     <div className={s.myPost}>
       <h2 className={s.myPostTitle}>My posts</h2>
-      <MessageSubmitForm onClick={sendMyPost} refNode={postTextArea} placeholder={'your news...'}/>
+      <MessageSubmitForm onClick={onClickHandler} placeholder={'your news...'}/>
     </div>
   )
 }
@@ -37,10 +37,15 @@ type PostItemsPropsType = {
   postItemsData: MessageType[]
 }
 
-const PostItems = (props: PostItemsPropsType) => {
+const PostItems = ({postItemsData}: PostItemsPropsType) => {
 
-  const postItemsElements = props.postItemsData
-    .map(i => <MessageItem message={i.message} key={i.id} id={i.id} />);
+  const postItemsElements = postItemsData.map(i => <MessageItem message={i.message}
+                                                                key={i.messageID}
+                                                                id={i.messageID}
+                                                                name={i.name}
+                                                                avatarSrc={i.avatarSrc}
+                                                                isMyMessage={i.userID === myUser.id}
+  />);
 
   return (
     <div className={s.postsItems}>

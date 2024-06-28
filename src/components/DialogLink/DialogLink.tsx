@@ -7,13 +7,17 @@ type DialogItemProps = {
   name: string,
   id: string
   src?: string
+  onClick: (id: string) => void
 }
-export const DialogLink = (props: DialogItemProps) => {
-  let dialogPath = `/dialogs/${props.id}`;
+export const DialogLink = ({src, id, name, onClick}: DialogItemProps) => {
+  const dialogPath = `/dialogs/${id}`;
+  const onClickHandler = () => {
+    onClick(id);
+  }
   return (
-    <li>
-      <Avatar/>
-      <NavLink to={dialogPath} className={s.dialog}>{props.name}</NavLink>
+    <li onClick={onClickHandler}>
+      <Avatar src={src}/>
+      <NavLink to={dialogPath} className={s.dialog}>{name}</NavLink>
     </li>
   )
 }
