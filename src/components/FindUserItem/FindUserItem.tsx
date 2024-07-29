@@ -4,6 +4,7 @@ import {Avatar} from "../Avatar/Avatar";
 import {Button} from "../Button/Button";
 import s from './FindUserItem.module.css'
 import {UserType} from "../../reducers/usersReducer";
+import defaultAvatar from '../../assets/image/no-avatar.png'
 
 type Props = {
   user: UserType
@@ -20,7 +21,7 @@ export const FindUserItem = ({user, onClick}: Props) => {
   return (
     <div key={user.userId} className={s.wrapper}>
       <div className={s.avatarBtn}>
-        <Avatar src={user.avatarSrc}/>
+        <Avatar src={user.avatarSrc || defaultAvatar}/>
         <Button onClick={onClickHandler}>{user.isFollowed ? unfollowText : followText}</Button>
       </div>
       <div className={s.userInfo}>

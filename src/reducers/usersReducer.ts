@@ -54,7 +54,7 @@ export type UserType = {
   country: string
   city: string
   status: string
-  avatarSrc: string
+  avatarSrc: string | null
   isFollowed: boolean
 }
 

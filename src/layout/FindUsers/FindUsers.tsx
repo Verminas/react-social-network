@@ -6,6 +6,8 @@ import {Button} from "../../components/Button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootType} from "../../store/store";
 import {followUnfollowUserAC, showMoreUsersAC, UserType} from "../../reducers/usersReducer";
+import {useEffect} from "react";
+import axios from "axios";
 
 const exampleData = [
   {
@@ -14,7 +16,7 @@ const exampleData = [
     country: 'aksjdwe',
     city: 'Bsdfwrest',
     status: 'I would like to find new friends',
-    avatarSrc: 'https://avatars2.githubusercontent.com/u/254',
+    avatarSrc: null,
     isFollowed: false
   },
   {
@@ -53,6 +55,12 @@ export const FindUsers = (props: Props) => {
   const followUnfollowUser = (userId: string, isFollowed: boolean) => {
     dispatch(followUnfollowUserAC(userId, isFollowed))
   }
+
+  useEffect(() => {
+    axios.get('https://social-network.samuraijs.com/api/1.0/users')
+      .then(data => console.log(data.data))
+      .catch(err => console.log(err))
+  }, []);
 
 
   return (
