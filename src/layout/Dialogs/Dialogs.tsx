@@ -4,6 +4,8 @@ import {MessageSubmitForm} from "../../components/MessageSubmitForm/MessageSubmi
 import {DialogLink} from "../../components/DialogLink/DialogLink";
 import {MessageItem} from "../../components/MessageItem/MessageItem";
 import {DialogItemType, MessageItemsType} from "../../redux/stateData";
+import {useParams} from "react-router-dom";
+import {ErrorPage} from "../ErrorPage/ErrorPage";
 
 type messagesPageStatePropsType = {
   dialogs: DialogItemType[]
@@ -13,24 +15,28 @@ type messagesPageStatePropsType = {
 };
 
 export const Dialogs = ({dialogs, messages, addNewMessage, userID}: messagesPageStatePropsType) => {
-  const [userDialogID, setUserDialogID] = useState<string>('1')
-  console.log(userDialogID)
+  const params = useParams<{ userId: string }>();
+  const userId = params.userId || '1';
 
   const addNewMessageHandler = (value: string) => {
-    addNewMessage(userDialogID, value);
+    if (userId) {
+      addNewMessage(userId, value);
+    }
   }
   // elements
-  const dialogItemsElements = dialogs.map(i => <DialogLink onClick={setUserDialogID} name={i.name} id={i.id} key={i.id} src={i.avatarSrc}/>);
-  const messageItemsElements = messages[userDialogID].map(i => <MessageItem message={i.message}
-                                                                            id={i.messageID}
-                                                                            key={i.message}
-                                                                            name={i.name}
-                                                                            avatarSrc={i.avatarSrc}
-                                                                            isMyMessage={i.userID === userID}
-  />);
+  const dialogItemsElements = dialogs.map(i => <DialogLink name={i.name} id={i.id} key={i.id} src={i.avatarSrc}/>);
+  const messageItemsElements = messages[userId]
+    ? messages[userId].map(i => <MessageItem message={i.message}
+                                             id={i.messageID}
+                                             key={i.message}
+                                             name={i.name}
+                                             avatarSrc={i.avatarSrc}
+                                             isMyMessage={i.userID === userID}
+    />)
+    : <span>There are not messages</span>;
 
-  return (
-    <section className={s.dialogs}>
+  const dialogPageContent = messages[userId]
+    ? (<section className={s.dialogs}>
       <div className={s.dialogsItems}>
         <h2 className={s.title}>Dialogs</h2>
         <ul>
@@ -41,6 +47,27 @@ export const Dialogs = ({dialogs, messages, addNewMessage, userID}: messagesPage
         <div className={s.messages}>{messageItemsElements}</div>
         <MessageSubmitForm onClick={addNewMessageHandler} placeholder={'your message...'}/>
       </div>
+    </section>)
+    : <ErrorPage/>
+
+  return (
+    <section className={s.dialogs}>
+      {
+        messages[userId]
+          ? <>
+            <div className={s.dialogsItems}>
+              <h2 className={s.title}>Dialogs</h2>
+              <ul>
+                {dialogItemsElements}
+              </ul>
+            </div>
+            <div>
+              <div className={s.messages}>{messageItemsElements}</div>
+              <MessageSubmitForm onClick={addNewMessageHandler} placeholder={'your message...'}/>
+            </div>
+          </>
+          : <ErrorPage/>
+      }
     </section>
   )
 }
