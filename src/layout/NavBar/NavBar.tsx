@@ -35,6 +35,10 @@ const pagesData: PagesDataType = [
   {
     title: 'Settings',
     path: '/settings',
+  },
+  {
+    title: 'Find Users',
+    path: '/find',
   }
 ]
 

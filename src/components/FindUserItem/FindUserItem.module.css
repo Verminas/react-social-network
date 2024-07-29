@@ -1,0 +1,40 @@
+.wrapper{
+    display: flex;
+    gap: 15px;
+    color: dimgrey;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.avatarBtn{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.userInfo{
+    display: flex;
+    gap: 5px;
+    padding: 5px;
+
+    border: 2px solid dimgrey;
+    border-radius: 5px;
+}
+
+.nameStatus{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    width: 80%;
+}
+
+.address{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.status{
+    font-size: 18px;
+}

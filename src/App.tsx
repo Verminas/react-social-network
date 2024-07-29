@@ -14,6 +14,7 @@ import {AppRootType} from "./store/store";
 import {addNewMessageAC} from "./reducers/messagesReducer";
 import {addNewPostAC} from "./reducers/postsReducer";
 import {ErrorPage} from "./layout/ErrorPage/ErrorPage";
+import {FindUsers} from "./layout/FindUsers/FindUsers";
 
 type AppPropsType = {
   stateData: StateDataType
@@ -54,6 +55,7 @@ function App({stateData: {profileInfoData, dialogsData, sideBarFriendsData}}: Ap
           <Route path={'/news'} element={<News/>}></Route>
           <Route path={'/music'} element={<Music/>}></Route>
           <Route path={'/settings'} element={<Settings/>}></Route>
+          <Route path={'/find'} element={<FindUsers/>}></Route>
 
           <Route path={'/*'} element={<Navigate to={'/error'}/>}></Route>
           <Route path={'/error'} element={<ErrorPage/>}></Route>
