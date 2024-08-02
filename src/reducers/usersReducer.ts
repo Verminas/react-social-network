@@ -1,5 +1,9 @@
-const FOLLOW_UNFOLLOW_USER = 'FOLLOW_UNFOLLOW_USER'
+import {UserType} from "../api/socialAPI";
+
+const FOLLOW_USER = 'FOLLOW_USER'
+const UNFOLLOW_USER = 'UNFOLLOW_USER'
 const SHOW_MORE_USERS = 'SHOW_MORE_USERS'
+const SEARCH_USERS = 'SEARCH_USERS'
 
 export const showMoreUsersAC = (users: UserType[]) => ({
   type: SHOW_MORE_USERS,
@@ -8,57 +12,36 @@ export const showMoreUsersAC = (users: UserType[]) => ({
   }
 }) as const
 
-export const followUnfollowUserAC = (userId: string, isFollowed: boolean) => ({
-  type: FOLLOW_UNFOLLOW_USER,
+export const followUserAC = (userId: number) => ({
+  type: FOLLOW_USER,
   payload: {
     userId,
-    isFollowed
+  }
+}) as const
+
+export const unfollowUserAC = (userId: number) => ({
+  type: UNFOLLOW_USER,
+  payload: {
+    userId,
+  }
+}) as const
+
+export const searchUsersAC = (users: UserType[]) => ({
+  type: SEARCH_USERS,
+  payload: {
+    users
   }
 }) as const
 
 type ShowMoreUsersActionType = ReturnType<typeof showMoreUsersAC>
-type FollowUnfollowUserActionType = ReturnType<typeof followUnfollowUserAC>
+type FollowUnfollowUserActionType = ReturnType<typeof followUserAC>
+type UnfollowUnfollowUserActionType = ReturnType<typeof unfollowUserAC>
+type SearchUsersActionType = ReturnType<typeof searchUsersAC>
 
-const initialState: UserType[]  = [
-  {
-    userId: 'sdfgu',
-    name: 'User 1',
-    country: 'Belarus',
-    city: 'Brest',
-    status: 'I would like to find new friends',
-    avatarSrc: 'https://avatars2.githubusercontent.com/u/254',
-    isFollowed: false
-  },
-  {
-    userId: 'sdfgu1',
-    name: 'User 2',
-    country: 'Poland',
-    city: 'Krakow',
-    status: 'I would like to find new friends',
-    avatarSrc: 'https://avatars2.githubusercontent.com/u/253',
-    isFollowed: true
-  },
-  {
-    userId: 'sdfgu2',
-    name: 'User 3',
-    country: 'Poland',
-    city: 'Krakow',
-    status: 'I would like to find new friends',
-    avatarSrc: 'https://avatars2.githubusercontent.com/u/250',
-    isFollowed: false
-  },
-]
-export type UserType = {
-  userId: string
-  name: string
-  country: string
-  city: string
-  status: string
-  avatarSrc: string | null
-  isFollowed: boolean
-}
+const initialState: UserType[]  = []
 
-type UsersReducerActionTypes = ShowMoreUsersActionType | FollowUnfollowUserActionType
+
+type UsersReducerActionTypes = ShowMoreUsersActionType | FollowUnfollowUserActionType | SearchUsersActionType | UnfollowUnfollowUserActionType
 
 export const usersReducer = (state: UserType[] = initialState, action: UsersReducerActionTypes): UserType[] => {
   switch (action.type) {
@@ -67,10 +50,22 @@ export const usersReducer = (state: UserType[] = initialState, action: UsersRedu
       const newUsers: UserType[] = users.map(user => ({...user}));
       return [...state, ...newUsers];
     }
-    case FOLLOW_UNFOLLOW_USER: {
-      const {userId, isFollowed} = action.payload;
-      return state.map(u => u.userId === userId ? {...u, isFollowed: !isFollowed} : u);
+    case FOLLOW_USER: {
+      const {userId} = action.payload;
+      return state.map(u => u.id === userId ? {...u, followed: true} : u);
     }
+
+    case UNFOLLOW_USER: {
+      const {userId} = action.payload;
+      return state.map(u => u.id === userId ? {...u, followed: false} : u);
+    }
+
+    case SEARCH_USERS: {
+      const {users} = action.payload;
+      return users;
+
+    }
+
     default: return state;
   }
 }

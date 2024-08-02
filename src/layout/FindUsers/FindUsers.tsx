@@ -5,39 +5,10 @@ import s from './FindUsers.module.css'
 import {Button} from "../../components/Button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootType} from "../../store/store";
-import {followUnfollowUserAC, showMoreUsersAC, UserType} from "../../reducers/usersReducer";
-import {useEffect} from "react";
-import axios from "axios";
-
-const exampleData = [
-  {
-    userId: 'sdfgudsfgvhjnk',
-    name: 'User 4',
-    country: 'aksjdwe',
-    city: 'Bsdfwrest',
-    status: 'I would like to find new friends',
-    avatarSrc: null,
-    isFollowed: false
-  },
-  {
-    userId: 'sdfgu1drftgyhujik xdcfgyhujiko',
-    name: 'User 5',
-    country: 'Poland',
-    city: 'Krakow',
-    status: 'I would like to find new friends',
-    avatarSrc: 'https://avatars2.githubusercontent.com/u/253',
-    isFollowed: true
-  },
-  {
-    userId: 'sdfgu2dfcgvbhjnk dfgyhujik xdcfvghjk',
-    name: 'User 6',
-    country: 'Poland',
-    city: 'Krakow',
-    status: 'I would like to find new friends',
-    avatarSrc: 'https://avatars2.githubusercontent.com/u/250',
-    isFollowed: true
-  },
-]
+import {followUserAC, searchUsersAC, showMoreUsersAC, unfollowUserAC} from "../../reducers/usersReducer";
+import {ChangeEvent, useEffect, useState, KeyboardEvent} from "react";
+import {socialAPI, UserType} from "../../api/socialAPI";
+import {SearchForm} from "../../components/SearchForm/SearchForm";
 
 
 
@@ -48,26 +19,60 @@ export const FindUsers = (props: Props) => {
   const users = useSelector<AppRootType, UserType[]>(state => state.users)
   const dispatch = useDispatch();
 
+  const [currentUserPage, setCurrentUserPage] = useState<number>(1);
+  const [currentUsers, setCurrentUsers] = useState<UserType[]>([])
+
   const showMoreUsers = () => {
-    dispatch(showMoreUsersAC(exampleData))
+    setCurrentUserPage(prev => prev + 1)
+    dispatch(showMoreUsersAC(currentUsers))
   }
 
-  const followUnfollowUser = (userId: string, isFollowed: boolean) => {
-    dispatch(followUnfollowUserAC(userId, isFollowed))
+  const followUser = (userId: number) => {
+    socialAPI.followUser(userId)
+      .then(data => dispatch(followUserAC(userId)))
+  }
+
+  const unfollowUser = (userId: number) => {
+    socialAPI.unfollowUser(userId)
+      .then(data => dispatch(unfollowUserAC(userId)))
   }
 
   useEffect(() => {
-    axios.get('https://social-network.samuraijs.com/api/1.0/users')
-      .then(data => console.log(data.data))
-      .catch(err => console.log(err))
+    socialAPI.getUsers(currentUserPage)
+      .then(data => data.items)
+      .then(items => {
+        dispatch(showMoreUsersAC(items))
+        setCurrentUserPage(prev => prev + 1)
+      })
   }, []);
 
+  useEffect(() => {
+    socialAPI.getUsers(currentUserPage)
+      .then(data => data.items)
+      .then(items => setCurrentUsers(items))
+  }, [currentUserPage]);
+
+
+
+  const onClickSearchBtn = (title: string) => {
+      setCurrentUserPage(1)
+      socialAPI.searchUsers(title)
+        .then(data => data.items)
+        .then(items => {
+          dispatch(searchUsersAC(items))
+        })
+
+  }
+
+
+  console.log(users);
 
   return (
     <div className={s.wrapper}>
       <h3>Users</h3>
+      <SearchForm onClickBtn={onClickSearchBtn}/>
       <div>
-        {users.map(u => <FindUserItem user={u} onClick={followUnfollowUser}/>)}
+        {users.map(u => <FindUserItem user={u} onClick={u.followed ? unfollowUser : followUser}/>)}
       </div>
       <Button onClick={showMoreUsers}>Show more</Button>
     </div>
