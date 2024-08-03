@@ -1,37 +1,11 @@
-import {UserType} from "../api/socialAPI";
+import {socialAPI, UserType} from "../api/socialAPI";
+import {Dispatch} from "redux";
+import {AppThunkDispatch, useAppDispatch} from "../store/store";
 
 const FOLLOW_USER = 'FOLLOW_USER'
 const UNFOLLOW_USER = 'UNFOLLOW_USER'
 const SHOW_MORE_USERS = 'SHOW_MORE_USERS'
 const SEARCH_USERS = 'SEARCH_USERS'
-
-export const showMoreUsersAC = (users: UserType[]) => ({
-  type: SHOW_MORE_USERS,
-  payload: {
-    users
-  }
-}) as const
-
-export const followUserAC = (userId: number) => ({
-  type: FOLLOW_USER,
-  payload: {
-    userId,
-  }
-}) as const
-
-export const unfollowUserAC = (userId: number) => ({
-  type: UNFOLLOW_USER,
-  payload: {
-    userId,
-  }
-}) as const
-
-export const searchUsersAC = (users: UserType[]) => ({
-  type: SEARCH_USERS,
-  payload: {
-    users
-  }
-}) as const
 
 type ShowMoreUsersActionType = ReturnType<typeof showMoreUsersAC>
 type FollowUnfollowUserActionType = ReturnType<typeof followUserAC>
@@ -45,6 +19,7 @@ type UsersReducerActionTypes = ShowMoreUsersActionType | FollowUnfollowUserActio
 
 export const usersReducer = (state: UserType[] = initialState, action: UsersReducerActionTypes): UserType[] => {
   switch (action.type) {
+
     case SHOW_MORE_USERS: {
       const {users} = action.payload;
       const newUsers: UserType[] = users.map(user => ({...user}));
@@ -67,5 +42,64 @@ export const usersReducer = (state: UserType[] = initialState, action: UsersRedu
     }
 
     default: return state;
+  }
+}
+
+
+const showMoreUsersAC = (users: UserType[]) => ({
+  type: SHOW_MORE_USERS,
+  payload: {
+    users
+  }
+}) as const
+
+export const showMoreUsersTC = (page: number) => {
+  return (dispatch: Dispatch) => {
+    socialAPI.getUsers(page)
+      .then(data => data.items)
+      .then(users => dispatch(showMoreUsersAC(users)))
+  }
+}
+
+const followUserAC = (userId: number) => ({
+  type: FOLLOW_USER,
+  payload: {
+    userId,
+  }
+}) as const
+
+export const followUserTC = (userId: number) => {
+  return (dispatch: Dispatch) => {
+    socialAPI.followUser(userId)
+      .then(data => dispatch(followUserAC(userId)))
+  }
+}
+
+const unfollowUserAC = (userId: number) => ({
+  type: UNFOLLOW_USER,
+  payload: {
+    userId,
+  }
+}) as const
+
+export const unfollowUserTC = (userId: number) => {
+  return (dispatch: Dispatch) => {
+    socialAPI.unfollowUser(userId)
+      .then(data => dispatch(unfollowUserAC(userId)))
+  }
+}
+
+const searchUsersAC = (users: UserType[]) => ({
+  type: SEARCH_USERS,
+  payload: {
+    users
+  }
+}) as const
+
+export const searchUsersTC = (title: string) => {
+  return (dispatch: Dispatch) => {
+    socialAPI.searchUsers(title)
+      .then(data => data.items)
+      .then(items => dispatch(searchUsersAC(items)))
   }
 }

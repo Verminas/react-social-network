@@ -3,69 +3,44 @@ import * as React from 'react';
 import {FindUserItem} from "../../components/FindUserItem/FindUserItem";
 import s from './FindUsers.module.css'
 import {Button} from "../../components/Button/Button";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootType} from "../../store/store";
-import {followUserAC, searchUsersAC, showMoreUsersAC, unfollowUserAC} from "../../reducers/usersReducer";
-import {ChangeEvent, useEffect, useState, KeyboardEvent} from "react";
-import {socialAPI, UserType} from "../../api/socialAPI";
+import {useSelector} from "react-redux";
+import {AppRootType, useAppDispatch} from "../../store/store";
+import {followUserTC, searchUsersTC, showMoreUsersTC, unfollowUserTC} from "../../reducers/usersReducer";
+import {useEffect, useState} from "react";
+import {UserType} from "../../api/socialAPI";
 import {SearchForm} from "../../components/SearchForm/SearchForm";
 
 
-
-type Props = {
-
-};
+type Props = {};
 export const FindUsers = (props: Props) => {
   const users = useSelector<AppRootType, UserType[]>(state => state.users)
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [currentUserPage, setCurrentUserPage] = useState<number>(1);
-  const [currentUsers, setCurrentUsers] = useState<UserType[]>([])
 
   const showMoreUsers = () => {
+    dispatch(showMoreUsersTC(currentUserPage))
     setCurrentUserPage(prev => prev + 1)
-    dispatch(showMoreUsersAC(currentUsers))
   }
 
   const followUser = (userId: number) => {
-    socialAPI.followUser(userId)
-      .then(data => dispatch(followUserAC(userId)))
+    dispatch(followUserTC(userId))
   }
 
   const unfollowUser = (userId: number) => {
-    socialAPI.unfollowUser(userId)
-      .then(data => dispatch(unfollowUserAC(userId)))
+    dispatch(unfollowUserTC(userId))
   }
 
   useEffect(() => {
-    socialAPI.getUsers(currentUserPage)
-      .then(data => data.items)
-      .then(items => {
-        dispatch(showMoreUsersAC(items))
-        setCurrentUserPage(prev => prev + 1)
-      })
+    showMoreUsers()
   }, []);
-
-  useEffect(() => {
-    socialAPI.getUsers(currentUserPage)
-      .then(data => data.items)
-      .then(items => setCurrentUsers(items))
-  }, [currentUserPage]);
-
 
 
   const onClickSearchBtn = (title: string) => {
-      setCurrentUserPage(1)
-      socialAPI.searchUsers(title)
-        .then(data => data.items)
-        .then(items => {
-          dispatch(searchUsersAC(items))
-        })
-
+    dispatch(searchUsersTC(title))
+    setCurrentUserPage(1)
   }
 
-
-  console.log(users);
 
   return (
     <div className={s.wrapper}>
