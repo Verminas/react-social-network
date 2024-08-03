@@ -3,25 +3,28 @@ import * as React from 'react';
 import {Avatar} from "../Avatar/Avatar";
 import {Button} from "../Button/Button";
 import s from './FindUserItem.module.css'
-import defaultAvatar from '../../assets/image/no-avatar.png'
 import {UserType} from "../../api/socialAPI";
+import {Link} from "react-router-dom";
+import {MouseEvent} from "react";
 
 type Props = {
   user: UserType
-  onClick: (userId: number) => void
+  onClickBtn: (userId: number) => void
 };
 
 const followText = 'Follow'
 const unfollowText = 'Unfollow'
 
-export const FindUserItem = ({user, onClick}: Props) => {
-  const onClickHandler = () => {
-    onClick(user.id)
+export const FindUserItem = ({user, onClickBtn}: Props) => {
+  const onClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    onClickBtn(user.id)
   }
+
   return (
-    <div key={user.id} className={s.wrapper}>
+    <Link key={user.id} className={s.wrapper} to={`/users/${user.id}`}>
       <div className={s.avatarBtn}>
-        <Avatar src={user.photos.small || defaultAvatar}/>
+        <Avatar src={user.photos.small}/>
         <Button onClick={onClickHandler}>{user.followed ? unfollowText : followText}</Button>
       </div>
       <div className={s.userInfo}>
@@ -31,6 +34,6 @@ export const FindUserItem = ({user, onClick}: Props) => {
           <span>{user.followed ? 'true' : 'false'}</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };

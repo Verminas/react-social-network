@@ -21,6 +21,27 @@ export type UserType = {
   followed: boolean
 }
 
+export type GetUserProfileResponseType = {
+  fullName: string
+  userId: number
+  aboutMe: string | null
+  photos: UserPhotosType
+  lookingForAJob: boolean
+  lookingForAJobDescription: string | null
+  contacts: UserProfileContacts
+}
+
+type UserProfileContacts = {
+  github: string | null
+  vk: string | null
+  facebook: string | null
+  instagram: string | null
+  twitter: string | null
+  website: string | null
+  youtube: string | null
+  mainLink: string | null
+}
+
 export type GetUsersResponseType = {
   error: string | null
   totalCount: number
@@ -34,7 +55,7 @@ type ResponseType = {
 }
 
 export const socialAPI = {
-  getUsers(page: number = 1, count: number = 5) {
+  getUsers(page: number = 1, count: number = 10) {
     return instance.get<GetUsersResponseType>(`/users?page=${page}&count=${count}`)
       .then(data => data.data);
   },
@@ -52,5 +73,10 @@ export const socialAPI = {
   unfollowUser(userID: number) {
     return instance.delete<ResponseType>(`/follow/${userID}`)
       .then(data => data);
+  },
+
+  getUserProfile(userID: number) {
+    return instance.get<GetUserProfileResponseType>(`/profile/${userID}`)
+      .then(data => data.data);
   },
 }

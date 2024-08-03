@@ -1,6 +1,5 @@
 import {socialAPI, UserType} from "../api/socialAPI";
 import {Dispatch} from "redux";
-import {AppThunkDispatch, useAppDispatch} from "../store/store";
 
 const FOLLOW_USER = 'FOLLOW_USER'
 const UNFOLLOW_USER = 'UNFOLLOW_USER'
@@ -46,7 +45,7 @@ export const usersReducer = (state: UserType[] = initialState, action: UsersRedu
 }
 
 
-const showMoreUsersAC = (users: UserType[]) => ({
+export const showMoreUsersAC = (users: UserType[]) => ({
   type: SHOW_MORE_USERS,
   payload: {
     users

@@ -5,10 +5,17 @@ import s from './FindUsers.module.css'
 import {Button} from "../../components/Button/Button";
 import {useSelector} from "react-redux";
 import {AppRootType, useAppDispatch} from "../../store/store";
-import {followUserTC, searchUsersTC, showMoreUsersTC, unfollowUserTC} from "../../reducers/usersReducer";
-import {useEffect, useState} from "react";
-import {UserType} from "../../api/socialAPI";
+import {
+  followUserTC,
+  searchUsersTC,
+  showMoreUsersAC,
+  showMoreUsersTC,
+  unfollowUserTC
+} from "../../reducers/usersReducer";
+import {ReactElement, useEffect, useState} from "react";
+import {socialAPI, UserType} from "../../api/socialAPI";
 import {SearchForm} from "../../components/SearchForm/SearchForm";
+import {useParams} from "react-router-dom";
 
 
 type Props = {};
@@ -17,6 +24,11 @@ export const FindUsers = (props: Props) => {
   const dispatch = useAppDispatch();
 
   const [currentUserPage, setCurrentUserPage] = useState<number>(1);
+  const [totalCountUsers, setTotalCountUsers] = useState<number>(0);
+  const count = 10;
+
+  const allBtnList: number[] = [];
+  let btnList: number[] = [];
 
   const showMoreUsers = () => {
     dispatch(showMoreUsersTC(currentUserPage))
@@ -32,7 +44,28 @@ export const FindUsers = (props: Props) => {
   }
 
   useEffect(() => {
-    showMoreUsers()
+    socialAPI.getUsers(currentUserPage, count)
+      .then(data => {
+        setTotalCountUsers(data.totalCount)
+        return data.items
+      })
+      .then(users => {
+        // for future pagination
+
+        for (let i = 1; i <= Math.ceil(totalCountUsers / count); i++) {
+          allBtnList.push(i)
+        }
+        if (allBtnList.length <= 5) {
+          btnList = [...allBtnList]
+        } else {
+          btnList = allBtnList.slice(0, 5)
+          btnList.push(allBtnList[allBtnList.length - 1])
+        }
+
+        dispatch(showMoreUsersAC(users))
+      })
+
+    setCurrentUserPage(prev => prev + 1)
   }, []);
 
 
@@ -47,7 +80,12 @@ export const FindUsers = (props: Props) => {
       <h3>Users</h3>
       <SearchForm onClickBtn={onClickSearchBtn}/>
       <div>
-        {users.map(u => <FindUserItem user={u} onClick={u.followed ? unfollowUser : followUser}/>)}
+        {users.length < 1
+          ? <span>Users not found</span>
+          : users.map(u => <FindUserItem key={u.id}
+                                         user={u}
+                                         onClickBtn={u.followed ? unfollowUser : followUser}
+          />)}
       </div>
       <Button onClick={showMoreUsers}>Show more</Button>
     </div>

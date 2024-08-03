@@ -1,15 +1,16 @@
 // @flow
 import * as React from 'react';
 import s from "./Avatar.module.css";
+import defaultAvatar from '../../assets/image/no-avatar.png'
 
 type Props = {
   isProfileImg?: boolean | undefined
-  src?: string
+  src?: string | null
 };
 export const Avatar = ({isProfileImg, src}: Props) => {
   return (
     <img className={isProfileImg ? s.imgProfile : s.dialogLogo}
-         src={src ? src : "https://www.purina.ru/sites/default/files/2022-10/1140_shutterstock_1517123654.jpg"}
+         src={src ? src : defaultAvatar}
          alt="avatar"/>
   );
 };

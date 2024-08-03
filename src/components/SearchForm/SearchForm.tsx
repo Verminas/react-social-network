@@ -27,7 +27,7 @@ export const SearchForm = ({onClickBtn}: Props) => {
 
   return (
     <div>
-      <input type="text" onChange={onChangeSearchForm} value={title} onKeyDown={onKeyDownEnterSearchForm}/>
+      <input type="text" onChange={onChangeSearchForm} value={title} onKeyDown={onKeyDownEnterSearchForm} autoFocus/>
       <button onClick={onClickSearchBtn}>Find User</button>
     </div>
   );

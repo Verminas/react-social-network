@@ -1,10 +1,11 @@
 // @flow
 import * as React from 'react';
+import {MouseEvent} from "react";
 
 type Props = {
   className?: string
   type?: "button" | "submit" | "reset" | undefined
-  onClick: () => void
+  onClick: (e: MouseEvent<HTMLButtonElement> ) => void
   children: React.ReactNode
 };
 export const Button = ({children, type, onClick, className}: Props) => {
