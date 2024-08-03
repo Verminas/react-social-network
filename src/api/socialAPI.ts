@@ -48,35 +48,62 @@ export type GetUsersResponseType = {
   items: UserType[]
 }
 
-type ResponseType = {
+type ResponseType<D = {}> = {
   resultCode: number
   messages: string[],
-  data: {}
+  data: D
 }
+
+type AuthMeInfoType = {
+  email: string
+  login: string
+  id: number
+}
+
+type FieldErrorsType = {
+  fieldsErrors: string[]
+}
+
+type AuthMeResponseType = ResponseType<AuthMeInfoType> & FieldErrorsType
 
 export const socialAPI = {
   getUsers(page: number = 1, count: number = 10) {
-    return instance.get<GetUsersResponseType>(`/users?page=${page}&count=${count}`)
+    return instance.get<GetUsersResponseType>(`users?page=${page}&count=${count}`)
       .then(data => data.data);
   },
 
   searchUsers(term: string) {
-    return instance.get<GetUsersResponseType>(`/users?term=${term}`)
+    return instance.get<GetUsersResponseType>(`users?term=${term}`)
       .then(data => data.data);
   },
 
   followUser(userID: number) {
-    return instance.post<ResponseType>(`/follow/${userID}`)
+    return instance.post<ResponseType>(`follow/${userID}`)
       .then(data => data);
   },
 
   unfollowUser(userID: number) {
-    return instance.delete<ResponseType>(`/follow/${userID}`)
+    return instance.delete<ResponseType>(`follow/${userID}`)
       .then(data => data);
   },
 
   getUserProfile(userID: number) {
-    return instance.get<GetUserProfileResponseType>(`/profile/${userID}`)
+    return instance.get<GetUserProfileResponseType>(`profile/${userID}`)
+      .then(data => data.data);
+  },
+  authMe() {
+    return instance.get<AuthMeResponseType>(`auth/me`)
+      .then(data => data.data);
+  },
+
+  getUserStatus(userId: number) {
+    return instance.get<string | null>(`profile/status/${userId}`)
+      .then(data => data.data);
+  },
+
+  updateUserStatus(status: string) {
+    const payload = { status }
+    return instance.put(`profile/status`, payload)
       .then(data => data.data);
   },
 }

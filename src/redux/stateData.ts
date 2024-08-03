@@ -1,20 +1,20 @@
 import {v1} from "uuid";
 const profileImg = 'https://img.freepik.com/premium-vector/man-character_665280-46970.jpg'
 
-export type ProfileInfoType = UserInfoType & {
-  dateBirth: string,
-  country: string,
-  city: string,
-  website: string,
-  education: string,
-}
+// export type ProfileInfoType = UserInfoType & {
+//   dateBirth: string,
+//   country: string,
+//   city: string,
+//   website: string,
+//   education: string,
+// }
 export type UserInfoType = {
   id: string
   name: string,
   avatarSrc: string,
 }
 export type MessageType = {
-  userID: string
+  userID: number
   messageID: string
   message: string
   name: string
@@ -34,7 +34,7 @@ export type FriendItemType = {
 }
 
 export type StateDataType = {
-  profileInfoData: ProfileInfoType
+  // profileInfoData: ProfileInfoType
   // postsData: MessageType[]
   dialogsData: DialogItemType[]
   // messagesData: MessageItemsType
@@ -42,16 +42,16 @@ export type StateDataType = {
 }
 
 export const stateData: StateDataType = {
-  profileInfoData:  {
-    id: '0',
-    name: 'John Doe',
-    avatarSrc: profileImg,
-    dateBirth: '19.01.1984',
-    country: 'USA',
-    city: 'New York',
-    website: 'https://www.linkedin.com/',
-    education: 'BSU 19',
-  },
+  // profileInfoData:  {
+  //   id: '0',
+  //   name: 'John Doe',
+  //   avatarSrc: profileImg,
+  //   dateBirth: '19.01.1984',
+  //   country: 'USA',
+  //   city: 'New York',
+  //   website: 'https://www.linkedin.com/',
+  //   education: 'BSU 19',
+  // },
   // postsData: [
   //   {
   //     userID: '0',

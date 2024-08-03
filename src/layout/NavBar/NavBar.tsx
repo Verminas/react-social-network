@@ -38,7 +38,7 @@ const pagesData: PagesDataType = [
   },
   {
     title: 'Find Users',
-    path: '/find',
+    path: '/users',
   }
 ]
 

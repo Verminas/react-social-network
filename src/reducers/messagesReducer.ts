@@ -1,11 +1,10 @@
 import {MessageItemsType, MessageType, stateData} from "../redux/stateData";
 import {v1} from "uuid";
-const {profileInfoData} = stateData;
 const ADD_NEW_MESSAGE = "ADD_NEW_MESSAGE";
 
 type MessagesReducerActionType = AddNewMessageActionType
 
-export const addNewMessageAC = (userId: string, message: string) => ({
+export const addNewMessageAC = (userId: number, message: string) => ({
   type: ADD_NEW_MESSAGE,
   payload: {
     userId,
@@ -16,48 +15,48 @@ export const addNewMessageAC = (userId: string, message: string) => ({
 type AddNewMessageActionType = ReturnType<typeof addNewMessageAC>
 
 const initialState: MessageItemsType = {
-    ['1']: [
+    [1]: [
       {
-        userID: '0',
+        userID: 21987,
         messageID: v1(),
         message: 'FirstMessage',
         name: 'ProfileName',
         avatarSrc: ' ',
       },
       {
-        userID: '1',
+        userID: 2,
         messageID: v1(),
         message: ' DmitryName Secondt Message',
         name: 'DmitryName',
         avatarSrc: ' ',
       },
     ],
-    ['2']: [
+    [2]: [
       {
-        userID: '0',
+        userID: 4,
         messageID: v1(),
         message: 'FirstMessage',
         name: 'ProfileName',
         avatarSrc: ' ',
       },
       {
-        userID: '2',
+        userID: 6,
         messageID: v1(),
         message: 'SvetaName Secondt Message',
         name: 'SvetaName',
         avatarSrc: ' ',
       },
     ],
-    ['3']: [
+    [7]: [
       {
-        userID: '0',
+        userID: 9,
         messageID: v1(),
         message: 'FirstMessage',
         name: 'ProfileName',
         avatarSrc: ' ',
       },
       {
-        userID: '3',
+        userID: 5,
         messageID: v1(),
         message: 'ValeraName Secondt Message',
         name: 'ValeraName',
@@ -71,11 +70,11 @@ export const messagesReducer = (state: MessageItemsType = initialState, action: 
     case ADD_NEW_MESSAGE: {
       const {userId, message} = action.payload;
       const newMessage :MessageType = {
-        userID: profileInfoData.id,
+        userID: 90,
         messageID: v1(),
-        name: profileInfoData.name,
+        name: 'my name',
         message,
-        avatarSrc: profileInfoData.avatarSrc
+        avatarSrc: 'not found'
       }
       return {...state, [userId]: [...state[userId], newMessage]};
     }

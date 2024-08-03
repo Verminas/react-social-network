@@ -9,14 +9,14 @@ import {ErrorPage} from "../ErrorPage/ErrorPage";
 
 type messagesPageStatePropsType = {
   dialogs: DialogItemType[]
-  addNewMessage: (userID: string, message: string) => void
+  addNewMessage: (userID: number, message: string) => void
   messages: MessageItemsType
-  userID: string
+  userID: number
 };
 
 export const Dialogs = ({dialogs, messages, addNewMessage, userID}: messagesPageStatePropsType) => {
   const params = useParams<{ userId: string }>();
-  const userId = params.userId || '1';
+  const userId = Number(params.userId) || 1;
 
   const addNewMessageHandler = (value: string) => {
     if (userId) {

@@ -22,7 +22,7 @@ export const FindUserItem = ({user, onClickBtn}: Props) => {
   }
 
   return (
-    <Link key={user.id} className={s.wrapper} to={`/users/${user.id}`}>
+    <Link key={user.id} className={s.wrapper} to={`/profile/${user.id}`}>
       <div className={s.avatarBtn}>
         <Avatar src={user.photos.small}/>
         <Button onClick={onClickHandler}>{user.followed ? unfollowText : followText}</Button>

@@ -1,6 +1,5 @@
 import {MessageItemsType, MessageType, stateData} from "../redux/stateData";
 import {v1} from "uuid";
-const {profileInfoData} = stateData;
 
 const ADD_NEW_POST = "ADD_NEW_POST";
 
@@ -17,14 +16,14 @@ type MessagesReducerActionType = ReturnType<typeof addNewPostAC>
 
 const initialState: MessageType[] = [
   {
-    userID: '0',
+    userID: 5678,
     messageID: v1(),
     message: 'FirstMessage',
     name: 'ProfileName',
     avatarSrc: 'https://img.freepik.com/premium-vector/man-character_665280-46970.jpg',
   },
   {
-    userID: '1',
+    userID: 45678,
     messageID: v1(),
     message: 'SecondMessage',
     name: 'NoProfileName',
@@ -37,11 +36,11 @@ export const postsReducer = (state: MessageType[] = initialState, action: PostsR
     case ADD_NEW_POST: {
       const {post} = action.payload;
       const newPost :MessageType = {
-        userID: profileInfoData.id,
+        userID: 567,
         messageID: v1(),
-        name: profileInfoData.name,
+        name: 'My name',
         message: post,
-        avatarSrc: profileInfoData.avatarSrc
+        avatarSrc: 'not found'
       }
       return [newPost, ...state];
     }

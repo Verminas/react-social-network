@@ -1,16 +1,17 @@
 .content{
   padding: 20px;
-  display: grid;
-  grid-template-rows: 1fr auto;
-  grid-template-columns: 1fr 4fr;
-  grid-gap: 30px;
-  grid-template-areas: 'img info '
-                        'posts posts ';
+}
+.wrapperCommon{
+  display: flex;
+  gap: 30px;
+}
+.wrapperItem{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   align-items: center;
 }
-.info{
-  grid-area: info;
-}
+
 .info li{
   list-style-type: none;
 }

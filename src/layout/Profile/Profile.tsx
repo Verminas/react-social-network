@@ -2,19 +2,21 @@ import React from "react";
 import s from "./Profile.module.css";
 import {ProfileContent} from "./ProfileContent/ProfileContent";
 import {BackImg} from "../../components/BackImg/BackImg";
-import {MessageType, ProfileInfoType} from "../../redux/stateData";
+import {MessageType} from "../../redux/stateData";
+import {GetUserProfileResponseType, socialAPI} from "../../api/socialAPI";
 
 export type ProfilePagePropsType = {
-  profileInfo: ProfileInfoType
   posts: MessageType[]
   addNewPost: (message: string) => void
+  currentUser: GetUserProfileResponseType
+  isAuthUser: boolean
 }
 
-export const Profile = ({profileInfo, addNewPost, posts}: ProfilePagePropsType) => {
+export const Profile = ({addNewPost, posts, currentUser, isAuthUser}: ProfilePagePropsType) => {
   return (
     <section className={s.profile}>
-      <BackImg/>
-      <ProfileContent profileInfo={profileInfo} posts={posts} addNewPost={addNewPost}/>
+      <BackImg src={currentUser.photos?.large || null}/>
+      <ProfileContent user={currentUser} posts={posts} addNewPost={addNewPost} isAuthUser={isAuthUser}/>
     </section>
   )
 }

@@ -9,7 +9,7 @@ import {MessageType} from "../../../redux/stateData";
 type ProfilePostsPropsType = {
   posts: MessageType[]
   addNewPost: (message: string) => void
-  userID: string
+  userID: number
 }
 
 export const ProfilePosts = ({posts, addNewPost, userID}: ProfilePostsPropsType) => {
@@ -20,7 +20,7 @@ export const ProfilePosts = ({posts, addNewPost, userID}: ProfilePostsPropsType)
     </div>
   )
 }
-const MyPost = ({addNewPost}: {addNewPost: (message: string) => void}) => {
+const MyPost = ({addNewPost}: { addNewPost: (message: string) => void }) => {
 
   const onClickHandler = (value: string) => {
     addNewPost(value)
@@ -36,7 +36,7 @@ const MyPost = ({addNewPost}: {addNewPost: (message: string) => void}) => {
 
 type PostItemsPropsType = {
   postItemsData: MessageType[]
-  userID: string
+  userID: number
 }
 
 const PostItems = ({postItemsData, userID}: PostItemsPropsType) => {
@@ -51,7 +51,10 @@ const PostItems = ({postItemsData, userID}: PostItemsPropsType) => {
 
   return (
     <div className={s.postsItems}>
-      {postItemsElements}
+      {postItemsData.length > 0
+        ? postItemsElements
+        :<div></div>
+      }
     </div>
   )
 }
