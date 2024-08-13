@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./Profile.module.css";
 import {ProfileContent} from "./ProfileContent/ProfileContent";
-import {BackImg} from "../../components/BackImg/BackImg";
+import {BackImg} from "../BackImg/BackImg";
 import {MessageType} from "../../redux/stateData";
 import {GetUserProfileResponseType, socialAPI} from "../../api/socialAPI";
 

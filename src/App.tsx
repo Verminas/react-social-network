@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import './App.css';
 import {Header} from "./layout/Header/Header";
 import {NavBar} from "./layout/NavBar/NavBar";
-import {Profile} from "./layout/Profile/Profile";
+import {Profile} from "./components/Profile/Profile";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {Dialogs} from "./layout/Dialogs/Dialogs";
 import {News} from "./layout/News/News";
@@ -55,7 +55,7 @@ function App({stateData: {dialogsData, sideBarFriendsData}}: AppPropsType) {
 
           <Route path={'/'} element={<Navigate to={`/profile`}/>}></Route>
           <Route path={'/dialogs/'} element={<Navigate to={'/dialogs/1'}/>}></Route>
-          <Route path={'/profile'} element={<Profile currentUser={currentUser} posts={posts} addNewPost={addNewPost} isAuthUser={currentUser.userId === myId}/>}></Route>
+          {/*<Route path={'/profile'} element={<Profile currentUser={currentUser} posts={posts} addNewPost={addNewPost} isAuthUser={currentUser.userId === myId}/>}></Route>*/}
           <Route path={'/dialogs/:userId'} element={<Dialogs dialogs={dialogsData}
                                                              addNewMessage={addNewMessage}
                                                              messages={messages}

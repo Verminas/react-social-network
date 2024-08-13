@@ -1,8 +1,8 @@
 import s from "./ProfilePosts.module.css";
 import React, {useRef} from "react";
 import {PostItem} from "../ProfilePost/ProfilePost";
-import {MessageSubmitForm} from "../../../components/MessageSubmitForm/MessageSubmitForm";
-import {MessageItem} from "../../../components/MessageItem/MessageItem";
+import {MessageSubmitForm} from "../../MessageSubmitForm/MessageSubmitForm";
+import {MessageItem} from "../../MessageItem/MessageItem";
 import {MessageType} from "../../../redux/stateData";
 
 

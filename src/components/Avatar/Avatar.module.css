@@ -1,6 +1,7 @@
 .imgProfile{
     width: 100%;
-    max-width: 200px;
+    max-width: 250px;
+    min-width: 180px;
     grid-area: img;
     object-fit: cover;
 }

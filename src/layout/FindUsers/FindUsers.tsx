@@ -6,6 +6,7 @@ import {Button} from "../../components/Button/Button";
 import {useSelector} from "react-redux";
 import {AppRootType, useAppDispatch} from "../../store/store";
 import {
+  fetchUsersTC,
   followUserTC,
   searchUsersTC,
   showMoreUsersAC,
@@ -23,7 +24,7 @@ export const FindUsers = (props: Props) => {
   const users = useSelector<AppRootType, UserType[]>(state => state.users)
   const dispatch = useAppDispatch();
 
-  const [currentUserPage, setCurrentUserPage] = useState<number>(1);
+  const [currentUserPage, setCurrentUserPage] = useState<number>(2);
 
   const showMoreUsers = () => {
     dispatch(showMoreUsersTC(currentUserPage))
@@ -39,7 +40,7 @@ export const FindUsers = (props: Props) => {
   }
 
   useEffect(() => {
-    showMoreUsers()
+    dispatch(fetchUsersTC())
   }, []);
 
 

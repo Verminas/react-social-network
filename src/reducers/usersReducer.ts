@@ -5,24 +5,34 @@ const FOLLOW_USER = 'FOLLOW_USER'
 const UNFOLLOW_USER = 'UNFOLLOW_USER'
 const SHOW_MORE_USERS = 'SHOW_MORE_USERS'
 const SEARCH_USERS = 'SEARCH_USERS'
+const FETCH_USERS = 'FETCH_USERS'
 
 type ShowMoreUsersActionType = ReturnType<typeof showMoreUsersAC>
 type FollowUnfollowUserActionType = ReturnType<typeof followUserAC>
 type UnfollowUnfollowUserActionType = ReturnType<typeof unfollowUserAC>
 type SearchUsersActionType = ReturnType<typeof searchUsersAC>
+type FetchUsersActionType = ReturnType<typeof fetchUsersAC>
 
-const initialState: UserType[]  = []
+const initialState: UserType[] = []
 
 
-type UsersReducerActionTypes = ShowMoreUsersActionType | FollowUnfollowUserActionType | SearchUsersActionType | UnfollowUnfollowUserActionType
+type UsersReducerActionTypes =
+  | ShowMoreUsersActionType
+  | FollowUnfollowUserActionType
+  | SearchUsersActionType
+  | UnfollowUnfollowUserActionType
+  | FetchUsersActionType
 
 export const usersReducer = (state: UserType[] = initialState, action: UsersReducerActionTypes): UserType[] => {
   switch (action.type) {
 
+    case FETCH_USERS: {
+      const {users} = action.payload;
+      return [...users];
+    }
     case SHOW_MORE_USERS: {
       const {users} = action.payload;
-      const newUsers: UserType[] = users.map(user => ({...user}));
-      return [...state, ...newUsers];
+      return [...state, ...users];
     }
     case FOLLOW_USER: {
       const {userId} = action.payload;
@@ -40,10 +50,17 @@ export const usersReducer = (state: UserType[] = initialState, action: UsersRedu
 
     }
 
-    default: return state;
+    default:
+      return state;
   }
 }
 
+export const fetchUsersAC = (users: UserType[]) => ({
+  type: FETCH_USERS,
+  payload: {
+    users
+  }
+}) as const
 
 export const showMoreUsersAC = (users: UserType[]) => ({
   type: SHOW_MORE_USERS,
@@ -51,6 +68,14 @@ export const showMoreUsersAC = (users: UserType[]) => ({
     users
   }
 }) as const
+
+export const fetchUsersTC = () => {
+  return (dispatch: Dispatch) => {
+    socialAPI.getUsers()
+      .then(data => data.items)
+      .then(users => dispatch(fetchUsersAC(users)))
+  }
+}
 
 export const showMoreUsersTC = (page: number) => {
   return (dispatch: Dispatch) => {

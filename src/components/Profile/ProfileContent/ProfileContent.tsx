@@ -1,10 +1,10 @@
 import s from "./ProfileContent.module.css";
 import React, {useEffect, useState} from "react";
 import {ProfilePosts} from "../ProfilePosts/ProfilePosts";
-import {Avatar} from "../../../components/Avatar/Avatar";
+import {Avatar} from "../../Avatar/Avatar";
 import {MessageType} from "../../../redux/stateData";
 import {GetUserProfileResponseType, socialAPI} from "../../../api/socialAPI";
-import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
+import {EditableSpan} from "../../EditableSpan/EditableSpan";
 import {myId} from "../../../App";
 
 type ProfileContentPropsType = {
@@ -55,7 +55,7 @@ const ProfileInfo = ({
   useEffect(() => {
     socialAPI.getUserStatus(userId || 31421)
       .then(data => setStatus(data))
-  }, []);
+  }, [userId]);
 
   const changeStatus = (title: string) => {
     socialAPI.updateUserStatus(title)
@@ -74,9 +74,12 @@ const ProfileInfo = ({
       <h3>{lookingForAJob ? `Loking for a job: ${lookingForAJobDescription}` : ''}</h3>
       <h3>My contacts</h3>
       <ul>
-        <li>Github: <a href="">{contacts?.github || noInformation}</a></li>
-        <li>Instagram: <a href="">{contacts?.instagram || noInformation}</a></li>
-        <li>Facebook: <a href="">{contacts?.facebook || noInformation}</a></li>
+        <li>Github: {contacts.github ?
+          <a href={contacts.github} target={'_blank'}>{contacts.github}</a> : noInformation}</li>
+        <li>Instagram: {contacts.instagram ?
+          <a href={contacts.instagram} target={'_blank'}>{contacts.instagram}</a> : noInformation}</li>
+        <li>Facebook: {contacts.facebook ?
+          <a href={contacts.facebook} target={'_blank'}>{contacts.facebook}</a> : noInformation}</li>
       </ul>
     </div>
   )
