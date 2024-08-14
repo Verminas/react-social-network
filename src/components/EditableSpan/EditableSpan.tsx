@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import {ChangeEvent, KeyboardEvent,useState} from "react";
+import {ChangeEvent, KeyboardEvent, useEffect, useState} from "react";
 
 type Props = {
   title: string
@@ -9,6 +9,10 @@ type Props = {
 export const EditableSpan = ({title, editItem}: Props) => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [text, setText] = useState(title)
+
+  useEffect(() => {
+    setText(title)
+  }, [title]);
 
   const onEditMode = () => {
     setEditMode(true)
