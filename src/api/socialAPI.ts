@@ -104,7 +104,7 @@ export const socialAPI = {
 
   updateUserStatus(status: string) {
     const payload = { status }
-    return instance.put(`profile/status`, payload)
+    return instance.put<ResponseType>(`profile/status`, payload)
       .then(data => data.data);
   },
 }

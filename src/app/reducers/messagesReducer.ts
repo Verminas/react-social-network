@@ -1,4 +1,4 @@
-import {MessageItemsType, MessageType, stateData} from "../redux/stateData";
+import {MessageItemsType, MessageType, stateData} from "../../redux/stateData";
 import {v1} from "uuid";
 const ADD_NEW_MESSAGE = "ADD_NEW_MESSAGE";
 

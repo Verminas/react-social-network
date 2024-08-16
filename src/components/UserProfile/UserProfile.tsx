@@ -1,13 +1,13 @@
 // @flow
 import * as React from 'react';
-import {GetUserProfileResponseType, socialAPI} from "../../api/socialAPI";
-import {Avatar} from "../Avatar/Avatar";
+import {GetUserProfileResponseType} from "../../api/socialAPI";
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {Profile} from "../Profile/Profile";
-import {myId} from "../../App";
 import {useSelector} from "react-redux";
-import {AppRootType} from "../../store/store";
+import {selectCurrentUser} from "../../app/selectors";
+import {useAppDispatch} from "../../app/store";
+import {getUserProfileTC} from "../../app/reducers/usersReducer";
 
 type Props = {
 };
@@ -16,11 +16,12 @@ type Props = {
 
 export const UserProfile = ({}: Props) => {
   const params = useParams<{ userId: string }>();
-  const [user, setUser] = useState<GetUserProfileResponseType | null>(null);
-  const currentUser = useSelector<AppRootType, GetUserProfileResponseType>(state => state.currentUser)
+  const [user, setUser] = useState<GetUserProfileResponseType | null | void>(null);
+  const currentUser = useSelector(selectCurrentUser)
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    socialAPI.getUserProfile(Number(params.userId))
+    dispatch(getUserProfileTC(Number(params.userId)))
       .then(user => {
         setUser(user)
       })
@@ -30,7 +31,7 @@ export const UserProfile = ({}: Props) => {
   return (
     <div>
       {user
-      ? <Profile currentUser={user} posts={[]} addNewPost={() => {}} isAuthUser={user.userId === currentUser.userId}/>
+      ? <Profile user={user} posts={[]} addNewPost={() => {}} isAuthUser={user.userId === currentUser.userId}/>
         : <span>User not found</span>
       }
     </div>

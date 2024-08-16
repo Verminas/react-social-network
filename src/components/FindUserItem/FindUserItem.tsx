@@ -31,7 +31,7 @@ export const FindUserItem = ({user, onClickBtn}: Props) => {
         <div className={s.nameStatus}>
           <span>{user.name}, {user.id}</span>
           <span className={s.status}>{user.status}</span>
-          <span>{user.followed ? 'true' : 'false'}</span>
+          <span>{user.followed ? `You follow ${user.name}` : `You unfollow ${user.name}`}</span>
         </div>
       </div>
     </Link>

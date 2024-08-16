@@ -4,7 +4,7 @@ import {FindUserItem} from "../../components/FindUserItem/FindUserItem";
 import s from './FindUsers.module.css'
 import {Button} from "../../components/Button/Button";
 import {useSelector} from "react-redux";
-import {AppRootType, useAppDispatch} from "../../store/store";
+import {AppRootType, useAppDispatch} from "../../app/store";
 import {
   fetchUsersTC,
   followUserTC,
@@ -12,16 +12,17 @@ import {
   showMoreUsersAC,
   showMoreUsersTC,
   unfollowUserTC
-} from "../../reducers/usersReducer";
+} from "../../app/reducers/usersReducer";
 import {ReactElement, useEffect, useState} from "react";
 import {socialAPI, UserType} from "../../api/socialAPI";
 import {SearchForm} from "../../components/SearchForm/SearchForm";
 import {useParams} from "react-router-dom";
+import {selectUsers} from "../../app/selectors";
 
 
 type Props = {};
 export const FindUsers = (props: Props) => {
-  const users = useSelector<AppRootType, UserType[]>(state => state.users)
+  const users = useSelector(selectUsers)
   const dispatch = useAppDispatch();
 
   const [currentUserPage, setCurrentUserPage] = useState<number>(2);

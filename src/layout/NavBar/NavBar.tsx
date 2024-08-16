@@ -1,12 +1,10 @@
 import React from "react";
 import s from "./NavBar.module.css";
-import {NavLink} from "react-router-dom";
 import {SideBar} from "../SideBar/SideBar";
 import {PageLink} from "../../components/PageLink/PageLink";
 import {FriendItemType} from "../../redux/stateData";
 import {useSelector} from "react-redux";
-import {AppRootType} from "../../store/store";
-import {GetUserProfileResponseType} from "../../api/socialAPI";
+import {selectCurrentUser} from "../../app/selectors";
 
 type NavBarPropsType = {
   sideBar: FriendItemType[]
@@ -20,7 +18,7 @@ type PagesDataType = PageItemType[]
 
 
 export const NavBar = ({sideBar}: NavBarPropsType) => {
-  const currentUser = useSelector<AppRootType, GetUserProfileResponseType>(state => state.currentUser)
+  const currentUser = useSelector(selectCurrentUser)
   const pagesData: PagesDataType = [
     {
       title: 'Profile',
