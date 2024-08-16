@@ -6,17 +6,25 @@ import {MessageItem} from "../../components/MessageItem/MessageItem";
 import {DialogItemType, MessageItemsType} from "../../redux/stateData";
 import {useParams} from "react-router-dom";
 import {ErrorPage} from "../ErrorPage/ErrorPage";
+import {addNewMessageAC} from "../../app/reducers/messagesReducer";
+import {useAppDispatch} from "../../app/store";
+import {useSelector} from "react-redux";
+import {selectMessages} from "../../app/selectors";
 
 type messagesPageStatePropsType = {
   dialogs: DialogItemType[]
-  addNewMessage: (userID: number, message: string) => void
-  messages: MessageItemsType
   userID: number
 };
 
-export const Dialogs = ({dialogs, messages, addNewMessage, userID}: messagesPageStatePropsType) => {
+export const Dialogs = ({dialogs, userID}: messagesPageStatePropsType) => {
   const params = useParams<{ userId: string }>();
   const userId = Number(params.userId) || 1;
+  const dispatch = useAppDispatch();
+  const messages = useSelector(selectMessages)
+
+  const addNewMessage = (userID: number, message: string) => {
+    dispatch(addNewMessageAC(userID, message))
+  }
 
   const addNewMessageHandler = (value: string) => {
     if (userId) {

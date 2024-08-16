@@ -9,9 +9,72 @@ const instance = axios.create({
   }
 })
 
+
+export const socialAPI = {
+  getUsers(page: number = 1, count: number = 10) {
+    return instance.get<GetUsersResponseType>(`users?page=${page}&count=${count}`)
+      .then(data => data.data);
+  },
+
+  searchUsers(term: string) {
+    return instance.get<GetUsersResponseType>(`users?term=${term}`)
+      .then(data => data.data);
+  },
+
+  followUser(userID: number) {
+    return instance.post<ResponseType>(`follow/${userID}`)
+      .then(data => data);
+  },
+
+  unfollowUser(userID: number) {
+    return instance.delete<ResponseType>(`follow/${userID}`)
+      .then(data => data);
+  },
+
+  getUserProfile(userID: number) {
+    return instance.get<GetUserProfileResponseType>(`profile/${userID}`)
+      .then(data => data.data);
+  },
+  authMe() {
+    return instance.get<AuthMeResponseType>(`auth/me`)
+      .then(data => data.data);
+  },
+
+  logIn(payload: UserLogInRequestType) {
+    return instance.post<ResponseType<UserLogInGenericType>>(`auth/login`, payload)
+      .then(data => data.data);
+  },
+
+  logOut() {
+    return instance.delete<ResponseType>(`auth/login`)
+      .then(data => data.data);
+  },
+
+  getUserStatus(userId: number) {
+    return instance.get<string | null>(`profile/status/${userId}`)
+      .then(data => data.data);
+  },
+
+  updateUserStatus(status: string) {
+    const payload = { status }
+    return instance.put<ResponseType>(`profile/status`, payload)
+      .then(data => data.data);
+  },
+}
+
+type UserLogInGenericType = {
+  userId: number
+}
+
 type UserPhotosType = {
   small: string | null,
   large: string | null
+}
+
+type UserLogInRequestType = {
+  email: string
+  password: string
+  rememberMe: boolean
 }
 
 export type UserType = {
@@ -66,45 +129,3 @@ type FieldErrorsType = {
 }
 
 type AuthMeResponseType = ResponseType<AuthMeInfoType> & FieldErrorsType
-
-export const socialAPI = {
-  getUsers(page: number = 1, count: number = 10) {
-    return instance.get<GetUsersResponseType>(`users?page=${page}&count=${count}`)
-      .then(data => data.data);
-  },
-
-  searchUsers(term: string) {
-    return instance.get<GetUsersResponseType>(`users?term=${term}`)
-      .then(data => data.data);
-  },
-
-  followUser(userID: number) {
-    return instance.post<ResponseType>(`follow/${userID}`)
-      .then(data => data);
-  },
-
-  unfollowUser(userID: number) {
-    return instance.delete<ResponseType>(`follow/${userID}`)
-      .then(data => data);
-  },
-
-  getUserProfile(userID: number) {
-    return instance.get<GetUserProfileResponseType>(`profile/${userID}`)
-      .then(data => data.data);
-  },
-  authMe() {
-    return instance.get<AuthMeResponseType>(`auth/me`)
-      .then(data => data.data);
-  },
-
-  getUserStatus(userId: number) {
-    return instance.get<string | null>(`profile/status/${userId}`)
-      .then(data => data.data);
-  },
-
-  updateUserStatus(status: string) {
-    const payload = { status }
-    return instance.put<ResponseType>(`profile/status`, payload)
-      .then(data => data.data);
-  },
-}

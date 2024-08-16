@@ -6,19 +6,22 @@ import {handleNetworkError, handleServerError} from "../../utils/handleError";
 type AppStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
 
 const APP_IS_AUTH_USER = 'APP_IS_AUTH_USER'
+const APP_IS_LOGGED_IN = 'APP_IS_LOGGED_IN'
 const APP_SET_STATUS = 'APP_SET_STATUS'
 const APP_SET_ERROR = 'APP_SET_ERROR'
 
 const initialState = {
   status: 'idle',
   error: null,
-  isAuthorized: true
+  isAuthorized: false,
+  isLoggedIn: false,
 } as AppStateType;
 
 type AppStateType = {
   status: AppStatusType
   error: null | string
   isAuthorized: boolean
+  isLoggedIn: boolean
 }
 
 export const appReducer = (state: AppStateType = initialState, action: ActionsType): AppStateType => {
@@ -29,6 +32,7 @@ export const appReducer = (state: AppStateType = initialState, action: ActionsTy
     }
     case APP_SET_STATUS: {
       const {status} = action.payload;
+      console.log(status)
       return {...state, status}
     }
     case APP_SET_ERROR: {
@@ -50,7 +54,7 @@ type IsAuthorizesAppActionType = ReturnType<typeof isAuthorizedAppAC>
 type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
 type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
 
-const isAuthorizedAppAC = (isAuthorized: boolean) => ({
+export const isAuthorizedAppAC = (isAuthorized: boolean) => ({
   type: APP_IS_AUTH_USER,
   payload: {
     isAuthorized

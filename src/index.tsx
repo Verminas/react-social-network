@@ -4,9 +4,10 @@ import './index.css';
 import App from './app/App';
 import reportWebVitals from './reportWebVitals';
 import {stateData} from "./redux/stateData";
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, RouterProvider} from "react-router-dom";
 import {Provider} from "react-redux";
 import {store} from "./app/store";
+import {router} from "./router/router";
 
 
 const root = ReactDOM.createRoot(
@@ -14,9 +15,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <App stateData={stateData}/>
-    </BrowserRouter>
+    <RouterProvider router={router}/>
   </Provider>
 );
 

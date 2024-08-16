@@ -1,8 +1,17 @@
 .header{
+  padding: 5px 8px;
   grid-area: header;
   background-color: indianred;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .logo{
   width: 50px;
   heigth: 50px;
+}
+.loading{
+  font-size: 26px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.47);
 }
