@@ -9,6 +9,23 @@ const instance = axios.create({
   }
 })
 
+export const authAPI = {
+  authMe() {
+    return instance.get<AuthMeResponseType>(`auth/me`)
+      .then(data => data.data);
+  },
+
+  logIn(payload: UserLogInRequestType) {
+    return instance.post<ResponseType<UserLogInGenericType>>(`auth/login`, payload)
+      .then(data => data.data);
+  },
+
+  logOut() {
+    return instance.delete<ResponseType>(`auth/login`)
+      .then(data => data.data);
+  },
+}
+
 
 export const socialAPI = {
   getUsers(page: number = 1, count: number = 10) {
@@ -32,21 +49,8 @@ export const socialAPI = {
   },
 
   getUserProfile(userID: number) {
+    debugger
     return instance.get<GetUserProfileResponseType>(`profile/${userID}`)
-      .then(data => data.data);
-  },
-  authMe() {
-    return instance.get<AuthMeResponseType>(`auth/me`)
-      .then(data => data.data);
-  },
-
-  logIn(payload: UserLogInRequestType) {
-    return instance.post<ResponseType<UserLogInGenericType>>(`auth/login`, payload)
-      .then(data => data.data);
-  },
-
-  logOut() {
-    return instance.delete<ResponseType>(`auth/login`)
       .then(data => data.data);
   },
 
@@ -71,7 +75,7 @@ type UserPhotosType = {
   large: string | null
 }
 
-type UserLogInRequestType = {
+export type UserLogInRequestType = {
   email: string
   password: string
   rememberMe: boolean

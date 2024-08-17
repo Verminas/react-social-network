@@ -18,7 +18,7 @@ export const PATH = {
   ERROR: '/error',
   LOGIN: '/login',
   PROFILE_USER: '/profile/:userId',
-  PROFILE: '/profile/',
+  PROFILE: '/profile',
   USERS: '/users',
   DIALOGS: '/dialogs',
   DIALOG_USER: '/dialogs/:userId',

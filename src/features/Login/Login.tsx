@@ -1,12 +1,10 @@
 import { useForm, SubmitHandler } from "react-hook-form"
 import {useSelector} from "react-redux";
-import {selectCurrentUser} from "../../app/selectors";
-import {useEffect} from "react";
-import {useNavigate} from "react-router-dom";
-import {socialAPI} from "../../api/socialAPI";
-import {getCurrentUserProfileTC} from "../../app/reducers/currentUserReducer";
+import {selectAppState} from "../../app/selectors";
+import {Navigate} from "react-router-dom";
 import {useAppDispatch} from "../../app/store";
-import {isAuthorizedAppAC} from "../../app/reducers/appReducer";
+import {isLoggedInTC} from "../../app/reducers/appReducer";
+import {PATH} from "../../router/router";
 
 type Inputs = {
   email: string
@@ -15,10 +13,8 @@ type Inputs = {
 }
 
 export const Login = () => {
-  const currentUser = useSelector(selectCurrentUser);
-  const navigate = useNavigate();
+  const isLoggedIn = useSelector(selectAppState).isLoggedIn;
   const dispatch = useAppDispatch()
-
   const {
     register,
     handleSubmit,
@@ -26,22 +22,12 @@ export const Login = () => {
     formState: { errors },
   } = useForm<Inputs>()
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data)
-
-    socialAPI.logIn(data).then(res => {
-      console.log('response', res)
-      dispatch(isAuthorizedAppAC(true))
-      dispatch(getCurrentUserProfileTC(res.data.userId))
-    })
+    dispatch(isLoggedInTC(data))
   }
 
-  // console.log(watch("example")) // watch input value by passing the name of it
-
-  useEffect(() => {
-    if(currentUser.userId) {
-      navigate(`/profile/${currentUser.userId}`)
-    }
-  }, [currentUser.userId]);
+  if(isLoggedIn) {
+    return <Navigate to={PATH.COMMON} />
+  }
 
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */

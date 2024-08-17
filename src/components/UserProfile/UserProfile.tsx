@@ -21,11 +21,20 @@ export const UserProfile = ({}: Props) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getUserProfileTC(Number(params.userId)))
-      .then(user => {
-        setUser(user)
-      })
-  }, [params]);
+    const userId = Number(params.userId)
+    if(currentUser.userId) {
+      if (currentUser.userId && currentUser.userId === userId) {
+        setUser(currentUser)
+        return;
+      } else {
+        dispatch(getUserProfileTC(userId))
+          .then(user => {
+            debugger
+            setUser(user)
+          })
+      }
+    }
+  }, [params,currentUser]);
 
 
   return (
