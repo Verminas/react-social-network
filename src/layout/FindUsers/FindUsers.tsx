@@ -24,11 +24,15 @@ type Props = {};
 export const FindUsers = (props: Props) => {
   const users = useSelector(selectUsers)
   const dispatch = useAppDispatch();
+  const [currentUserPage, setCurrentUserPage] = useState<number>(1);
+  const [pagesCount, setPagesCount] = useState<number | undefined>(1);
+  const [paginationButtons, setPaginationButtons] = useState<number[]>([1]);
 
-  const [currentUserPage, setCurrentUserPage] = useState<number>(2);
+
+  const countUsersForFetching = 10;
 
   const showMoreUsers = () => {
-    dispatch(showMoreUsersTC(currentUserPage))
+    dispatch(showMoreUsersTC(currentUserPage + 1))
     setCurrentUserPage(prev => prev + 1)
   }
 
@@ -42,7 +46,35 @@ export const FindUsers = (props: Props) => {
 
   useEffect(() => {
     dispatch(fetchUsersTC())
+      .then(usersCount => {
+        if (usersCount) {
+          setPagesCount(Math.ceil(usersCount / countUsersForFetching))
+        }
+      })
   }, []);
+
+  useEffect(() => {
+    dispatch(fetchUsersTC(currentUserPage))
+
+    if(currentUserPage > 2 && (pagesCount && currentUserPage < pagesCount - 1)) {
+      setPaginationButtons([currentUserPage - 1, currentUserPage, currentUserPage + 1])
+    } else {
+      if(currentUserPage <= 2) {
+        setPaginationButtons([1, 2, 3])
+      }
+      if(pagesCount && currentUserPage >= pagesCount - 1) {
+        setPaginationButtons([pagesCount - 1])
+      }
+    }
+  }, [currentUserPage]);
+
+  useEffect(() => {
+    if(pagesCount && pagesCount > 1) {
+      if(pagesCount > 3) {
+        setPaginationButtons([1, 2, 3])
+      }
+    }
+  }, [pagesCount]);
 
 
   const onClickSearchBtn = (title: string) => {
@@ -50,11 +82,38 @@ export const FindUsers = (props: Props) => {
     setCurrentUserPage(1)
   }
 
+  const paginationButtonHandler = (page: number) => {
+    setCurrentUserPage(page)
+  }
+  const paginationButtonBackHandler = () => {
+    setCurrentUserPage(prev => prev - 1)
+  }
+  const paginationButtonNextHandler = () => {
+    setCurrentUserPage(prev => prev + 1)
+  }
 
   return (
     <div className={s.wrapper}>
       <h3>Users</h3>
       <SearchForm onClickBtn={onClickSearchBtn}/>
+      <div>
+        <div>Count of future pagination buttons: {pagesCount ? pagesCount : 'Loading'}</div>
+        <div>
+          <button disabled={currentUserPage === 1} onClick={paginationButtonBackHandler}>{'<'}</button>
+          {currentUserPage > 2
+            ?
+            <>
+              <button onClick={() => paginationButtonHandler(1)}>1</button>
+              <span>...</span>
+            </>
+            : null
+          }
+          {paginationButtons.map(b => <button onClick={() => paginationButtonHandler(b)} style={b === currentUserPage ? {background: 'lightblue'} : {}}>{b}</button>)}
+          {currentUserPage < (pagesCount as number) - 2 ? '...' : null}
+          <button onClick={() => paginationButtonHandler(pagesCount ? pagesCount : 1)} style={pagesCount === currentUserPage ? {background: 'lightblue'} : {}} >{pagesCount}</button>
+          <button disabled={currentUserPage === pagesCount} onClick={paginationButtonNextHandler}>{'>'}</button>
+        </div>
+      </div>
       <div>
         {users.length < 1
           ? <span>Users not found</span>

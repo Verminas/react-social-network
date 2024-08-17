@@ -4,6 +4,7 @@ import {AppThunkDispatch} from "../store";
 import {setAppStatusAC} from "./appReducer";
 import {handleNetworkError, handleServerError} from "../../utils/handleError";
 import {getUserProfileAC} from "./currentUserReducer";
+import {AxiosError} from "axios";
 
 const FOLLOW_USER = 'FOLLOW_USER'
 const UNFOLLOW_USER = 'UNFOLLOW_USER'
@@ -95,21 +96,21 @@ const searchUsersAC = (users: UserType[]) => ({
 
 // thunk creators
 
-export const fetchUsersTC = () => {
-  return (dispatch: AppThunkDispatch) => {
+export const fetchUsersTC = (page: number = 1) => {
+  return async (dispatch: AppThunkDispatch) => {
     dispatch(setAppStatusAC("loading"))
-    socialAPI.getUsers()
-      .then(res => {
-        if (!res.error) {
-          dispatch(fetchUsersAC(res.items))
-          dispatch(setAppStatusAC("succeeded"))
-        } else {
-          handleServerError(dispatch, res.error)
-        }
-      })
-      .catch(err => {
-        handleNetworkError(dispatch, err)
-      })
+    try {
+      const res = await socialAPI.getUsers(page)
+      if(!res.error) {
+        dispatch(fetchUsersAC(res.items))
+        dispatch(setAppStatusAC("succeeded"))
+        return res.totalCount
+      } else {
+        handleServerError(dispatch, res.error)
+      }
+    } catch (err) {
+      handleNetworkError(dispatch, err as AxiosError)
+    }
   }
 }
 export const showMoreUsersTC = (page: number) => {

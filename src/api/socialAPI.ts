@@ -49,7 +49,6 @@ export const socialAPI = {
   },
 
   getUserProfile(userID: number) {
-    debugger
     return instance.get<GetUserProfileResponseType>(`profile/${userID}`)
       .then(data => data.data);
   },
