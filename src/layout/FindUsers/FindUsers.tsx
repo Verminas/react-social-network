@@ -4,25 +4,16 @@ import {FindUserItem} from "../../components/FindUserItem/FindUserItem";
 import s from './FindUsers.module.css'
 import {Button} from "../../components/Button/Button";
 import {useSelector} from "react-redux";
-import {AppRootType, useAppDispatch} from "../../app/store";
-import {
-  fetchUsersTC,
-  followUserTC,
-  searchUsersTC,
-  showMoreUsersAC,
-  showMoreUsersTC,
-  unfollowUserTC
-} from "../../app/reducers/usersReducer";
-import {ReactElement, useEffect, useState} from "react";
-import {socialAPI, UserType} from "../../api/socialAPI";
+import {useAppDispatch} from "../../app/store";
+import {useEffect, useState} from "react";
 import {SearchForm} from "../../components/SearchForm/SearchForm";
-import {useParams} from "react-router-dom";
-import {selectUsers} from "../../app/selectors";
+import {selectUsers, selectUsersTotalCount, usersActions} from "../../app/reducers/usersSlice";
 
 
 type Props = {};
 export const FindUsers = (props: Props) => {
   const users = useSelector(selectUsers)
+  const usersTotalCount = useSelector(selectUsersTotalCount)
   const dispatch = useAppDispatch();
   const [currentUserPage, setCurrentUserPage] = useState<number>(1);
   const [pagesCount, setPagesCount] = useState<number | undefined>(1);
@@ -32,29 +23,29 @@ export const FindUsers = (props: Props) => {
   const countUsersForFetching = 10;
 
   const showMoreUsers = () => {
-    dispatch(showMoreUsersTC(currentUserPage + 1))
+    dispatch(usersActions.showMoreUsers(currentUserPage + 1))
     setCurrentUserPage(prev => prev + 1)
   }
 
   const followUser = (userId: number) => {
-    dispatch(followUserTC(userId))
+    dispatch(usersActions.followUser(userId))
   }
 
   const unfollowUser = (userId: number) => {
-    dispatch(unfollowUserTC(userId))
+    dispatch(usersActions.unfollowUser(userId))
   }
 
   useEffect(() => {
-    dispatch(fetchUsersTC())
-      .then(usersCount => {
-        if (usersCount) {
-          setPagesCount(Math.ceil(usersCount / countUsersForFetching))
+    dispatch(usersActions.fetchUsers(currentUserPage))
+      .then(() => {
+        if (usersTotalCount) {
+          setPagesCount(Math.ceil(usersTotalCount / countUsersForFetching))
         }
       })
   }, []);
 
   useEffect(() => {
-    dispatch(fetchUsersTC(currentUserPage))
+    dispatch(usersActions.fetchUsers(currentUserPage))
 
     if(currentUserPage > 2 && (pagesCount && currentUserPage < pagesCount - 1)) {
       setPaginationButtons([currentUserPage - 1, currentUserPage, currentUserPage + 1])
@@ -78,7 +69,7 @@ export const FindUsers = (props: Props) => {
 
 
   const onClickSearchBtn = (title: string) => {
-    dispatch(searchUsersTC(title))
+    dispatch(usersActions.searchUsers(title))
     setCurrentUserPage(1)
   }
 

@@ -4,7 +4,7 @@ import {SideBar} from "../SideBar/SideBar";
 import {PageLink} from "../../components/PageLink/PageLink";
 import {FriendItemType} from "../../redux/stateData";
 import {useSelector} from "react-redux";
-import {selectCurrentUser} from "../../app/selectors";
+import {selectCurrentUser} from "../../app/reducers/currentUserSlice";
 
 type NavBarPropsType = {
   sideBar: FriendItemType[]

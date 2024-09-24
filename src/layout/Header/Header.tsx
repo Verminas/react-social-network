@@ -1,28 +1,19 @@
 import React from "react";
 import s from "./Header.module.css";
 import {useSelector} from "react-redux";
-import {selectAppState} from "../../app/selectors";
-import {authAPI, socialAPI} from "../../api/socialAPI";
-import {Navigate, useNavigate, useNavigation} from "react-router-dom";
-import {PATH} from "../../router/router";
-import {isAuthorizedAppAC, isLoggedInAppAC} from "../../app/reducers/appReducer";
+import {useNavigate} from "react-router-dom";
+import {selectAppStatus} from "../../app/reducers/appSlice";
 import {useAppDispatch} from "../../app/store";
+import {authActions, selectIsLoggedIn} from "../../app/reducers/authSlice";
 
 export const Header = () => {
-  const app = useSelector(selectAppState)
-  const status = app.status;
-  const isLoggedIn = app.isLoggedIn;
+  const status = useSelector(selectAppStatus)
+  const isLoggedIn = useSelector(selectIsLoggedIn)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
   const logOutHandler = () => {
-    authAPI.logOut()
-      .then(res => {
-        console.log(res)
-        // dispatch(isAuthorizedAppAC(false))
-        dispatch(isLoggedInAppAC(false))
-        // navigate(PATH.LOGIN)
-      })
+    dispatch(authActions.logOut())
   }
   return (
     <header className={s.header}>

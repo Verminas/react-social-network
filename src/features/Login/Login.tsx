@@ -1,10 +1,9 @@
 import { useForm, SubmitHandler } from "react-hook-form"
 import {useSelector} from "react-redux";
-import {selectAppState} from "../../app/selectors";
 import {Navigate} from "react-router-dom";
 import {useAppDispatch} from "../../app/store";
-import {isLoggedInTC} from "../../app/reducers/appReducer";
 import {PATH} from "../../router/router";
+import {authActions, selectIsLoggedIn} from "../../app/reducers/authSlice";
 
 type Inputs = {
   email: string
@@ -13,7 +12,7 @@ type Inputs = {
 }
 
 export const Login = () => {
-  const isLoggedIn = useSelector(selectAppState).isLoggedIn;
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch()
   const {
     register,
@@ -22,7 +21,7 @@ export const Login = () => {
     formState: { errors },
   } = useForm<Inputs>()
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    dispatch(isLoggedInTC(data))
+    dispatch(authActions.logIn(data))
   }
 
   if(isLoggedIn) {

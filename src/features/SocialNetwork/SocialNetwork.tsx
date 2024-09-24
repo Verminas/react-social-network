@@ -3,12 +3,13 @@ import React, {useEffect} from "react";
 import {NavBar} from "../../layout/NavBar/NavBar";
 import {stateData} from "../../redux/stateData";
 import {useSelector} from "react-redux";
-import {selectAppState, selectCurrentUser} from "../../app/selectors";
 import {PATH} from "../../router/router";
+import {selectCurrentUser} from "../../app/reducers/currentUserSlice";
+import {selectIsLoggedIn} from "../../app/reducers/authSlice";
 
 export const SocialNetwork = () => {
   const navigate = useNavigate();
-  const isLoggedIn = useSelector(selectAppState).isLoggedIn;
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const currentUser = useSelector(selectCurrentUser);
 
   useEffect(() => {

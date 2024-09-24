@@ -5,9 +5,9 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {Profile} from "../Profile/Profile";
 import {useSelector} from "react-redux";
-import {selectCurrentUser} from "../../app/selectors";
 import {useAppDispatch} from "../../app/store";
-import {getUserProfileTC} from "../../app/reducers/usersReducer";
+import {selectUser, usersActions} from "../../app/reducers/usersSlice";
+import {selectCurrentUser} from "../../app/reducers/currentUserSlice";
 
 type Props = {
 };
@@ -18,6 +18,7 @@ export const UserProfile = ({}: Props) => {
   const params = useParams<{ userId: string }>();
   const [user, setUser] = useState<GetUserProfileResponseType | null | void>(null);
   const currentUser = useSelector(selectCurrentUser)
+  const viewedUser = useSelector(selectUser)
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -27,14 +28,13 @@ export const UserProfile = ({}: Props) => {
         setUser(currentUser)
         return;
       } else {
-        dispatch(getUserProfileTC(userId))
-          .then(user => {
-            debugger
-            setUser(user)
+        dispatch(usersActions.getUserProfile(userId))
+          .then(() => {
+            setUser(viewedUser)
           })
       }
     }
-  }, [params,currentUser]);
+  }, [params, currentUser]);
 
 
   return (

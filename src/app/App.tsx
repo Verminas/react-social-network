@@ -4,20 +4,21 @@ import {Header} from "../layout/Header/Header";
 import {Outlet} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {useAppDispatch} from "./store";
-import {selectAppState} from "./selectors";
-import {isAuthorizedAppTC} from "./reducers/appReducer";
+import {selectAppIsInitialized} from "./reducers/appSlice";
 import {Progress} from "../components/Progress/Progress";
+import {authActions} from "./reducers/authSlice";
 
 
 export function App() {
+  debugger
   const dispatch = useAppDispatch();
-  const  isAuthorized= useSelector(selectAppState).isAuthorized;
+  const  isInitialized= useSelector(selectAppIsInitialized);
 
   useEffect(() => {
-    dispatch(isAuthorizedAppTC())
+    dispatch(authActions.initializeApp())
   }, []);
 
-  if(!isAuthorized) {
+  if(!isInitialized) {
     return <Progress/>
   }
 
