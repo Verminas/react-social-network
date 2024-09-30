@@ -1,14 +1,14 @@
-.imgProfile{
-    width: 100%;
-    max-width: 250px;
-    min-width: 180px;
-    grid-area: img;
-    object-fit: cover;
+.imgProfile {
+  width: 100%;
+  max-width: 250px;
+  min-width: 180px;
+  grid-area: img;
+  object-fit: cover;
 }
 
-.dialogLogo{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
+.dialogLogo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
 }

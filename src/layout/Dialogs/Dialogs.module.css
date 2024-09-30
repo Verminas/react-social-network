@@ -1,40 +1,40 @@
-.dialogs{
-    display: grid;
-    grid-template-columns:1fr 2fr;
+.dialogs {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
 }
-.dialogsItems{
-    border-right: 3px solid saddlebrown;
+.dialogsItems {
+  border-right: 3px solid saddlebrown;
 }
 .dialogsItems li {
-    padding: 10px;
-    font-size: 1.5rem;
-    display: flex;
-    gap: 20px;
-    align-items: center;
+  padding: 10px;
+  font-size: 1.5rem;
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }
-.dialogsItems a:focus{
-    color: chocolate;
-}
-
-.messages{
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
+.dialogsItems a:focus {
+  color: chocolate;
 }
 
-.wrapperTextArea{
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
+.messages {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
 }
-.myMessageTextarea{
-    width: calc(100% - 80px);
-    min-height: 50px;
+
+.wrapperTextArea {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
 }
-.myMessageButton{
-    width: 60px;
-    height: 30px;
-    align-self: self-end;
-    margin: 5px;
+.myMessageTextarea {
+  width: calc(100% - 80px);
+  min-height: 50px;
+}
+.myMessageButton {
+  width: 60px;
+  height: 30px;
+  align-self: self-end;
+  margin: 5px;
 }

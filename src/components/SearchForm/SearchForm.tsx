@@ -1,34 +1,34 @@
-// @flow
-import * as React from 'react';
-import {ChangeEvent, KeyboardEvent, useState} from "react";
+import { Button, Form, Input } from 'antd';
 
 type Props = {
-  onClickBtn: (title: string) => void
+  onClickBtn: (title: string) => void;
 };
+
 export const SearchForm = ({onClickBtn}: Props) => {
-  const [title, setTitle] = useState('')
+  const [form] = Form.useForm();
 
-  const onChangeSearchForm = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.currentTarget.value)
-  }
+  const onSubmit = (data: {user: string}) => {
+    if(data.user?.trim().length) {
+      onClickBtn(data.user)
 
-  const onClickSearchBtn = () => {
-    if(title.trim().length > 0){
-      onClickBtn(title)
-      setTitle('')
-    }
-  }
-
-  const onKeyDownEnterSearchForm = (e: KeyboardEvent<HTMLInputElement> ) => {
-    if(e.key === 'Enter'){
-      onClickSearchBtn()
+      form.resetFields()
     }
   }
 
   return (
-    <div>
-      <input type="text" onChange={onChangeSearchForm} value={title} onKeyDown={onKeyDownEnterSearchForm} autoFocus/>
-      <button onClick={onClickSearchBtn}>Find User</button>
-    </div>
+      <Form
+          name="basic"
+          layout={'inline'}
+          form={form}
+          style={{ maxWidth: 'none' }}
+          onFinish={onSubmit}
+      >
+        <Form.Item rules={[{min: 1, message: 'Type something', required: true}]} name='user'>
+          <Input placeholder="Type username" />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">Find</Button>
+        </Form.Item>
+      </Form>
   );
 };

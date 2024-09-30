@@ -1,17 +1,17 @@
-.content{
+.content {
   padding: 20px;
 }
-.wrapperCommon{
+.wrapperCommon {
   display: flex;
   gap: 30px;
 }
-.wrapperItem{
+.wrapperItem {
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: center;
 }
 
-.info li{
+.info li {
   list-style-type: none;
 }

@@ -1,33 +1,43 @@
-import {GetUserProfileResponseType, socialAPI} from "../../api/socialAPI";
-import {asyncThunkCreator, buildCreateSlice} from "@reduxjs/toolkit";
+import { GetUserProfileResponseType, socialAPI } from "../../api/socialAPI";
+import { asyncThunkCreator, buildCreateSlice } from "@reduxjs/toolkit";
 
-const createAppSlice = buildCreateSlice({ creators: { asyncThunk: asyncThunkCreator } })
+const createAppSlice = buildCreateSlice({
+  creators: { asyncThunk: asyncThunkCreator },
+});
 
 const slice = createAppSlice({
-  name: 'currentUser',
+  name: "currentUser",
   initialState: {
-    user: {} as GetUserProfileResponseType
+    user: {} as GetUserProfileResponseType,
   },
   reducers: (creators) => {
-    const createAThunk = creators.asyncThunk.withTypes<{ rejectValue: null | unknown }>()
+    const createAThunk = creators.asyncThunk.withTypes<{
+      rejectValue: null | unknown;
+    }>();
 
     return {
-      getCurrentUserProfile: createAThunk<{user: GetUserProfileResponseType}, number>(async (arg, thunkAPI) => {
-        const {} = thunkAPI
-        const res = await socialAPI.getUserProfile(arg)
-        return {user: res}
-      }, {
-        fulfilled: (state, action) => {
-          state.user = action.payload.user
-        }
-      })
-    }
+      getCurrentUserProfile: createAThunk<
+        { user: GetUserProfileResponseType },
+        number
+      >(
+        async (arg, thunkAPI) => {
+          const {} = thunkAPI;
+          const res = await socialAPI.getUserProfile(arg);
+          return { user: res };
+        },
+        {
+          fulfilled: (state, action) => {
+            state.user = action.payload.user;
+          },
+        },
+      ),
+    };
   },
   selectors: {
-    selectCurrentUser: sliceState => sliceState.user
-  }
-})
+    selectCurrentUser: (sliceState) => sliceState.user,
+  },
+});
 
-export const currentUserSlice = slice.reducer
-export const currentUserActions = slice.actions
-export const {selectCurrentUser} = slice.selectors
+export const currentUserSlice = slice.reducer;
+export const currentUserActions = slice.actions;
+export const { selectCurrentUser } = slice.selectors;

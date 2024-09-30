@@ -1,4 +1,4 @@
-.postsItem{
+.postsItem {
   display: flex;
   gap: 20px;
   align-items: center;
@@ -6,28 +6,27 @@
   border-radius: 15px;
   width: fit-content;
   padding: 10px;
-  
+
   font-size: 20px;
 }
-.postsItem:nth-child(odd){
+.postsItem:nth-child(odd) {
   align-self: end;
   background-color: burlywood;
-
 }
-.postsItem:nth-child(odd) .postsItemImg{
+.postsItem:nth-child(odd) .postsItemImg {
   background: url("https://www.purina.ru/sites/default/files/2022-10/1140_shutterstock_1517123654.jpg");
   object-fit: cover;
   background-size: cover;
   background-position: center;
 }
-.postsItem:nth-child(even) .postsItemImg{
+.postsItem:nth-child(even) .postsItemImg {
   background: url("https://avatars.mds.yandex.net/get-shedevrum/12368819/video_preview_35a18d4cfe6511eeab15b2af142faf58_2/orig");
   object-fit: cover;
   background-size: cover;
   background-position: center;
 }
 
-.postsItemImg{
+.postsItemImg {
   width: 50px;
   height: 50px;
   border-radius: 50%;

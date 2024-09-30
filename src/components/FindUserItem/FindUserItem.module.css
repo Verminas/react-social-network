@@ -1,47 +1,47 @@
-.wrapper{
-    display: flex;
-    gap: 15px;
-    color: dimgrey;
-    font-size: 24px;
-    margin-bottom: 15px;
-    padding: 10px 15px;
+.wrapper {
+  display: flex;
+  gap: 15px;
+  color: dimgrey;
+  font-size: 24px;
+  margin-bottom: 15px;
+  padding: 10px 15px;
 
-    min-width: 150px;
+  min-width: 150px;
 }
 
-.avatarBtn{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    min-width: 70px;
+.avatarBtn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  min-width: 70px;
 }
 
-.userInfo{
-    display: flex;
-    gap: 5px;
-    padding: 5px;
+.userInfo {
+  display: flex;
+  gap: 5px;
+  padding: 5px;
 
-    border: 2px solid dimgrey;
-    border-radius: 5px;
-    width: 100%;
+  border: 2px solid dimgrey;
+  border-radius: 5px;
+  width: 100%;
 }
 
-.nameStatus{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.nameStatus {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
-    width: 80%;
+  width: 80%;
 }
 
-.address{
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+.address {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-.status{
-    font-size: 18px;
+.status {
+  font-size: 18px;
 }

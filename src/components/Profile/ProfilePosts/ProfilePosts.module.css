@@ -1,27 +1,27 @@
-.myPost{
+.myPost {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.myPostTitle{
+.myPostTitle {
   grid-area: title;
 }
-.myPostTextarea{
+.myPostTextarea {
   margin: 0 auto;
   width: 80%;
   min-height: 50px;
   grid-area: textarea;
 }
-.myPostButton{
+.myPostButton {
   grid-area: button;
 }
 
-.posts{
+.posts {
   grid-area: posts;
   display: grid;
   grid-gap: 30px;
 }
-.postsItems{
+.postsItems {
   display: flex;
   flex-direction: column;
 }

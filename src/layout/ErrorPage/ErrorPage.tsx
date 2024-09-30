@@ -1,10 +1,8 @@
 // @flow
-import * as React from 'react';
-import s from './ErrorPage.module.css'
+import * as React from "react";
+import s from "./ErrorPage.module.css";
 
-type Props = {
-
-};
+type Props = {};
 export const ErrorPage = (props: Props) => {
   return (
     <div className={s.error}>
@@ -12,4 +10,3 @@ export const ErrorPage = (props: Props) => {
     </div>
   );
 };
-
