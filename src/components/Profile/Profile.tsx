@@ -2,27 +2,24 @@ import React from "react";
 import s from "./Profile.module.css";
 import { ProfileContent } from "./ProfileContent/ProfileContent";
 import { BackImg } from "../BackImg/BackImg";
-import { MessageType } from "../../redux/stateData";
-import { GetUserProfileResponseType, socialAPI } from "../../api/socialAPI";
+import { useSelector } from "react-redux";
+import { selectUser } from "app/reducers/usersSlice";
+import { MessageType } from "redux/stateData";
 
 export type ProfilePagePropsType = {
-  posts: MessageType[];
-  addNewPost: (message: string) => void;
-  user: GetUserProfileResponseType;
   isAuthUser: boolean;
 };
 
-export const Profile = ({
-  addNewPost,
-  posts,
-  user,
-  isAuthUser,
-}: ProfilePagePropsType) => {
+export const Profile = ({ isAuthUser }: ProfilePagePropsType) => {
+  const viewedUser = useSelector(selectUser);
+
+  const posts: MessageType[] = [];
+  const addNewPost = () => {};
+
   return (
     <section className={s.profile}>
-      <BackImg src={user.photos?.large || null} />
+      <BackImg src={viewedUser.photos?.large || null} />
       <ProfileContent
-        user={user}
         posts={posts}
         addNewPost={addNewPost}
         isAuthUser={isAuthUser}

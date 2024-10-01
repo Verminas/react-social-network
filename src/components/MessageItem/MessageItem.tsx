@@ -1,6 +1,7 @@
 import s from "./MessageItem.module.css";
 import React from "react";
-import { Avatar } from "../Avatar/Avatar";
+import { UserOutlined } from "@ant-design/icons";
+import { Avatar } from "antd";
 
 type MessageItemProps = {
   message: string;
@@ -22,7 +23,12 @@ export const MessageItem = ({
   return (
     <div className={finalClassMessageItem} id={id}>
       <div className={s.avatarName}>
-        <Avatar src={avatarSrc} />
+        <Avatar
+          size={128}
+          icon={<UserOutlined />}
+          src={avatarSrc || null}
+          alt={"profile-photo"}
+        />
         <span className={s.name}>{name}</span>
       </div>
       <p className={s.messageText}>{message}</p>

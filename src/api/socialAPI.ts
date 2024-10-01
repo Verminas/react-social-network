@@ -30,16 +30,17 @@ export const authAPI = {
 };
 
 export const socialAPI = {
-  getUsers(arg : {page: number, count: number}) {
-    const {page, count} = arg
+  getUsers(arg: {
+    page: number;
+    count: number;
+    term: string;
+    friend: boolean | null;
+  }) {
+    const { page = 1, count = 10, friend = null, term = "" } = arg;
     return instance
-      .get<GetUsersResponseType>(`users?page=${page}&count=${count}`)
-      .then((data) => data.data);
-  },
-
-  searchUsers(term: string) {
-    return instance
-      .get<GetUsersResponseType>(`users?term=${term}`)
+      .get<GetUsersResponseType>(
+        `users?page=${page}&count=${count}&term=${term}&friend=${friend}`,
+      )
       .then((data) => data.data);
   },
 
@@ -69,6 +70,14 @@ export const socialAPI = {
     const payload = { status };
     return instance
       .put<ResponseType>(`profile/status`, payload)
+      .then((data) => data.data);
+  },
+
+  updateUserPhoto(formData: FormData) {
+    return instance
+      .put<ResponseType>(`profile/photo`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
       .then((data) => data.data);
   },
 };

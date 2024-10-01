@@ -1,7 +1,8 @@
 import s from "./DialogLink.module.css";
 import { NavLink } from "react-router-dom";
 import React from "react";
-import { Avatar } from "../Avatar/Avatar";
+import { UserOutlined } from "@ant-design/icons";
+import { Avatar } from "antd";
 
 type DialogItemProps = {
   name: string;
@@ -13,7 +14,12 @@ export const DialogLink = ({ src, id, name }: DialogItemProps) => {
 
   return (
     <li>
-      <Avatar src={src} />
+      <Avatar
+        size={128}
+        icon={<UserOutlined />}
+        src={src || null}
+        alt={"profile-photo"}
+      />
       <NavLink
         to={dialogPath}
         className={({ isActive }) => (isActive ? s.activeLink : "")}

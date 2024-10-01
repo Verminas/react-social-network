@@ -22,7 +22,10 @@ const slice = createAppSlice({
     }>();
 
     return {
-      fetchUsers: createAThunk<FetchUsersType, {page: number, count: number}>(
+      fetchUsers: createAThunk<
+        FetchUsersType,
+        { page: number; count: number; term: string; friend: boolean | null }
+      >(
         async (arg, thunkAPI) => {
           const { rejectWithValue } = thunkAPI;
 
@@ -40,33 +43,14 @@ const slice = createAppSlice({
           },
         },
       ),
-      searchUsers: createAThunk<GetUsersType, string>(
-        async (title, thunkAPI) => {
-          const { rejectWithValue } = thunkAPI;
-
-          const res = await socialAPI.searchUsers(title);
-          if (!res.error) {
-            return { users: res.items };
-          } else {
-            return rejectWithValue(res);
-          }
-        },
-        {
-          fulfilled: (state, action) => {
-            state.users = action.payload.users;
-          },
-        },
-      ),
       getUserProfile: createAThunk<GetUserType, number>(
         async (userId, thunkAPI) => {
-          console.log("1 getUserProfile");
           const res = await socialAPI.getUserProfile(userId);
           return { user: res };
         },
         {
           fulfilled: (state, action) => {
             state.user = action.payload.user;
-            console.log("2 action fulfilled");
           },
         },
       ),
