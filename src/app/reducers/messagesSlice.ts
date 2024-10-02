@@ -69,6 +69,27 @@ const slice = createAppSlice({
           },
         },
       ),
+      deleteMessage: createAThunk<{ id: string }, string>(
+        async (messageId, thunkAPI) => {
+          const { rejectWithValue } = thunkAPI;
+          const res = await socialAPI.deleteMessage(messageId);
+          if (res.resultCode === 0) {
+            return { id: messageId };
+          } else {
+            return rejectWithValue(res);
+          }
+        },
+        {
+          fulfilled: (state, action) => {
+            const index = state.messages.findIndex(
+              (m) => m.id === action.payload.id,
+            );
+            if (index > -1) {
+              state.messages.splice(index, 1);
+            }
+          },
+        },
+      ),
     };
   },
   selectors: {

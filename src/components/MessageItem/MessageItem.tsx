@@ -1,12 +1,13 @@
 import s from "./MessageItem.module.css";
 import React from "react";
-import { UserOutlined } from "@ant-design/icons";
-import { Avatar, Card } from "antd";
+import { DeleteOutlined, UserOutlined, CheckOutlined } from "@ant-design/icons";
+import { Avatar, Button, Card } from "antd";
 import { getLastSeenStatus } from "utils/getLastSeenStatus";
 import { MessageType } from "api/socialAPI";
 
 type MessageItemProps = {
   message: MessageType;
+  onClick: (id: string) => void;
 
   avatarSrc: string | null;
   isMyMessage: boolean;
@@ -15,8 +16,12 @@ export const MessageItem = ({
   message,
   isMyMessage,
   avatarSrc,
+  onClick,
 }: MessageItemProps) => {
-  const { id, senderName, body } = message;
+  const { id, senderName, body, viewed } = message;
+  const onDeleteHandler = () => {
+    onClick(id);
+  };
   return (
     <Card
       style={{
@@ -28,6 +33,7 @@ export const MessageItem = ({
       id={id}
     >
       <Card.Meta
+        style={{ padding: "5px" }}
         avatar={
           <Avatar
             size={50}
@@ -40,7 +46,21 @@ export const MessageItem = ({
         description={
           <>
             <p>{body}</p>
-            <p></p>
+            <Button
+              type="text"
+              icon={<DeleteOutlined />}
+              onClick={onDeleteHandler}
+              style={{ position: "absolute", top: "10px", right: "10px" }}
+            ></Button>
+
+            <CheckOutlined
+              style={{
+                position: "absolute",
+                bottom: "10px",
+                right: "15px",
+                color: viewed ? "blue" : "",
+              }}
+            />
           </>
         }
       />

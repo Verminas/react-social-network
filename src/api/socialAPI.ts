@@ -125,6 +125,11 @@ export const socialAPI = {
       >(`dialogs/${userId}/messages`, payload)
       .then((data) => data.data);
   },
+  deleteMessage(messageId: string) {
+    return instance
+      .delete<BaseResponseType>(`dialogs/messages/${messageId}`)
+      .then((data) => data.data);
+  },
 };
 
 export type SendMessageRequestType = { userId: number; message: string };
