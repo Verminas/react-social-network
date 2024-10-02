@@ -45,20 +45,20 @@ type PostItemsPropsType = {
 };
 
 const PostItems = ({ postItemsData, userID }: PostItemsPropsType) => {
-  const postItemsElements = postItemsData.map((i) => (
-    <MessageItem
-      message={i.message}
-      key={i.messageID}
-      id={i.messageID}
-      name={i.name}
-      avatarSrc={i.avatarSrc}
-      isMyMessage={i.userID === userID}
-    />
-  ));
+  // const postItemsElements = postItemsData.map((i) => (
+  //   <MessageItem
+  //     message={i.message}
+  //     key={i.messageID}
+  //     id={i.messageID}
+  //     name={i.name}
+  //     avatarSrc={i.avatarSrc}
+  //     isMyMessage={i.userID === userID}
+  //   />
+  // ));
 
   return (
     <div className={s.postsItems}>
-      {postItemsData.length > 0 ? postItemsElements : <div></div>}
+      {postItemsData.length > 0 ? <span>nothing</span> : <div></div>}
     </div>
   );
 };

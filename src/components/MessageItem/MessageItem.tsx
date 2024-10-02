@@ -1,37 +1,49 @@
 import s from "./MessageItem.module.css";
 import React from "react";
 import { UserOutlined } from "@ant-design/icons";
-import { Avatar } from "antd";
+import { Avatar, Card } from "antd";
+import { getLastSeenStatus } from "utils/getLastSeenStatus";
+import { MessageType } from "api/socialAPI";
 
 type MessageItemProps = {
-  message: string;
-  id: string;
-  avatarSrc: string;
-  name: string;
+  message: MessageType;
+
+  avatarSrc: string | null;
   isMyMessage: boolean;
 };
 export const MessageItem = ({
   message,
-  id,
-  name,
-  avatarSrc,
   isMyMessage,
+  avatarSrc,
 }: MessageItemProps) => {
-  const finalClassMessageItem =
-    s.messageItem + " " + (isMyMessage ? s.myMessage : "");
-
+  const { id, senderName, body } = message;
   return (
-    <div className={finalClassMessageItem} id={id}>
-      <div className={s.avatarName}>
-        <Avatar
-          size={128}
-          icon={<UserOutlined />}
-          src={avatarSrc || null}
-          alt={"profile-photo"}
-        />
-        <span className={s.name}>{name}</span>
-      </div>
-      <p className={s.messageText}>{message}</p>
-    </div>
+    <Card
+      style={{
+        minWidth: 300,
+        maxWidth: 400,
+        alignSelf: isMyMessage ? "flex-end" : "flex-start",
+        marginBottom: "10px",
+      }}
+      id={id}
+    >
+      <Card.Meta
+        avatar={
+          <Avatar
+            size={50}
+            icon={<UserOutlined />}
+            src={avatarSrc || null}
+            alt={"profile-photo"}
+          />
+        }
+        title={senderName}
+        description={
+          <>
+            <p>{body}</p>
+            <p></p>
+          </>
+        }
+      />
+    </Card>
   );
 };

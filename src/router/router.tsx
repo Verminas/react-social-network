@@ -1,17 +1,16 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import App from "../app/App";
-import { stateData } from "../redux/stateData";
 import React from "react";
-import { Login } from "../features/Login/Login";
-import { SocialNetwork } from "../features/SocialNetwork/SocialNetwork";
-import { ErrorPage } from "../layout/ErrorPage/ErrorPage";
-import { Profile } from "../components/Profile/Profile";
-import { UserProfile } from "../components/UserProfile/UserProfile";
-import { FindUsers } from "../layout/FindUsers/FindUsers";
-import { Dialogs } from "../layout/Dialogs/Dialogs";
-import { News } from "../layout/News/News";
-import { Music } from "../layout/Music/Music";
-import { Settings } from "../layout/Settings/Settings";
+import { Login } from "features/Login/Login";
+import { SocialNetwork } from "features/SocialNetwork/SocialNetwork";
+import { ErrorPage } from "layout/ErrorPage/ErrorPage";
+import { UserProfile } from "components/UserProfile/UserProfile";
+import { FindUsers } from "layout/FindUsers/FindUsers";
+import { Dialogs } from "layout/Dialogs/Dialogs";
+import { News } from "layout/News/News";
+import { Music } from "layout/Music/Music";
+import { Settings } from "layout/Settings/Settings";
+import { UserDialog } from "components/UserDialog/UserDialog";
 
 export const PATH = {
   COMMON: "/",
@@ -42,7 +41,11 @@ const socialNetworkRoutes = [
   },
   {
     path: PATH.DIALOGS,
-    element: <Dialogs dialogs={stateData.dialogsData} userID={1} />,
+    element: <Dialogs />,
+  },
+  {
+    path: PATH.DIALOG_USER,
+    element: <UserDialog />,
   },
   {
     path: PATH.NEWS,

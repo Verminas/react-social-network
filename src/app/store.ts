@@ -7,6 +7,8 @@ import { appSlice } from "./reducers/appSlice";
 import { userStatusReducer } from "./reducers/userStatusSlice";
 import { configureStore } from "@reduxjs/toolkit";
 import { authSlice } from "./reducers/authSlice";
+import { dialogsReducer } from "app/reducers/dialogsSlice";
+import { messagesReducer } from "app/reducers/messagesSlice";
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +17,8 @@ export const store = configureStore({
     app: appSlice,
     auth: authSlice,
     userStatus: userStatusReducer,
+    dialogs: dialogsReducer,
+    messages: messagesReducer,
   },
 });
 

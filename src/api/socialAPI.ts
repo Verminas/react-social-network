@@ -9,6 +9,8 @@ const instance = axios.create({
   },
 });
 
+// authorization
+
 export const authAPI = {
   authMe() {
     return instance
@@ -18,18 +20,21 @@ export const authAPI = {
 
   logIn(payload: UserLogInRequestType) {
     return instance
-      .post<ResponseType<UserLogInGenericType>>(`auth/login`, payload)
+      .post<BaseResponseType<UserLogInGenericType>>(`auth/login`, payload)
       .then((data) => data.data);
   },
 
   logOut() {
     return instance
-      .delete<ResponseType>(`auth/login`)
+      .delete<BaseResponseType>(`auth/login`)
       .then((data) => data.data);
   },
 };
 
+// social
+
 export const socialAPI = {
+  // users
   getUsers(arg: {
     page: number;
     count: number;
@@ -38,22 +43,27 @@ export const socialAPI = {
   }) {
     const { page = 1, count = 10, friend = null, term = "" } = arg;
     return instance
-      .get<GetUsersResponseType>(
-        `users?page=${page}&count=${count}&term=${term}&friend=${friend}`,
-      )
+      .get<
+        GetResponseType<UserType[]>
+      >(`users?page=${page}&count=${count}&term=${term}&friend=${friend}`)
       .then((data) => data.data);
   },
 
+  // following
+
   followUser(userID: number) {
-    return instance.post<ResponseType>(`follow/${userID}`).then((data) => data);
+    return instance
+      .post<BaseResponseType>(`follow/${userID}`)
+      .then((data) => data);
   },
 
   unfollowUser(userID: number) {
     return instance
-      .delete<ResponseType>(`follow/${userID}`)
+      .delete<BaseResponseType>(`follow/${userID}`)
       .then((data) => data);
   },
 
+  // profile
   getUserProfile(userID: number) {
     return instance
       .get<GetUserProfileResponseType>(`profile/${userID}`)
@@ -69,22 +79,101 @@ export const socialAPI = {
   updateUserStatus(status: string) {
     const payload = { status };
     return instance
-      .put<ResponseType>(`profile/status`, payload)
+      .put<BaseResponseType>(`profile/status`, payload)
       .then((data) => data.data);
   },
 
   updateUserPhoto(formData: FormData) {
     return instance
-      .put<ResponseType>(`profile/photo`, formData, {
+      .put<BaseResponseType>(`profile/photo`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((data) => data.data);
   },
   updateUserProfile(payload: UpdateUserProfileRequestType) {
     return instance
-      .put<ResponseType>(`profile/`, payload)
+      .put<BaseResponseType>(`profile/`, payload)
       .then((data) => data.data);
   },
+
+  // dialogs
+
+  startUserDialog(userID: number) {
+    return instance
+      .put<BaseResponseType>(`dialogs/${userID}`)
+      .then((data) => data.data);
+  },
+  getDialogs() {
+    return instance
+      .get<GetDialogsResponseType>(`dialogs/`)
+      .then((data) => data.data);
+  },
+  getMessages(params: GetMessagesRequestType) {
+    const { userId, page = 1, count = 10 } = params;
+    return instance
+      .get<
+        GetResponseType<MessageType[]>
+      >(`dialogs/${userId}/messages?page=${page}&count=${count}`)
+      .then((data) => data.data);
+  },
+  sendMessage(params: SendMessageRequestType) {
+    const { userId, message } = params;
+    const payload = { body: message };
+    return instance
+      .post<
+        BaseResponseType<MessageResponseType>
+      >(`dialogs/${userId}/messages`, payload)
+      .then((data) => data.data);
+  },
+};
+
+export type SendMessageRequestType = { userId: number; message: string };
+
+export type MessageResponseType = {
+  message: CommonMessageType;
+};
+
+type CommonMessageType = {
+  addedAt: string;
+  body: string;
+  id: string;
+  recipientId: number;
+  senderId: number;
+  senderName: string;
+  translatedBody: null | string;
+  viewed: boolean;
+
+  deletedByRecipient: boolean;
+  deletedBySender: boolean;
+  distributionId: null | string;
+  isSpam: boolean;
+  recipientName: string;
+};
+
+export type MessageType = Omit<
+  CommonMessageType,
+  | "deletedByRecipient"
+  | "deletedBySender"
+  | "distributionId"
+  | "isSpam"
+  | "recipientName"
+>;
+
+export type GetMessagesRequestType = {
+  userId: number;
+  page?: number;
+  count?: number;
+};
+
+export type GetDialogsResponseType = GetDialogResponseType[];
+export type GetDialogResponseType = {
+  hasNewMessages: boolean;
+  id: number;
+  lastDialogActivityDate: string;
+  lastUserActivityDate: string;
+  newMessagesCount: number;
+  photos: UserPhotosType;
+  userName: string;
 };
 
 type UserLogInGenericType = {
@@ -136,13 +225,13 @@ export type UserProfileContacts = {
   mainLink: string | null;
 };
 
-export type GetUsersResponseType = {
+export type GetResponseType<T = {}> = {
   error: string | null;
   totalCount: number;
-  items: UserType[];
+  items: T;
 };
 
-type ResponseType<D = {}> = {
+export type BaseResponseType<D = {}> = {
   resultCode: number;
   messages: string[];
   data: D;
@@ -158,4 +247,4 @@ type FieldErrorsType = {
   fieldsErrors: string[];
 };
 
-type AuthMeResponseType = ResponseType<AuthMeInfoType> & FieldErrorsType;
+type AuthMeResponseType = BaseResponseType<AuthMeInfoType> & FieldErrorsType;
