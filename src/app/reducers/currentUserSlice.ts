@@ -1,5 +1,13 @@
-import { GetUserProfileResponseType, socialAPI } from "../../api/socialAPI";
-import { asyncThunkCreator, buildCreateSlice } from "@reduxjs/toolkit";
+import {
+  GetUserProfileResponseType,
+  socialAPI,
+  UpdateUserProfileRequestType,
+} from "../../api/socialAPI";
+import {
+  asyncThunkCreator,
+  buildCreateSlice,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import { usersActions } from "app/reducers/usersSlice";
 
 const createAppSlice = buildCreateSlice({
@@ -39,12 +47,31 @@ const slice = createAppSlice({
         const { formData, id } = arg;
         const res = await socialAPI.updateUserPhoto(formData);
         if (res.resultCode === 0) {
-          dispatch(usersActions.getUserProfile(id));
+          dispatch(currentUserActions.getCurrentUserProfile(id));
           return res;
         } else {
           return rejectWithValue(res);
         }
       }),
+      updateCurrentUserProfile: createAThunk<
+        { user: UpdateUserProfileRequestType },
+        UpdateUserProfileRequestType
+      >(
+        async (arg, thunkAPI) => {
+          const { dispatch, rejectWithValue } = thunkAPI;
+          const res = await socialAPI.updateUserProfile(arg);
+          if (res.resultCode === 0) {
+            return { user: arg };
+          } else {
+            return rejectWithValue(res);
+          }
+        },
+        {
+          fulfilled: (state, action) => {
+            state.user = { ...state.user, ...action.payload.user };
+          },
+        },
+      ),
     };
   },
   selectors: {

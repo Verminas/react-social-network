@@ -1,5 +1,5 @@
 import s from "./ProfileContent.module.css";
-import React from "react";
+import React, { useContext } from "react";
 import { ProfilePosts } from "../ProfilePosts/ProfilePosts";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Space } from "antd";
@@ -8,6 +8,8 @@ import { ProfileInfo } from "../ProfileInfo/ProfileInfo";
 import { UploadFile } from "components/UploadFile/UploadFile";
 import { useSelector } from "react-redux";
 import { selectUser } from "app/reducers/usersSlice";
+import { selectCurrentUser } from "app/reducers/currentUserSlice";
+import { UserContext } from "components/UserProfile/UserProfile";
 
 type ProfileContentPropsType = {
   posts: MessageType[];
@@ -20,7 +22,7 @@ export const ProfileContent = ({
   posts,
   isAuthUser,
 }: ProfileContentPropsType) => {
-  const viewedUser = useSelector(selectUser);
+  const user = useContext(UserContext).user;
 
   return (
     <div className={s.content}>
@@ -29,17 +31,17 @@ export const ProfileContent = ({
           <Avatar
             size={200}
             icon={<UserOutlined />}
-            src={viewedUser.photos?.small || null}
+            src={user?.photos?.small || null}
             alt={"profile-photo"}
           />
           {isAuthUser ? <UploadFile /> : ""}
         </div>
-        <ProfileInfo user={viewedUser} />
+        <ProfileInfo user={user} />
       </div>
       <ProfilePosts
         posts={posts}
         addNewPost={addNewPost}
-        userID={viewedUser.userId}
+        userID={user?.userId || 1}
       />
     </div>
   );

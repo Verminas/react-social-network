@@ -80,6 +80,11 @@ export const socialAPI = {
       })
       .then((data) => data.data);
   },
+  updateUserProfile(payload: UpdateUserProfileRequestType) {
+    return instance
+      .put<ResponseType>(`profile/`, payload)
+      .then((data) => data.data);
+  },
 };
 
 type UserLogInGenericType = {
@@ -115,7 +120,12 @@ export type GetUserProfileResponseType = {
   contacts: UserProfileContacts;
 };
 
-type UserProfileContacts = {
+export type UpdateUserProfileRequestType = Omit<
+  GetUserProfileResponseType,
+  "userId" | "photos"
+>;
+
+export type UserProfileContacts = {
   github: string | null;
   vk: string | null;
   facebook: string | null;

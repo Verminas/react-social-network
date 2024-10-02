@@ -28,7 +28,7 @@ const slice = createAppSlice({
       >(
         async (arg, thunkAPI) => {
           const { rejectWithValue } = thunkAPI;
-
+          console.log(arg);
           const res = await socialAPI.getUsers(arg);
           if (!res.error) {
             return { users: res.items, totalCount: res.totalCount };

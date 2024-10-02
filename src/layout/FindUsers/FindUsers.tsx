@@ -31,17 +31,14 @@ export const FindUsers = (props: Props) => {
   };
 
   useEffect(() => {
-    const params = { page: 1, count: 10, term: "", friend: null };
-    setIsLoading(true);
-    dispatch(usersActions.fetchUsers(params)).then(() => setIsLoading(false));
-  }, []);
-
-  useEffect(() => {
     const params = {
       page: Number(searchParams.get("page") || 1),
       count: Number(searchParams.get("count") || 10),
       term: searchParams.get("term") || "",
-      friend: searchParams.get("friend") === "true",
+      friend:
+        !searchParams.get("friend") || searchParams.get("friend") === "null"
+          ? null
+          : searchParams.get("friend") === "true",
     };
     setIsLoading(true);
     dispatch(usersActions.fetchUsers(params)).then(() => setIsLoading(false));
