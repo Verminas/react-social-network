@@ -7,6 +7,7 @@ import {
   SendMessageRequestType,
   socialAPI,
 } from "api/socialAPI";
+import { StatusType } from "app/reducers/appSlice";
 
 const createAppSlice = buildCreateSlice({
   creators: { asyncThunk: asyncThunkCreator },
@@ -15,6 +16,7 @@ const createAppSlice = buildCreateSlice({
 type InitialStateType = {
   totalCount: number;
   messages: MessageType[];
+  status: StatusType;
 };
 
 const slice = createAppSlice({
@@ -22,6 +24,7 @@ const slice = createAppSlice({
   initialState: {
     totalCount: 0,
     messages: [],
+    status: "idle",
   } as InitialStateType,
   reducers: (creators) => {
     const createAThunk = creators.asyncThunk.withTypes<{
@@ -33,7 +36,10 @@ const slice = createAppSlice({
         state.totalCount = 0;
         state.messages = [];
       }),
-      fetchMessages: createAThunk<InitialStateType, GetMessagesRequestType>(
+      fetchMessages: createAThunk<
+        { messages: MessageType[]; totalCount: number },
+        GetMessagesRequestType
+      >(
         async (arg, thunkAPI) => {
           const { rejectWithValue } = thunkAPI;
           const res = await socialAPI.getMessages(arg);
@@ -47,6 +53,13 @@ const slice = createAppSlice({
           fulfilled: (state, action) => {
             state.totalCount = action.payload.totalCount;
             state.messages = action.payload.messages;
+            state.status = "succeeded";
+          },
+          pending: (state, action) => {
+            state.status = "loading";
+          },
+          rejected: (state) => {
+            state.status = "failed";
           },
         },
       ),
@@ -58,6 +71,7 @@ const slice = createAppSlice({
           const { rejectWithValue } = thunkAPI;
           const res = await socialAPI.sendMessage(arg);
           if (res.resultCode === 0) {
+            debugger;
             return res;
           } else {
             return rejectWithValue(res);
@@ -65,7 +79,9 @@ const slice = createAppSlice({
         },
         {
           fulfilled: (state, action) => {
+            debugger;
             state.messages.push(action.payload.data.message);
+            state.totalCount += 1;
           },
         },
       ),
@@ -95,9 +111,11 @@ const slice = createAppSlice({
   selectors: {
     selectMessages: (sliceState) => sliceState.messages,
     selectMessagesCount: (sliceState) => sliceState.totalCount,
+    selectMessagesStatus: (sliceState) => sliceState.status,
   },
 });
 
 export const messagesReducer = slice.reducer;
 export const messagesActions = slice.actions;
-export const { selectMessages, selectMessagesCount } = slice.selectors;
+export const { selectMessages, selectMessagesCount, selectMessagesStatus } =
+  slice.selectors;

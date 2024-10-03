@@ -2,17 +2,19 @@
 import * as React from "react";
 import { MessageSubmitForm } from "components/MessageSubmitForm/MessageSubmitForm";
 import { useParams } from "react-router-dom";
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
   messagesActions,
   selectMessages,
   selectMessagesCount,
+  selectMessagesStatus,
 } from "app/reducers/messagesSlice";
 import { useAppDispatch } from "app/store";
 import { MessageItem } from "components/MessageItem/MessageItem";
 import { selectCurrentUser } from "app/reducers/currentUserSlice";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import Spinner from "components/Spinner/Spinner";
 
 type Props = {};
 export const UserDialog = (props: Props) => {
@@ -22,16 +24,17 @@ export const UserDialog = (props: Props) => {
   const dispatch = useAppDispatch();
   const messagesCount = useSelector(selectMessagesCount);
   const messages = useSelector(selectMessages);
+  const status = useSelector(selectMessagesStatus);
 
-  // todo !!!!
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (params.userId) {
       const userId = Number(params.userId);
       dispatch(messagesActions.fetchMessages({ userId }));
     }
 
-    // todo
-    // return () => dispatch(messagesActions.clearData());
+    return () => {
+      dispatch(messagesActions.clearData());
+    };
   }, [params]);
 
   const onSubmitMessageForm = (message: string) => {
@@ -44,6 +47,11 @@ export const UserDialog = (props: Props) => {
   const onDeleteBtn = (messageId: string) => {
     dispatch(messagesActions.deleteMessage(messageId));
   };
+
+  if (status === "loading") {
+    return <Spinner />;
+  }
+
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <div style={{ display: "flex", flexDirection: "column" }} ref={listRef}>
