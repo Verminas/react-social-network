@@ -1,8 +1,8 @@
 // @flow
 import * as React from "react";
-import { MessageSubmitForm } from "components/MessageSubmitForm/MessageSubmitForm";
+import { SubmitForm } from "components/SubmitForm/SubmitForm";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import {
   messagesActions,
@@ -18,6 +18,7 @@ import Spinner from "components/Spinner/Spinner";
 
 type Props = {};
 export const UserDialog = (props: Props) => {
+  const ref = useRef<HTMLDivElement | null>(null);
   const [listRef] = useAutoAnimate<HTMLUnknownElement>();
   const params = useParams<{ userId: string }>();
   const currentUser = useSelector(selectCurrentUser);
@@ -48,13 +49,53 @@ export const UserDialog = (props: Props) => {
     dispatch(messagesActions.deleteMessage(messageId));
   };
 
+  // для прокрутки сообщений при отправке!
+  useEffect(() => {
+    if (status === "loading") return;
+
+    const target = ref.current;
+
+    if (!target) return;
+
+    const observer = new MutationObserver(() => {
+      const top = target.scrollHeight;
+      target.scroll({ top, behavior: "smooth" });
+    });
+
+    observer.observe(target, { childList: true });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [status]);
+
+  let getRef = useCallback((node: HTMLDivElement) => {
+    listRef(node);
+    ref.current = node;
+  }, []);
+
   if (status === "loading") {
     return <Spinner />;
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <div style={{ display: "flex", flexDirection: "column" }} ref={listRef}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+        justifyContent: "space-between",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          height: "70vh",
+          overflowY: "auto",
+        }}
+        ref={getRef}
+      >
         {messagesCount === 0 ? (
           <span>Send first message :)</span>
         ) : (
@@ -75,8 +116,8 @@ export const UserDialog = (props: Props) => {
           })
         )}
       </div>
-      <MessageSubmitForm
-        onClick={onSubmitMessageForm}
+      <SubmitForm
+        onSubmitForm={onSubmitMessageForm}
         placeholder={"Type your message..."}
       />
     </div>

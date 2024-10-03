@@ -71,7 +71,6 @@ const slice = createAppSlice({
           const { rejectWithValue } = thunkAPI;
           const res = await socialAPI.sendMessage(arg);
           if (res.resultCode === 0) {
-            debugger;
             return res;
           } else {
             return rejectWithValue(res);
@@ -79,7 +78,6 @@ const slice = createAppSlice({
         },
         {
           fulfilled: (state, action) => {
-            debugger;
             state.messages.push(action.payload.data.message);
             state.totalCount += 1;
           },

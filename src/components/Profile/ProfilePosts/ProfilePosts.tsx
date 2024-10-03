@@ -1,7 +1,7 @@
 import s from "./ProfilePosts.module.css";
 import React, { useRef } from "react";
 import { PostItem } from "../ProfilePost/ProfilePost";
-import { MessageSubmitForm } from "../../MessageSubmitForm/MessageSubmitForm";
+import { SubmitForm } from "components/SubmitForm/SubmitForm";
 import { MessageItem } from "../../MessageItem/MessageItem";
 import { MessageType } from "../../../redux/stateData";
 
@@ -31,10 +31,7 @@ const MyPost = ({ addNewPost }: { addNewPost: (message: string) => void }) => {
   return (
     <div className={s.myPost}>
       <h2 className={s.myPostTitle}>My posts</h2>
-      <MessageSubmitForm
-        onClick={onClickHandler}
-        placeholder={"your news..."}
-      />
+      <SubmitForm onSubmitForm={onClickHandler} placeholder={"your news..."} />
     </div>
   );
 };
