@@ -3,7 +3,7 @@ import "./App.css";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "./store";
-import { selectAppIsInitialized, selectAppStatus } from "./reducers/appSlice";
+import { selectAppIsInitialized, selectAppStatus } from "app/appSlice";
 import Spinner from "common/components/Spinner/Spinner";
 import { authActions, selectIsLoggedIn } from "features/Auth/model/authSlice";
 import {

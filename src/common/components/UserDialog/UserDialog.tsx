@@ -9,12 +9,13 @@ import {
   selectMessages,
   selectMessagesCount,
   selectMessagesStatus,
-} from "app/reducers/messagesSlice";
+} from "features/SocialNetwork/model/messagesSlice";
 import { useAppDispatch } from "app/store";
 import { MessageItem } from "common/components/MessageItem/MessageItem";
-import { selectCurrentUser } from "app/reducers/currentUserSlice";
+import { selectCurrentUser } from "features/SocialNetwork/model/currentUserSlice";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import Spinner from "common/components/Spinner/Spinner";
+import { Empty } from "antd";
 
 type Props = {};
 export const UserDialog = (props: Props) => {
@@ -97,7 +98,7 @@ export const UserDialog = (props: Props) => {
         ref={getRef}
       >
         {messagesCount === 0 ? (
-          <span>Send first message :)</span>
+          <Empty description={"There are not messages :("} />
         ) : (
           messages.map((m) => {
             return (

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import {
   currentUserActions,
   selectCurrentUser,
-} from "app/reducers/currentUserSlice";
+} from "features/SocialNetwork/model/currentUserSlice";
 import { useAppDispatch } from "app/store";
 import { Button } from "antd";
 import { UploadOutlined } from "@ant-design/icons";

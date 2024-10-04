@@ -1,8 +1,8 @@
 import {
   BaseResponseType,
-  instance,
   UserLogInRequestType,
-} from "common/instance/socialAPI";
+} from "features/SocialNetwork/api/socialAPI";
+import { instance } from "common/instance/instance";
 
 export const authAPI = {
   authMe() {

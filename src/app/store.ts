@@ -1,14 +1,14 @@
 import { AnyAction } from "redux";
-import { usersSlice } from "./reducers/usersSlice";
+import { usersSlice } from "features/SocialNetwork/model/usersSlice";
 import { ThunkDispatch } from "redux-thunk";
 import { useDispatch } from "react-redux";
-import { currentUserSlice } from "./reducers/currentUserSlice";
-import { appSlice } from "./reducers/appSlice";
-import { userStatusReducer } from "./reducers/userStatusSlice";
+import { currentUserSlice } from "features/SocialNetwork/model/currentUserSlice";
+import { appSlice } from "app/appSlice";
+import { userStatusReducer } from "features/SocialNetwork/model/userStatusSlice";
 import { configureStore } from "@reduxjs/toolkit";
 import { authSlice } from "features/Auth/model/authSlice";
-import { dialogsReducer } from "app/reducers/dialogsSlice";
-import { messagesReducer } from "app/reducers/messagesSlice";
+import { dialogsReducer } from "features/SocialNetwork/model/dialogsSlice";
+import { messagesReducer } from "features/SocialNetwork/model/messagesSlice";
 
 export const store = configureStore({
   reducer: {

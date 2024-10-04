@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import s from "common/components/FindUserItem/FindUserItem.module.css";
-import { UserType } from "common/instance/socialAPI";
+import { UserType } from "features/SocialNetwork/api/socialAPI";
 import { Link, useNavigate } from "react-router-dom";
 import { MouseEvent } from "react";
 import {
@@ -12,7 +12,7 @@ import {
 
 import { Avatar, Card, Button } from "antd";
 import { useAppDispatch } from "app/store";
-import { dialogsActions } from "app/reducers/dialogsSlice";
+import { dialogsActions } from "features/SocialNetwork/model/dialogsSlice";
 import { PATH } from "common/router/router";
 
 type Props = {

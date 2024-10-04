@@ -1,9 +1,7 @@
-import s from "./MessageItem.module.css";
 import React from "react";
 import { DeleteOutlined, UserOutlined, CheckOutlined } from "@ant-design/icons";
 import { Avatar, Button, Card } from "antd";
-import { getLastSeenStatus } from "common/utils/getLastSeenStatus";
-import { MessageType } from "common/instance/socialAPI";
+import { MessageType } from "features/SocialNetwork/api/socialAPI";
 
 type MessageItemProps = {
   message: MessageType;

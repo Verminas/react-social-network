@@ -1,7 +1,7 @@
 import { notification } from "antd";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import { appActions, selectAppError } from "app/reducers/appSlice";
+import { appActions, selectAppError } from "app/appSlice";
 import { useAppDispatch } from "app/store";
 
 export const ErrorSnack = () => {

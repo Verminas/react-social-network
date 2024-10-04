@@ -1,6 +1,6 @@
 import { asyncThunkCreator, buildCreateSlice } from "@reduxjs/toolkit";
-import { UserLogInRequestType } from "common/instance/socialAPI";
-import { currentUserActions } from "app/reducers/currentUserSlice";
+import { UserLogInRequestType } from "features/SocialNetwork/api/socialAPI";
+import { currentUserActions } from "features/SocialNetwork/model/currentUserSlice";
 import { authAPI } from "features/Auth/api/authAPI";
 
 const createAppSlice = buildCreateSlice({

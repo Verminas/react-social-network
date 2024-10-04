@@ -6,7 +6,7 @@ import { Avatar, Badge, Card } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { getLastSeenStatus } from "common/utils/getLastSeenStatus";
 import { Link } from "react-router-dom";
-import { GetDialogResponseType } from "common/instance/socialAPI";
+import { GetDialogResponseType } from "features/SocialNetwork/api/socialAPI";
 
 type Props = {
   dialog: GetDialogResponseType;
