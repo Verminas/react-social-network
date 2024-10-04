@@ -51,7 +51,7 @@ export const UserDialog = (props: Props) => {
 
   // для прокрутки сообщений при отправке!
   useEffect(() => {
-    if (status === "loading") return;
+    // if (status === "loading") return;
 
     const target = ref.current;
 

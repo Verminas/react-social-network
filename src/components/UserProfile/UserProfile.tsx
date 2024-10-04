@@ -25,7 +25,7 @@ export const UserProfile = ({}: Props) => {
 
   useEffect(() => {
     const userId = Number(params.userId);
-    if (userId !== currentUser.userId) {
+    if (userId !== currentUser.userId && !isNaN(userId)) {
       dispatch(usersActions.getUserProfile(userId));
     }
   }, [params]);
