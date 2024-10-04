@@ -6,7 +6,7 @@ import {
   MessageType,
   SendMessageRequestType,
   socialAPI,
-} from "api/socialAPI";
+} from "common/instance/socialAPI";
 import { StatusType } from "app/reducers/appSlice";
 
 const createAppSlice = buildCreateSlice({

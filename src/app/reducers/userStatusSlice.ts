@@ -1,4 +1,4 @@
-import { socialAPI } from "../../api/socialAPI";
+import { socialAPI } from "common/instance/socialAPI";
 import { asyncThunkCreator, buildCreateSlice } from "@reduxjs/toolkit";
 
 const createAppSlice = buildCreateSlice({

@@ -1,5 +1,6 @@
 import { asyncThunkCreator, buildCreateSlice } from "@reduxjs/toolkit";
-import { authAPI, GetDialogsResponseType, socialAPI } from "api/socialAPI";
+import { GetDialogsResponseType, socialAPI } from "common/instance/socialAPI";
+import { authAPI } from "features/Auth/api/authAPI";
 
 const createAppSlice = buildCreateSlice({
   creators: { asyncThunk: asyncThunkCreator },

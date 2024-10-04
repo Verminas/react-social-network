@@ -2,7 +2,7 @@ import {
   GetUserProfileResponseType,
   socialAPI,
   UserType,
-} from "../../api/socialAPI";
+} from "common/instance/socialAPI";
 import { asyncThunkCreator, buildCreateSlice } from "@reduxjs/toolkit";
 
 const createAppSlice = buildCreateSlice({

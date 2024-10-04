@@ -1,9 +1,9 @@
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import React, { useContext, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { PATH } from "router/router";
+import { PATH } from "common/router/router";
 import { selectCurrentUser } from "app/reducers/currentUserSlice";
-import { selectIsLoggedIn } from "app/reducers/authSlice";
+import { selectIsLoggedIn } from "features/Auth/model/authSlice";
 
 import {
   UserOutlined,

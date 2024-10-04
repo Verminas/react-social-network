@@ -3,11 +3,11 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./app/App";
 import reportWebVitals from "./reportWebVitals";
-import { stateData } from "./redux/stateData";
+import { stateData } from "common/redux/stateData";
 import { BrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
-import { router } from "./router/router";
+import { router } from "common/router/router";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,

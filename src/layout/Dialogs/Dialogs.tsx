@@ -1,11 +1,11 @@
 import React from "react";
-import Spinner from "components/Spinner/Spinner";
-import { DialogItem } from "components/DialogItem/DialogItem";
-import { useDialogs } from "hooks/useDialogs";
+import Spinner from "common/components/Spinner/Spinner";
+import { DialogItem } from "common/components/DialogItem/DialogItem";
+import { useDialogs } from "common/hooks/useDialogs";
 import { MessageOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
-import { PATH } from "router/router";
+import { PATH } from "common/router/router";
 
 export const Dialogs = () => {
   const { dialogs } = useDialogs();

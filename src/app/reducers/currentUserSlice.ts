@@ -2,7 +2,7 @@ import {
   GetUserProfileResponseType,
   socialAPI,
   UpdateUserProfileRequestType,
-} from "../../api/socialAPI";
+} from "common/instance/socialAPI";
 import {
   asyncThunkCreator,
   buildCreateSlice,

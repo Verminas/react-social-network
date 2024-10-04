@@ -2,7 +2,7 @@ import React from "react";
 import { notification } from "antd";
 import s from "./Settings.module.css";
 import { Button, Checkbox, Form, Input } from "antd";
-import { authActions } from "app/reducers/authSlice";
+import { authActions } from "features/Auth/model/authSlice";
 import { useAppDispatch } from "app/store";
 import { useSelector } from "react-redux";
 import {
@@ -12,7 +12,7 @@ import {
 import {
   UpdateUserProfileRequestType,
   UserProfileContacts,
-} from "api/socialAPI";
+} from "common/instance/socialAPI";
 const { TextArea } = Input;
 
 export const Settings = () => {

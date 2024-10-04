@@ -6,7 +6,7 @@ import { currentUserSlice } from "./reducers/currentUserSlice";
 import { appSlice } from "./reducers/appSlice";
 import { userStatusReducer } from "./reducers/userStatusSlice";
 import { configureStore } from "@reduxjs/toolkit";
-import { authSlice } from "./reducers/authSlice";
+import { authSlice } from "features/Auth/model/authSlice";
 import { dialogsReducer } from "app/reducers/dialogsSlice";
 import { messagesReducer } from "app/reducers/messagesSlice";
 

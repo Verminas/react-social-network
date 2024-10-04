@@ -1,11 +1,11 @@
 // @flow
 import * as React from "react";
-import { FindUserItem } from "components/FindUserItem/FindUserItem";
+import { FindUserItem } from "common/components/FindUserItem/FindUserItem";
 import s from "./FindUsers.module.css";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "app/store";
 import { useEffect, useState } from "react";
-import { SearchForm } from "components/SearchForm/SearchForm";
+import { SearchForm } from "common/components/SearchForm/SearchForm";
 import {
   selectUsers,
   selectUsersTotalCount,

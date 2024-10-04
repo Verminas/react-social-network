@@ -9,7 +9,7 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { AnyAction } from "redux";
-import { authActions } from "./authSlice";
+import { authActions } from "features/Auth/model/authSlice";
 
 export type StatusType = "idle" | "loading" | "succeeded" | "failed";
 
