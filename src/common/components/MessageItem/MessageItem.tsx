@@ -2,6 +2,7 @@ import React from "react";
 import { DeleteOutlined, UserOutlined, CheckOutlined } from "@ant-design/icons";
 import { Avatar, Button, Card } from "antd";
 import { MessageType } from "features/SocialNetwork/api/socialAPI";
+import { convertUTCToLocalTime } from "common/utils/convertUTCToLocalTime";
 
 type MessageItemProps = {
   message: MessageType;
@@ -16,7 +17,7 @@ export const MessageItem = ({
   avatarSrc,
   onClick,
 }: MessageItemProps) => {
-  const { id, senderName, body, viewed } = message;
+  const { id, senderName, body, viewed, addedAt } = message;
   const onDeleteHandler = () => {
     onClick(id);
   };
@@ -44,6 +45,16 @@ export const MessageItem = ({
         description={
           <>
             <p>{body}</p>
+            <p
+              style={{
+                position: "absolute",
+                bottom: "10px",
+                right: "40px",
+                color: viewed ? "blue" : "",
+              }}
+            >
+              {convertUTCToLocalTime(addedAt)}
+            </p>
             <Button
               type="text"
               icon={<DeleteOutlined />}
@@ -54,7 +65,7 @@ export const MessageItem = ({
             <CheckOutlined
               style={{
                 position: "absolute",
-                bottom: "10px",
+                bottom: "15px",
                 right: "15px",
                 color: viewed ? "blue" : "",
               }}

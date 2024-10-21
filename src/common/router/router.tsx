@@ -10,7 +10,7 @@ import { Dialogs } from "features/SocialNetwork/ui/Layout/Dialogs/Dialogs";
 import { News } from "features/SocialNetwork/ui/Layout/News/News";
 import { Music } from "features/SocialNetwork/ui/Layout/Music/Music";
 import { Settings } from "features/SocialNetwork/ui/Layout/Settings/Settings";
-import { UserDialog } from "common/components/UserDialog/UserDialog";
+import { Messages } from "features/SocialNetwork/ui/Layout/Dialogs/Messages/Messages";
 
 export const PATH = {
   COMMON: "/",
@@ -45,7 +45,7 @@ const socialNetworkRoutes = [
   },
   {
     path: PATH.DIALOG_USER,
-    element: <UserDialog />,
+    element: <Messages />,
   },
   {
     path: PATH.NEWS,

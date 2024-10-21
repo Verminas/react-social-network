@@ -22,6 +22,7 @@ export const SubmitForm = ({ onSubmitForm, placeholder }: Props) => {
 
   const onKeyDownHandler = (e: KeyboardEvent<HTMLFormElement>) => {
     if (e.key === "Enter") {
+      e.preventDefault();
       onSubmit({ text: form.getFieldValue("text") });
       // todo! курсор после отправки должен быть в начале
       console.log(textAreaRef.current);

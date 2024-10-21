@@ -49,7 +49,7 @@ export const useLogin = () => {
     dispatch(authActions.logIn(data))
       .unwrap()
       .catch((err) => {
-        if (err.messages.length) {
+        if (err?.messages?.length) {
           setErrorFields({ email: err.messages[0], password: err.messages[0] });
         }
       });

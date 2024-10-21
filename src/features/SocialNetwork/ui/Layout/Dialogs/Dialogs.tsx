@@ -1,7 +1,7 @@
 import React from "react";
 import Spinner from "common/components/Spinner/Spinner";
 import { DialogItem } from "common/components/DialogItem/DialogItem";
-import { useDialogs } from "common/hooks/useDialogs";
+import { useDialogs } from "features/SocialNetwork/lib/useDialogs";
 import { MessageOutlined } from "@ant-design/icons";
 import { Button, Empty } from "antd";
 import { useNavigate } from "react-router-dom";

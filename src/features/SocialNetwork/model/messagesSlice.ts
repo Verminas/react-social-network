@@ -51,12 +51,16 @@ const slice = createAppSlice({
         },
         {
           fulfilled: (state, action) => {
-            state.totalCount = action.payload.totalCount;
-            state.messages = action.payload.messages;
+            if (action.payload.messages.length) {
+              state.totalCount = action.payload.totalCount;
+              state.messages.unshift(...action.payload.messages);
+            }
             state.status = "succeeded";
           },
           pending: (state, action) => {
-            state.status = "loading";
+            if (action.meta.arg.page === 1) {
+              state.status = "loading";
+            }
           },
           rejected: (state) => {
             state.status = "failed";
