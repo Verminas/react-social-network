@@ -7,13 +7,15 @@ import { UserOutlined } from "@ant-design/icons";
 import { getLastSeenStatus } from "common/utils/getLastSeenStatus";
 import { Link, useNavigate } from "react-router-dom";
 import { GetDialogResponseType } from "features/SocialNetwork/api/socialAPI";
-import { MouseEvent } from "react";
+import { MouseEvent, useContext } from "react";
+import { WindowWidthContext } from "app/App";
 
 type Props = {
   dialog: GetDialogResponseType;
 };
 export const DialogItem = ({ dialog }: Props) => {
   const navigate = useNavigate();
+  const { isTabletWidth } = useContext(WindowWidthContext);
   const onAvatarUserClick = (
     e?: React.MouseEvent<HTMLElement, globalThis.MouseEvent> | undefined,
   ) => {
@@ -44,7 +46,7 @@ export const DialogItem = ({ dialog }: Props) => {
           <Card.Meta
             avatar={
               <Avatar
-                size={86}
+                size={isTabletWidth ? 40 : 86}
                 icon={<UserOutlined />}
                 src={dialog.photos.small || null}
                 alt={"profile-photo"}

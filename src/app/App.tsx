@@ -18,8 +18,12 @@ import { useWindowWidthResize } from "common/hooks/useWindowWidthResize";
 const { Header } = Layout;
 
 export const MenuContext = createContext({ collapsed: false });
+export const WindowWidthContext = createContext({
+  width: 0,
+  isTabletWidth: false,
+});
 
-const DEVICES_WIDTH = {
+export const DEVICES_WIDTH = {
   TABLET: 768,
 };
 
@@ -58,79 +62,94 @@ export function App() {
   }
 
   return (
-    <MenuContext.Provider value={{ collapsed }}>
-      <div
-        style={{ maxWidth: "1280px", margin: "0 auto", overflowX: "hidden" }}
-      >
-        <Layout style={{ minHeight: "100vh" }}>
-          <Header
+    <WindowWidthContext.Provider
+      value={{
+        width: windowWidth,
+        isTabletWidth: windowWidth <= DEVICES_WIDTH.TABLET,
+      }}
+    >
+      <MenuContext.Provider value={{ collapsed }}>
+        <div style={{ backgroundColor: "#f5f5f5" }}>
+          <div
             style={{
-              padding: 0,
-              background: colorBgContainer,
-              display: "flex",
-              justifyContent:
-                windowWidth > DEVICES_WIDTH.TABLET
-                  ? "space-between"
-                  : "flex-end",
-              position: "relative",
+              maxWidth: "1280px",
+              margin: "0 auto",
+              overflowX: "hidden",
             }}
           >
-            {windowWidth > DEVICES_WIDTH.TABLET ? (
-              <Button
-                type="text"
-                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                onClick={() => setCollapsed(!collapsed)}
+            <Layout style={{ minHeight: "100vh" }}>
+              <Header
                 style={{
-                  fontSize: "16px",
-                  width: 64,
-                  height: 64,
-                }}
-              />
-            ) : (
-              ""
-            )}
-
-            {isLoggedIn ? (
-              <Button
-                type="text"
-                icon={<LogoutOutlined />}
-                onClick={logOutHandler}
-                style={{
-                  fontSize: "16px",
-                  height: 64,
+                  padding: 0,
+                  background: colorBgContainer,
+                  display: "flex",
+                  justifyContent:
+                    windowWidth > DEVICES_WIDTH.TABLET
+                      ? "space-between"
+                      : "flex-end",
+                  position: "relative",
                 }}
               >
-                Log out
-              </Button>
-            ) : (
-              ""
-            )}
+                {windowWidth > DEVICES_WIDTH.TABLET ? (
+                  <Button
+                    type="text"
+                    icon={
+                      collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
+                    }
+                    onClick={() => setCollapsed(!collapsed)}
+                    style={{
+                      fontSize: "16px",
+                      width: 64,
+                      height: 64,
+                    }}
+                  />
+                ) : (
+                  ""
+                )}
 
-            {status === "loading" && (
-              <Progress
-                percent={100}
-                showInfo={false}
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  right: 0,
-                  width: "100%",
-                  lineHeight: 0,
-                }}
-                strokeLinecap={"square"}
-                size={"small"}
-                status="active"
-                strokeColor={"rgba(22,119,255,0.5)"}
-              />
-            )}
-          </Header>
+                {isLoggedIn ? (
+                  <Button
+                    type="text"
+                    icon={<LogoutOutlined />}
+                    onClick={logOutHandler}
+                    style={{
+                      fontSize: "16px",
+                      height: 64,
+                    }}
+                  >
+                    Log out
+                  </Button>
+                ) : (
+                  ""
+                )}
 
-          <ErrorSnack />
+                {status === "loading" && (
+                  <Progress
+                    percent={100}
+                    showInfo={false}
+                    style={{
+                      position: "absolute",
+                      bottom: 0,
+                      right: 0,
+                      width: "100%",
+                      lineHeight: 0,
+                    }}
+                    strokeLinecap={"square"}
+                    size={"small"}
+                    status="active"
+                    strokeColor={"rgba(22,119,255,0.5)"}
+                  />
+                )}
+              </Header>
 
-          <Outlet />
-        </Layout>
-      </div>
-    </MenuContext.Provider>
+              <ErrorSnack />
+
+              <Outlet />
+            </Layout>
+          </div>
+        </div>
+      </MenuContext.Provider>
+    </WindowWidthContext.Provider>
   );
 }
 

@@ -18,7 +18,7 @@ export const Posts = () => {
           placeholder={"your news..."}
         />
       </div>
-      <div className={s.postsItems}></div>;
+      <div className={s.postsItems}></div>
     </div>
   );
 };

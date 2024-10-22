@@ -7,14 +7,26 @@ import { Info } from "features/SocialNetwork/ui/Layout/Profile/Content/Info/Info
 import { useContext } from "react";
 import { UserContext } from "features/SocialNetwork/ui/Layout/Profile/Profile";
 import { TypeMessageButton } from "common/components/TypeMessageButton/TypeMessageButton";
+import { WindowWidthContext } from "app/App";
 
 type Props = {};
 export const Content = (props: Props) => {
   const { user, isAuthUser } = useContext(UserContext);
+  const { isTabletWidth } = useContext(WindowWidthContext);
+
+  const wrapperDesktopStyles = {
+    display: "flex",
+    gap: "15px",
+    justifyContent: "space-evenly",
+  } as const;
+  const wrapperTabletStyles = {
+    display: "flex",
+    flexDirection: "column",
+    gap: "15px",
+    justifyContent: "space-evenly",
+  } as const;
   return (
-    <div
-      style={{ display: "flex", gap: "15px", justifyContent: "space-evenly" }}
-    >
+    <div style={isTabletWidth ? wrapperTabletStyles : wrapperDesktopStyles}>
       <div
         style={{
           display: "flex",
