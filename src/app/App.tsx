@@ -13,10 +13,15 @@ import {
 } from "@ant-design/icons";
 import { Button, Layout, theme, Progress } from "antd";
 import { ErrorSnack } from "common/components/ErrorSnack/ErrorSnack";
+import { useWindowWidthResize } from "common/hooks/useWindowWidthResize";
 
 const { Header } = Layout;
 
 export const MenuContext = createContext({ collapsed: false });
+
+const DEVICES_WIDTH = {
+  TABLET: 768,
+};
 
 export function App() {
   const dispatch = useAppDispatch();
@@ -24,12 +29,21 @@ export function App() {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const status = useSelector(selectAppStatus);
 
+  const changeCollapsedWithWidth = () => {
+    if (windowWidth <= DEVICES_WIDTH.TABLET) {
+      setCollapsed(true);
+    } else {
+      setCollapsed(false);
+    }
+  };
+
+  const { windowWidth } = useWindowWidthResize(changeCollapsedWithWidth);
+
   useEffect(() => {
     dispatch(authActions.initializeApp());
   }, []);
 
   // antd
-
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -45,66 +59,77 @@ export function App() {
 
   return (
     <MenuContext.Provider value={{ collapsed }}>
-      <Layout style={{ minHeight: "100vh" }}>
-        <Header
-          style={{
-            padding: 0,
-            background: colorBgContainer,
-            display: "flex",
-            justifyContent: "space-between",
-            position: "relative",
-          }}
-        >
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
+      <div
+        style={{ maxWidth: "1280px", margin: "0 auto", overflowX: "hidden" }}
+      >
+        <Layout style={{ minHeight: "100vh" }}>
+          <Header
             style={{
-              fontSize: "16px",
-              width: 64,
-              height: 64,
+              padding: 0,
+              background: colorBgContainer,
+              display: "flex",
+              justifyContent:
+                windowWidth > DEVICES_WIDTH.TABLET
+                  ? "space-between"
+                  : "flex-end",
+              position: "relative",
             }}
-          />
+          >
+            {windowWidth > DEVICES_WIDTH.TABLET ? (
+              <Button
+                type="text"
+                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={() => setCollapsed(!collapsed)}
+                style={{
+                  fontSize: "16px",
+                  width: 64,
+                  height: 64,
+                }}
+              />
+            ) : (
+              ""
+            )}
 
-          {isLoggedIn ? (
-            <Button
-              type="text"
-              icon={<LogoutOutlined />}
-              onClick={logOutHandler}
-              style={{
-                fontSize: "16px",
-                height: 64,
-              }}
-            >
-              Log out
-            </Button>
-          ) : (
-            ""
-          )}
+            {isLoggedIn ? (
+              <Button
+                type="text"
+                icon={<LogoutOutlined />}
+                onClick={logOutHandler}
+                style={{
+                  fontSize: "16px",
+                  height: 64,
+                }}
+              >
+                Log out
+              </Button>
+            ) : (
+              ""
+            )}
 
-          {status === "loading" && (
-            <Progress
-              percent={100}
-              showInfo={false}
-              style={{
-                position: "absolute",
-                bottom: 0,
-                right: 0,
-                width: "100%",
-                lineHeight: 0,
-              }}
-              strokeLinecap={"square"}
-              size={"small"}
-              status="active"
-              strokeColor={"rgba(22,119,255,0.5)"}
-            />
-          )}
-        </Header>
+            {status === "loading" && (
+              <Progress
+                percent={100}
+                showInfo={false}
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  right: 0,
+                  width: "100%",
+                  lineHeight: 0,
+                }}
+                strokeLinecap={"square"}
+                size={"small"}
+                status="active"
+                strokeColor={"rgba(22,119,255,0.5)"}
+              />
+            )}
+          </Header>
 
-        <ErrorSnack />
+          <ErrorSnack />
 
-        <Outlet />
-      </Layout>
+          <Outlet />
+        </Layout>
+      </div>
     </MenuContext.Provider>
   );
 }
