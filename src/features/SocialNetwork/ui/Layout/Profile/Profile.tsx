@@ -5,7 +5,7 @@ import { GetUserProfileResponseType } from "features/SocialNetwork/api/socialAPI
 import Spinner from "common/components/Spinner/Spinner";
 import { Posts } from "features/SocialNetwork/ui/Layout/Profile/Posts/Posts";
 import { Content } from "features/SocialNetwork/ui/Layout/Profile/Content/Content";
-import { useUserProfile } from "features/SocialNetwork/ui/Layout/Profile/lib/useUserProfile";
+import { useUserProfile } from "features/SocialNetwork/lib/useUserProfile";
 
 export const UserContext = createContext<{
   user: GetUserProfileResponseType | any;

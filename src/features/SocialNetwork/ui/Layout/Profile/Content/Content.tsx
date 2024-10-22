@@ -6,6 +6,7 @@ import { UploadFile } from "common/components/UploadFile/UploadFile";
 import { Info } from "features/SocialNetwork/ui/Layout/Profile/Content/Info/Info";
 import { useContext } from "react";
 import { UserContext } from "features/SocialNetwork/ui/Layout/Profile/Profile";
+import { TypeMessageButton } from "common/components/TypeMessageButton/TypeMessageButton";
 
 type Props = {};
 export const Content = (props: Props) => {
@@ -26,7 +27,11 @@ export const Content = (props: Props) => {
           src={user?.photos?.small || null}
           alt={"profile-photo"}
         />
-        {isAuthUser ? <UploadFile /> : ""}
+        {isAuthUser ? (
+          <UploadFile />
+        ) : (
+          <TypeMessageButton userId={user.userId} />
+        )}
       </div>
       <Info />
     </div>

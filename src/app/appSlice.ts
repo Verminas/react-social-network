@@ -61,7 +61,6 @@ const slice = createAppSlice({
       .addMatcher(isRejected, (state, action: AnyAction) => {
         state.status = "failed";
 
-        console.log(action);
         if (action.payload) {
           if (action.type === authActions.initializeApp.rejected.type) return;
           if (action.type === authActions.logIn.rejected.type) return;

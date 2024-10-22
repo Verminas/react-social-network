@@ -5,13 +5,22 @@ import { PATH } from "common/router/router";
 import { Avatar, Badge, Card } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { getLastSeenStatus } from "common/utils/getLastSeenStatus";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GetDialogResponseType } from "features/SocialNetwork/api/socialAPI";
+import { MouseEvent } from "react";
 
 type Props = {
   dialog: GetDialogResponseType;
 };
 export const DialogItem = ({ dialog }: Props) => {
+  const navigate = useNavigate();
+  const onAvatarUserClick = (
+    e?: React.MouseEvent<HTMLElement, globalThis.MouseEvent> | undefined,
+  ) => {
+    e?.preventDefault();
+    navigate(`${PATH.PROFILE}/${dialog.id}`);
+  };
+
   return (
     <Link
       className={s.wrapper}
@@ -34,14 +43,13 @@ export const DialogItem = ({ dialog }: Props) => {
         >
           <Card.Meta
             avatar={
-              <Link key={dialog.id} to={`${PATH.PROFILE}/${dialog.id}`}>
-                <Avatar
-                  size={86}
-                  icon={<UserOutlined />}
-                  src={dialog.photos.small || null}
-                  alt={"profile-photo"}
-                />
-              </Link>
+              <Avatar
+                size={86}
+                icon={<UserOutlined />}
+                src={dialog.photos.small || null}
+                alt={"profile-photo"}
+                onClick={onAvatarUserClick}
+              />
             }
             title={dialog.userName}
             description={

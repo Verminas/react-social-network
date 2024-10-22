@@ -3,6 +3,8 @@ import { DeleteOutlined, UserOutlined, CheckOutlined } from "@ant-design/icons";
 import { Avatar, Button, Card } from "antd";
 import { MessageType } from "features/SocialNetwork/api/socialAPI";
 import { convertUTCToLocalTime } from "common/utils/convertUTCToLocalTime";
+import { Link } from "react-router-dom";
+import { PATH } from "common/router/router";
 
 type MessageItemProps = {
   message: MessageType;
@@ -17,7 +19,7 @@ export const MessageItem = ({
   avatarSrc,
   onClick,
 }: MessageItemProps) => {
-  const { id, senderName, body, viewed, addedAt } = message;
+  const { id, senderName, body, viewed, addedAt, senderId } = message;
   const onDeleteHandler = () => {
     onClick(id);
   };
@@ -34,12 +36,14 @@ export const MessageItem = ({
       <Card.Meta
         style={{ padding: "5px" }}
         avatar={
-          <Avatar
-            size={50}
-            icon={<UserOutlined />}
-            src={avatarSrc || null}
-            alt={"profile-photo"}
-          />
+          <Link to={`${PATH.PROFILE}/${senderId}`}>
+            <Avatar
+              size={50}
+              icon={<UserOutlined />}
+              src={avatarSrc || null}
+              alt={"profile-photo"}
+            />
+          </Link>
         }
         title={senderName}
         description={
@@ -50,7 +54,6 @@ export const MessageItem = ({
                 position: "absolute",
                 bottom: "10px",
                 right: "40px",
-                color: viewed ? "blue" : "",
               }}
             >
               {convertUTCToLocalTime(addedAt)}

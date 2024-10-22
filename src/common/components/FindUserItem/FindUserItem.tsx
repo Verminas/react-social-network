@@ -14,6 +14,7 @@ import { Avatar, Card, Button } from "antd";
 import { useAppDispatch } from "app/store";
 import { dialogsActions } from "features/SocialNetwork/model/dialogsSlice";
 import { PATH } from "common/router/router";
+import { TypeMessageButton } from "common/components/TypeMessageButton/TypeMessageButton";
 
 type Props = {
   user: UserType;
@@ -25,23 +26,21 @@ const followText = "Follow";
 const unfollowText = "Unfollow";
 
 export const FindUserItem = ({ user, onClickBtn, loading }: Props) => {
-  const dispatch = useAppDispatch();
-  const navigation = useNavigate();
   const onClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     onClickBtn(user.id);
   };
 
   // example for dialogs
-  const onClickHandlerDialog = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    dispatch(dialogsActions.startDialog(user.id))
-      .unwrap()
-      .then(() => {
-        navigation(`${PATH.DIALOGS}/${user.id}`);
-      })
-      .catch(console.error);
-  };
+  // const onClickHandlerDialog = (e: MouseEvent<HTMLButtonElement>) => {
+  //   e.preventDefault();
+  //   dispatch(dialogsActions.startDialog(user.id))
+  //     .unwrap()
+  //     .then(() => {
+  //       navigation(`${PATH.DIALOGS}/${user.id}`);
+  //     })
+  //     .catch(console.error);
+  // };
 
   return (
     <Link key={user.id} className={s.wrapper} to={`/profile/${user.id}`}>
@@ -73,16 +72,17 @@ export const FindUserItem = ({ user, onClickBtn, loading }: Props) => {
                 {user.followed ? unfollowText : followText}
               </Button>
 
-              {/*example*/}
-              <Button
-                type="primary"
-                icon={<MessageOutlined />}
-                iconPosition={"end"}
-                onClick={onClickHandlerDialog}
-                style={{ marginTop: "10px", marginLeft: "10px" }}
-              >
-                Type message
-              </Button>
+              <TypeMessageButton userId={user.id} />
+
+              {/*<Button*/}
+              {/*  type="primary"*/}
+              {/*  icon={<MessageOutlined />}*/}
+              {/*  iconPosition={"end"}*/}
+              {/*  onClick={onClickHandlerDialog}*/}
+              {/*  style={{ marginTop: "10px", marginLeft: "10px" }}*/}
+              {/*>*/}
+              {/*  Type message*/}
+              {/*</Button>*/}
             </>
           }
         />
