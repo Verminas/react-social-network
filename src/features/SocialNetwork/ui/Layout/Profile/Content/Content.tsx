@@ -12,7 +12,9 @@ type Props = {};
 export const Content = (props: Props) => {
   const { user, isAuthUser } = useContext(UserContext);
   return (
-    <div style={{ display: "flex", gap: "15px" }}>
+    <div
+      style={{ display: "flex", gap: "15px", justifyContent: "space-evenly" }}
+    >
       <div
         style={{
           display: "flex",
@@ -21,12 +23,34 @@ export const Content = (props: Props) => {
           alignItems: "center",
         }}
       >
-        <Avatar
-          size={200}
-          icon={<UserOutlined />}
-          src={user?.photos?.small || null}
-          alt={"profile-photo"}
-        />
+        <div style={{ position: "relative" }}>
+          <Avatar
+            size={200}
+            icon={<UserOutlined />}
+            src={user?.photos?.small || null}
+            alt={"profile-photo"}
+          />
+          {user.lookingForAJob ? (
+            <div
+              style={{
+                position: "absolute",
+                bottom: "-5px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                backgroundColor: "#1677FF",
+                color: "white",
+                padding: "5px 10px",
+                borderRadius: "20px",
+                fontFamily:
+                  "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
+              }}
+            >
+              #OPENTOWORK
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
         {isAuthUser ? (
           <UploadFile />
         ) : (

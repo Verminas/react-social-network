@@ -26,6 +26,7 @@ export const Info = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (isAuthUser && status) return;
     dispatch(userStatusActions.getUserStatus(userId));
   }, [userId]);
 
