@@ -4,6 +4,7 @@ import { KeyboardEvent, useContext, useRef } from "react";
 import { Form, Button } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { WindowWidthContext } from "app/App";
+import styled from "styled-components";
 
 type Props = {
   onSubmitForm: (value: string) => void;
@@ -38,10 +39,10 @@ export const SubmitForm = ({ onSubmitForm, placeholder }: Props) => {
       form={form}
       style={{
         width: "100%",
+        display: "flex",
         justifyContent: "center",
         alignItems: "flex-start",
         gap: "15px",
-        // marginTop: 20,
       }}
       onFinish={onSubmit}
       onKeyDown={onKeyDownHandler}

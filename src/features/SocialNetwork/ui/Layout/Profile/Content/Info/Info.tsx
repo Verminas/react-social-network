@@ -8,6 +8,7 @@ import {
 } from "features/SocialNetwork/model/userStatusSlice";
 import { UserContext } from "features/SocialNetwork/ui/Layout/Profile/Profile";
 import { ContactItem } from "common/components/ContactItem/ContactItem";
+import { InfoItem } from "common/components/InfoItem/InfoItem";
 
 export const noInformation = "no information";
 
@@ -48,29 +49,28 @@ export const Info = () => {
   return (
     <div>
       <h2>{fullName}</h2>
-      <h3>
-        My status:{" "}
-        {isAuthUser ? (
-          <EditableSpan
-            title={status || noInformation}
-            editItem={changeStatus}
-          />
-        ) : (
-          <span>{status || noInformation}</span>
-        )}
-      </h3>
-      <h3>About me: {aboutMe || noInformation}</h3>
-      <h3>
-        {lookingForAJob ? `Loking for a job: ${lookingForAJobDescription}` : ""}
-      </h3>
-      {contactsInfo.length ? (
-        <>
-          <h3>My contacts</h3>
-          <ul>{contactsInfo}</ul>
-        </>
-      ) : (
-        <h3>My contacts: {noInformation}</h3>
-      )}
+      <InfoItem
+        label={"My status"}
+        item={
+          isAuthUser ? (
+            <EditableSpan
+              title={status || noInformation}
+              editItem={changeStatus}
+            />
+          ) : (
+            status || noInformation
+          )
+        }
+      />
+      <InfoItem label={"About me"} item={aboutMe || noInformation} />
+      <InfoItem
+        label={lookingForAJob ? "Loking for a job" : ""}
+        item={lookingForAJobDescription}
+      />
+      <InfoItem
+        label={"My contacts"}
+        item={contactsInfo.length ? contactsInfo : noInformation}
+      />
     </div>
   );
 };

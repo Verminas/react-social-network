@@ -34,7 +34,6 @@ export const MessageItem = ({
       id={id}
     >
       <Card.Meta
-        style={{ padding: "5px" }}
         avatar={
           <Link to={`${PATH.PROFILE}/${senderId}`}>
             <Avatar
@@ -79,3 +78,5 @@ export const MessageItem = ({
     </Card>
   );
 };
+
+// ant-card-body
