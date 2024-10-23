@@ -5,7 +5,6 @@ import Sider from "antd/es/layout/Sider";
 import { PATH } from "common/router/router";
 import {
   CommentOutlined,
-  CustomerServiceOutlined,
   GlobalOutlined,
   SettingOutlined,
   UsergroupAddOutlined,
@@ -43,11 +42,6 @@ export const Navigation = (props: Props) => {
       title: "News",
       path: PATH.NEWS,
       icon: <GlobalOutlined />,
-    },
-    {
-      title: "Music",
-      path: PATH.MUSIC,
-      icon: <CustomerServiceOutlined />,
     },
     {
       title: "Settings",

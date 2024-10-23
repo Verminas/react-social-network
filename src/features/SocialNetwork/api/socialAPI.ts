@@ -1,4 +1,4 @@
-import { instance } from "common/instance/instance";
+import { instanceSocial } from "common/instances/instanceSocial";
 
 // social
 
@@ -11,7 +11,7 @@ export const socialAPI = {
     friend: boolean | null;
   }) {
     const { page = 1, count = 10, friend = null, term = "" } = arg;
-    return instance
+    return instanceSocial
       .get<
         GetResponseType<UserType[]>
       >(`users?page=${page}&count=${count}&term=${term}&friend=${friend}`)
@@ -21,46 +21,46 @@ export const socialAPI = {
   // following
 
   followUser(userID: number) {
-    return instance
+    return instanceSocial
       .post<BaseResponseType>(`follow/${userID}`)
       .then((data) => data);
   },
 
   unfollowUser(userID: number) {
-    return instance
+    return instanceSocial
       .delete<BaseResponseType>(`follow/${userID}`)
       .then((data) => data);
   },
 
   // profile
   getUserProfile(userID: number) {
-    return instance
+    return instanceSocial
       .get<GetUserProfileResponseType>(`profile/${userID}`)
       .then((data) => data.data);
   },
 
   getUserStatus(userId: number) {
-    return instance
+    return instanceSocial
       .get<string | null>(`profile/status/${userId}`)
       .then((data) => data.data);
   },
 
   updateUserStatus(status: string) {
     const payload = { status };
-    return instance
+    return instanceSocial
       .put<BaseResponseType>(`profile/status`, payload)
       .then((data) => data.data);
   },
 
   updateUserPhoto(formData: FormData) {
-    return instance
+    return instanceSocial
       .put<BaseResponseType>(`profile/photo`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((data) => data.data);
   },
   updateUserProfile(payload: UpdateUserProfileRequestType) {
-    return instance
+    return instanceSocial
       .put<BaseResponseType>(`profile/`, payload)
       .then((data) => data.data);
   },
@@ -68,18 +68,18 @@ export const socialAPI = {
   // dialogs
 
   startUserDialog(userID: number) {
-    return instance
+    return instanceSocial
       .put<BaseResponseType>(`dialogs/${userID}`)
       .then((data) => data.data);
   },
   getDialogs() {
-    return instance
+    return instanceSocial
       .get<GetDialogsResponseType>(`dialogs/`)
       .then((data) => data.data);
   },
   getMessages(params: GetMessagesRequestType) {
     const { userId, page = 1, count = 10 } = params;
-    return instance
+    return instanceSocial
       .get<
         GetResponseType<MessageType[]>
       >(`dialogs/${userId}/messages?page=${page}&count=${count}`)
@@ -88,14 +88,14 @@ export const socialAPI = {
   sendMessage(params: SendMessageRequestType) {
     const { userId, message } = params;
     const payload = { body: message };
-    return instance
+    return instanceSocial
       .post<
         BaseResponseType<MessageResponseType>
       >(`dialogs/${userId}/messages`, payload)
       .then((data) => data.data);
   },
   deleteMessage(messageId: string) {
-    return instance
+    return instanceSocial
       .delete<BaseResponseType>(`dialogs/messages/${messageId}`)
       .then((data) => data.data);
   },

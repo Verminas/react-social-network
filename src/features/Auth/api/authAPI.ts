@@ -2,23 +2,23 @@ import {
   BaseResponseType,
   UserLogInRequestType,
 } from "features/SocialNetwork/api/socialAPI";
-import { instance } from "common/instance/instance";
+import { instanceSocial } from "common/instances/instanceSocial";
 
 export const authAPI = {
   authMe() {
-    return instance
+    return instanceSocial
       .get<AuthMeResponseType>(`auth/me`)
       .then((data) => data.data);
   },
 
   logIn(payload: UserLogInRequestType) {
-    return instance
+    return instanceSocial
       .post<BaseResponseType<UserLogInGenericType>>(`auth/login`, payload)
       .then((data) => data.data);
   },
 
   logOut() {
-    return instance
+    return instanceSocial
       .delete<BaseResponseType>(`auth/login`)
       .then((data) => data.data);
   },

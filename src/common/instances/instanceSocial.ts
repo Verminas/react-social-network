@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const instance = axios.create({
+export const instanceSocial = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
   withCredentials: true,
   headers: {

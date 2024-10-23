@@ -8,7 +8,6 @@ import { Profile } from "features/SocialNetwork/ui/Layout/Profile/Profile";
 import { FindUsers } from "features/SocialNetwork/ui/Layout/FindUsers/FindUsers";
 import { Dialogs } from "features/SocialNetwork/ui/Layout/Dialogs/Dialogs";
 import { News } from "features/SocialNetwork/ui/Layout/News/News";
-import { Music } from "features/SocialNetwork/ui/Layout/Music/Music";
 import { Settings } from "features/SocialNetwork/ui/Layout/Settings/Settings";
 import { Messages } from "features/SocialNetwork/ui/Layout/Dialogs/Messages/Messages";
 
@@ -22,7 +21,6 @@ export const PATH = {
   DIALOGS: "/dialogs",
   DIALOG_USER: "/dialogs/:userId",
   NEWS: "/news",
-  MUSIC: "/music",
   SETTINGS: "/settings",
 };
 
@@ -50,10 +48,6 @@ const socialNetworkRoutes = [
   {
     path: PATH.NEWS,
     element: <News />,
-  },
-  {
-    path: PATH.MUSIC,
-    element: <Music />,
   },
   {
     path: PATH.SETTINGS,
