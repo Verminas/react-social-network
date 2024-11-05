@@ -11,7 +11,7 @@ const StyledCard = styled(Card)<{isNewMessages: boolean}>`
   }
   
   ${props => props.isNewMessages && css`
-            background-color: ${theme.colors.backgroundColorAccent};
+            background-color: ${theme.colors.backgroundColorLight};
         `}
 `
 

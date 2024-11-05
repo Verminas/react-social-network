@@ -2,10 +2,15 @@ export const theme = {
     colors: {
         textMain: "#000000FF",
         textSecondary: "rgba(0, 0, 0, 0.6)",
+        textLight: "rgb(255,252,252)",
 
-        backgroundColorAccent: "rgba(22,119,255,0.5)",
+        backgroundColorLight: "rgba(22,119,255,0.5)",
+        backgroundColor: "rgb(22, 119, 255)",
 
         borderMain: "rgba(0, 0, 0, 0.6)",
+    },
+    transition: {
+        all: "all .4s ease-in-out"
     },
     media: {
         desktop: "screen and (min-width: 1440px)",
@@ -16,4 +21,7 @@ export const theme = {
         tabletTs: 768,
         mobileTs: 576,
     },
+    height: {
+        header: "70px"
+    }
 }

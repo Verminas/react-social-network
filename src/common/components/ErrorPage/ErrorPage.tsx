@@ -1,12 +1,19 @@
-// @flow
-import * as React from "react";
-import s from "common/components/ErrorPage/ErrorPage.module.css";
+import { useNavigate } from "react-router-dom";
+import { PATH } from "common/router/router";
+import { S } from "common/components/ErrorPage/ErrorPage.styles";
 
-type Props = {};
-export const ErrorPage = (props: Props) => {
+
+export const ErrorPage = () => {
+  const navigate = useNavigate();
+
+  const onGoHomePage = () => {
+    navigate(PATH.COMMON)
+  }
+
   return (
-    <div className={s.error}>
-      <span>Error 404. Please try again...</span>
-    </div>
+    <S.Wrapper>
+      <S.Text>404 | Not Found</S.Text>
+      <S.Button onClick={onGoHomePage}>Go to Home Page</S.Button>
+    </S.Wrapper>
   );
 };
