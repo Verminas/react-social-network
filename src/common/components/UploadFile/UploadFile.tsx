@@ -1,49 +1,9 @@
-// @flow
-import * as React from "react";
-import { ChangeEvent, useRef, useState } from "react";
-import { notification } from "antd";
-import { useSelector } from "react-redux";
-import {
-  currentUserActions,
-  selectCurrentUser,
-} from "features/SocialNetwork/model/currentUserSlice";
-import { useAppDispatch } from "app/store";
 import { Button } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
+import { useUploadFile } from "common/hooks/useUploadFile";
 
-type Props = {};
-export const UploadFile = (props: Props) => {
-  const currentUser = useSelector(selectCurrentUser);
-  const dispatch = useAppDispatch();
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length) {
-      const file = e.target.files[0];
-
-      if (!file.type.startsWith("image/")) {
-        notification.warning({ message: "The file should be an image." });
-        return;
-      }
-      if (file.size >= 4000000) {
-        notification.warning({ message: "The file should be up to 4 MB." });
-        return;
-      }
-
-      postAvatar(file);
-    }
-  };
-
-  const postAvatar = (file: File) => {
-    const formData = new FormData();
-    formData.append("myFile", file);
-    const arg = { formData, id: currentUser.userId };
-    setIsLoading(true);
-    dispatch(currentUserActions.updateCurrentUserPhoto(arg))
-      .unwrap()
-      .then(() => setIsLoading(false));
-  };
+export const UploadFile = () => {
+  const { onUploadBtn, uploadHandler, inputRef, isLoading } = useUploadFile();
 
   return (
     <label>
@@ -57,9 +17,7 @@ export const UploadFile = (props: Props) => {
         type="primary"
         icon={<UploadOutlined />}
         iconPosition={"end"}
-        onClick={() => {
-          inputRef.current?.click();
-        }}
+        onClick={onUploadBtn}
         loading={isLoading}
       >
         Update Photo
