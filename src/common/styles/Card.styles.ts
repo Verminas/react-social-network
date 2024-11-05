@@ -2,7 +2,7 @@ import styled, {css} from "styled-components";
 import { Avatar, Badge, Button, Card } from "antd";
 import {theme} from "common/styles/theme";
 
-const StyledCard = styled(Card)<{isNewMessages?: boolean, isMyMessage?: boolean}>`
+const StyledCard = styled(Card)<{isNewMessages?: boolean}>`
     width: 100%;
     max-width: 500px;
 
