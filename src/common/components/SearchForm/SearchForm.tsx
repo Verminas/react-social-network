@@ -1,5 +1,6 @@
-import { Button, Checkbox, Form, Input } from "antd";
+import { Checkbox, Form, Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
+import {S} from "./SearchForm.styles"
 
 type Props = {
   onClickBtn: (arg: { user: string; friend: boolean }) => void;
@@ -8,42 +9,37 @@ type Props = {
 export const SearchForm = ({ onClickBtn }: Props) => {
   const [form] = Form.useForm();
 
-  const onSubmit = (data: { user: string; friend: boolean }) => {
-    // if (data.user?.trim().length) {
+  const onSubmit = (values: unknown) => {
+    const data = values as { user: string; friend: boolean }
     onClickBtn(data);
     form.resetFields();
-    // }
   };
 
   return (
-    <Form
+    <S.StyledForm
       name="basic"
       layout={"inline"}
       form={form}
-      style={{ maxWidth: "none" }}
       onFinish={onSubmit}
     >
-      <Form.Item
-        // rules={[{ min: 1, message: "Type something", required: true }]}
-        name="user"
-      >
+      <S.StyledInput name="user">
         <Input placeholder="Type username" />
-      </Form.Item>
+      </S.StyledInput>
 
       <Form.Item name="friend" valuePropName="checked" initialValue={false}>
         <Checkbox>Find friends</Checkbox>
       </Form.Item>
 
       <Form.Item>
-        <Button
+        <S.StyledButton
           type="primary"
           htmlType="submit"
           icon={<SearchOutlined />}
           iconPosition={"end"}
         >
           Find
-        </Button>
+        </S.StyledButton>
       </Form.Item>
-    </Form>
+    </S.StyledForm>
   );
 };
