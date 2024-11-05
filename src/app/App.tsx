@@ -14,6 +14,7 @@ import {
 import { Button, Layout, theme, Progress } from "antd";
 import { ErrorSnack } from "common/components/ErrorSnack/ErrorSnack";
 import { useWindowWidthResize } from "common/hooks/useWindowWidthResize";
+import logo from "assets/network.webp"
 
 const { Header } = Layout;
 
@@ -83,29 +84,30 @@ export function App() {
                   padding: 0,
                   background: colorBgContainer,
                   display: "flex",
-                  justifyContent:
-                    windowWidth > DEVICES_WIDTH.TABLET
-                      ? "space-between"
-                      : "flex-end",
+                  justifyContent: "space-between",
                   position: "relative",
                 }}
               >
-                {windowWidth > DEVICES_WIDTH.TABLET ? (
-                  <Button
-                    type="text"
-                    icon={
-                      collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
-                    }
-                    onClick={() => setCollapsed(!collapsed)}
-                    style={{
-                      fontSize: "16px",
-                      width: 64,
-                      height: 64,
-                    }}
-                  />
-                ) : (
-                  ""
-                )}
+                <div style={{display: "flex", alignItems: 'center', justifyContent: 'space-evenly', minWidth: 120}}>
+                  <img src={logo} alt="social logo" style={{width: 40, height: 40}}/>
+                  {windowWidth > DEVICES_WIDTH.TABLET && isLoggedIn ? (
+
+                      <Button
+                          type="text"
+                          icon={
+                            collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
+                          }
+                          onClick={() => setCollapsed(!collapsed)}
+                          style={{
+                            fontSize: "16px",
+                            width: 64,
+                            height: 64,
+                          }}
+                      />
+                  ) : (
+                      ""
+                  )}
+                </div>
 
                 {isLoggedIn ? (
                   <Button
