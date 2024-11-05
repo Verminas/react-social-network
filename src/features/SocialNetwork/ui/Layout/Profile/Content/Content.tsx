@@ -39,7 +39,7 @@ export const Content = (props: Props) => {
           <Avatar
             size={200}
             icon={<UserOutlined />}
-            src={user?.photos?.small || null}
+            src={user?.photos.large || null}
             alt={"profile-photo"}
           />
           {user.lookingForAJob ? (
