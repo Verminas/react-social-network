@@ -3,7 +3,9 @@ export const theme = {
         textMain: "#000000FF",
         textSecondary: "rgba(0, 0, 0, 0.6)",
 
-        backgroundColorAccent: "rgba(22,119,255,0.5)"
+        backgroundColorAccent: "rgba(22,119,255,0.5)",
+
+        borderMain: "rgba(0, 0, 0, 0.6)",
     },
     media: {
         desktop: "screen and (min-width: 1440px)",

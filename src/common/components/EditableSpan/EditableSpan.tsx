@@ -1,6 +1,5 @@
-// @flow
-import * as React from "react";
 import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react";
+import {S} from "./EditableSpan.styles"
 
 type Props = {
   title: string;
@@ -36,7 +35,7 @@ export const EditableSpan = ({ title, editItem }: Props) => {
   return (
     <>
       {editMode ? (
-        <input
+        <S.StyledInput
           type="text"
           value={text}
           onBlur={offEditMode}
