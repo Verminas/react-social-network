@@ -51,7 +51,7 @@ export function App() {
   // antd
   const [collapsed, setCollapsed] = useState(false);
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { colorBgContainer },
   } = theme.useToken();
 
   const logOutHandler = () => {

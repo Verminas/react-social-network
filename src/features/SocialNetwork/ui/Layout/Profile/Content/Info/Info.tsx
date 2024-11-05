@@ -9,8 +9,7 @@ import {
 import { UserContext } from "features/SocialNetwork/ui/Layout/Profile/Profile";
 import { ContactItem } from "common/components/ContactItem/ContactItem";
 import { InfoItem } from "common/components/InfoItem/InfoItem";
-
-export const noInformation = "no information";
+import {NO_INFORMATION} from "common/constants/common";
 
 export const Info = () => {
   const { user, isAuthUser } = useContext(UserContext);
@@ -54,22 +53,22 @@ export const Info = () => {
         item={
           isAuthUser ? (
             <EditableSpan
-              title={status || noInformation}
+              title={status || NO_INFORMATION}
               editItem={changeStatus}
             />
           ) : (
-            status || noInformation
+            status || NO_INFORMATION
           )
         }
       />
-      <InfoItem label={"About me"} item={aboutMe || noInformation} />
+      <InfoItem label={"About me"} item={aboutMe || NO_INFORMATION} />
       <InfoItem
         label={lookingForAJob ? "Loking for a job" : ""}
         item={lookingForAJobDescription}
       />
       <InfoItem
         label={"My contacts"}
-        item={contactsInfo.length ? contactsInfo : noInformation}
+        item={contactsInfo.length ? contactsInfo : NO_INFORMATION}
       />
     </div>
   );

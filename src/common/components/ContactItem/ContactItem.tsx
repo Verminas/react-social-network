@@ -1,7 +1,5 @@
-// @flow
-import * as React from "react";
-import { noInformation } from "features/SocialNetwork/ui/Layout/Profile/Content/Info/Info";
-import styled from "styled-components";
+import {S} from "./ContactItem.styles"
+import {NO_INFORMATION} from "common/constants/common";
 
 type Props = {
   title: string;
@@ -9,32 +7,18 @@ type Props = {
 };
 export const ContactItem = ({ href, title }: Props) => {
   return (
-    <Label style={{ textTransform: "capitalize" }}>
+    <S.Label>
       {title}:{" "}
       {href ? (
-        <Link
+        <S.Link
           href={href}
           target={"_blank"}
-          style={{ textTransform: "lowercase" }}
         >
           {href}
-        </Link>
+        </S.Link>
       ) : (
-        noInformation
+          NO_INFORMATION
       )}
-    </Label>
+    </S.Label>
   );
 };
-
-const Label = styled.span`
-  display: block;
-  color: rgba(0, 0, 0, 0.6);
-  line-height: 1.5;
-  font-size: 18px;
-`;
-
-const Link = styled.a`
-  color: black;
-  line-height: 1.5;
-  font-size: 18px;
-`;
