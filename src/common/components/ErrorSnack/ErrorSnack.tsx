@@ -5,7 +5,7 @@ import { appActions, selectAppError } from "app/appSlice";
 import { useAppDispatch } from "app/store";
 
 export const ErrorSnack = () => {
-  const [api, contextHolder] = notification.useNotification();
+  const [_, contextHolder] = notification.useNotification();
   const error = useSelector(selectAppError);
   const dispatch = useAppDispatch();
 
