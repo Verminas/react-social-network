@@ -1,15 +1,11 @@
-// @flow
-import * as React from "react";
-import s from "common/components/FindUserItem/FindUserItem.module.css";
 import { UserType } from "features/SocialNetwork/api/socialAPI";
 import { Link } from "react-router-dom";
-import { MouseEvent, useContext } from "react";
+import { MouseEvent } from "react";
 import { UserAddOutlined, UserOutlined } from "@ant-design/icons";
-
-import { Avatar, Card, Button } from "antd";
 import { TypeMessageButton } from "common/components/TypeMessageButton/TypeMessageButton";
-import { WindowWidthContext } from "app/App";
-import styled from "styled-components";
+import { FOLLOW_TEXT, UNFOLLOW_TEXT, YOU_FOLLOW, YOU_UNFOLLOW } from "common/constants/common";
+import {S} from "./FindUserItem.styles"
+import { PATH } from "common/router/router";
 
 type Props = {
   user: UserType;
@@ -17,66 +13,51 @@ type Props = {
   loading: boolean;
 };
 
-const followText = "Follow";
-const unfollowText = "Unfollow";
-
 export const FindUserItem = ({ user, onClickBtn, loading }: Props) => {
-  const { isTabletWidth } = useContext(WindowWidthContext);
+  const {id, name, photos, followed} = user
 
   const onClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    onClickBtn(user.id);
+    onClickBtn(id);
   };
 
   return (
-    <Link key={user.id} className={s.wrapper} to={`/profile/${user.id}`}>
-      <StyledCard
+    <Link key={user.id} to={`${PATH.PROFILE}/${id}`}>
+      <S.StyledCard
         loading={loading}
-        // style={{ minWidth: isTabletWidth ? 150 : 300 }}
       >
-        <Card.Meta
+        <S.StyledCardMeta
           avatar={
-            <Avatar
-              size={isTabletWidth ? 40 : 86}
+            <S.StyledAvatar
               icon={<UserOutlined />}
-              src={user.photos.small || null}
+              src={photos.small || null}
               alt={"profile-photo"}
             />
           }
-          title={user.name}
+          title={name}
           description={
             <>
               <p>
                 {user.followed
-                  ? `You follow ${user.name}`
-                  : `You unfollow ${user.name}`}
+                  ? `${YOU_FOLLOW} ${name}`
+                  : `${YOU_UNFOLLOW} ${name}`}
               </p>
-              <Button
-                type="primary"
-                icon={<UserAddOutlined />}
-                iconPosition={"end"}
-                onClick={onClickHandler}
-                style={{ marginTop: "10px" }}
-              >
-                {user.followed ? unfollowText : followText}
-              </Button>
+              <S.ButtonsWrapper>
+                <S.StyledButton
+                  type="primary"
+                  icon={<UserAddOutlined />}
+                  iconPosition={"end"}
+                  onClick={onClickHandler}
+                >
+                  {followed ? UNFOLLOW_TEXT : FOLLOW_TEXT}
+                </S.StyledButton>
 
-              <TypeMessageButton userId={user.id} />
+                <TypeMessageButton userId={id} />
+              </S.ButtonsWrapper>
             </>
           }
         />
-      </StyledCard>
+      </S.StyledCard>
     </Link>
   );
 };
-
-const StyledCard = styled(Card)`
-  min-width: 300px;
-
-  @media (max-width: 768px) {
-    min-width: 150px;
-    & div:first-child {
-      padding: 10px;
-    }
-  }
-`;
