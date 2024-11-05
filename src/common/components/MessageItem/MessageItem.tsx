@@ -1,10 +1,10 @@
 import React from "react";
-import { DeleteOutlined, UserOutlined, CheckOutlined } from "@ant-design/icons";
-import { Avatar, Button, Card } from "antd";
+import { DeleteOutlined, UserOutlined } from "@ant-design/icons";
 import { MessageType } from "features/SocialNetwork/api/socialAPI";
 import { convertUTCToLocalTime } from "common/utils/convertUTCToLocalTime";
 import { Link } from "react-router-dom";
 import { PATH } from "common/router/router";
+import { S } from "./MessageItem.styles";
 
 type MessageItemProps = {
   message: MessageType;
@@ -14,30 +14,26 @@ type MessageItemProps = {
   isMyMessage: boolean;
 };
 export const MessageItem = ({
-  message,
-  isMyMessage,
-  avatarSrc,
-  onClick,
-}: MessageItemProps) => {
+                              message,
+                              isMyMessage,
+                              avatarSrc,
+                              onClick
+                            }: MessageItemProps) => {
   const { id, senderName, body, viewed, addedAt, senderId } = message;
+
   const onDeleteHandler = () => {
     onClick(id);
   };
+
   return (
-    <Card
-      style={{
-        minWidth: 300,
-        maxWidth: 400,
-        alignSelf: isMyMessage ? "flex-end" : "flex-start",
-        marginBottom: "10px",
-      }}
+    <S.StyledCard
       id={id}
+      isMyMessage={isMyMessage}
     >
-      <Card.Meta
+      <S.StyledCardMeta
         avatar={
           <Link to={`${PATH.PROFILE}/${senderId}`}>
-            <Avatar
-              size={50}
+            <S.StyledAvatar
               icon={<UserOutlined />}
               src={avatarSrc || null}
               alt={"profile-photo"}
@@ -48,35 +44,18 @@ export const MessageItem = ({
         description={
           <>
             <p>{body}</p>
-            <p
-              style={{
-                position: "absolute",
-                bottom: "10px",
-                right: "40px",
-              }}
-            >
+            <S.Time>
               {convertUTCToLocalTime(addedAt)}
-            </p>
-            <Button
+            </S.Time>
+            <S.StyledButton
               type="text"
               icon={<DeleteOutlined />}
               onClick={onDeleteHandler}
-              style={{ position: "absolute", top: "10px", right: "10px" }}
-            ></Button>
-
-            <CheckOutlined
-              style={{
-                position: "absolute",
-                bottom: "15px",
-                right: "15px",
-                color: viewed ? "blue" : "",
-              }}
             />
+            <S.CheckIcon />
           </>
         }
       />
-    </Card>
+    </S.StyledCard>
   );
 };
-
-// ant-card-body

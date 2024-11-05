@@ -22,7 +22,7 @@ const Button = styled.button`
     height: 60px;
     text-align: center;
     border: none;
-    background-color: ${theme.colors.backgroundColorLight};
+    background-color: ${theme.colors.accentLight};
     color: ${theme.colors.textLight};
     border-radius: 10px;
     padding: 10px 15px;
@@ -32,7 +32,7 @@ const Button = styled.button`
     transition: ${theme.transition.all};
     
     &:hover{
-        background-color: ${theme.colors.backgroundColor};
+        background-color: ${theme.colors.accent};
     }
 `
 

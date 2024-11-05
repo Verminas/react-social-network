@@ -4,8 +4,8 @@ export const theme = {
         textSecondary: "rgba(0, 0, 0, 0.6)",
         textLight: "rgb(255,252,252)",
 
-        backgroundColorLight: "rgba(22,119,255,0.5)",
-        backgroundColor: "rgb(22, 119, 255)",
+        accentLight: "rgba(22,119,255,0.5)",
+        accent: "rgb(22, 119, 255)",
 
         borderMain: "rgba(0, 0, 0, 0.6)",
     },
