@@ -1,13 +1,14 @@
-import React from "react";
 import { Flex, Spin } from "antd";
+import { CSSProperties } from "react";
 
-const contentStyle: React.CSSProperties = {
+const contentStyle: CSSProperties = {
   padding: 50,
-  // background: "rgba(0, 0, 0, 0.05)",
   borderRadius: 4,
 };
 
 const content = <div style={contentStyle} />;
+
+// TODO: change import
 
 const Spinner = () => (
   <Flex gap="middle" vertical>
