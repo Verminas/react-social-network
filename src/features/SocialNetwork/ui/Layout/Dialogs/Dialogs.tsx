@@ -43,5 +43,5 @@ export const Dialogs = () => {
   ) : (
     dialogs.map((dialog) => <DialogItem dialog={dialog} key={dialog.id} />)
   );
-  return <div style={{ margin: "0 auto" }}>{dialogItems}</div>;
+  return <div style={{ margin: "0 auto", display: 'flex', flexDirection: 'column', gap: 10 }}>{dialogItems}</div>;
 };

@@ -1,70 +1,56 @@
-// @flow
-import * as React from "react";
-import s from "common/components/FindUserItem/FindUserItem.module.css";
+import { MouseEvent } from "react";
 import { PATH } from "common/router/router";
-import { Avatar, Badge, Card } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { getLastSeenStatus } from "common/utils/getLastSeenStatus";
 import { Link, useNavigate } from "react-router-dom";
 import { GetDialogResponseType } from "features/SocialNetwork/api/socialAPI";
-import { MouseEvent, useContext } from "react";
-import { WindowWidthContext } from "app/App";
+import { S } from "./DialogItem.styles";
 
 type Props = {
   dialog: GetDialogResponseType;
 };
+
 export const DialogItem = ({ dialog }: Props) => {
+  const {id, photos, lastUserActivityDate, userName, newMessagesCount, hasNewMessages} = dialog
   const navigate = useNavigate();
-  const { isTabletWidth } = useContext(WindowWidthContext);
+
   const onAvatarUserClick = (
-    e?: React.MouseEvent<HTMLElement, globalThis.MouseEvent> | undefined,
+    e?: MouseEvent<HTMLElement, globalThis.MouseEvent> | undefined
   ) => {
     e?.preventDefault();
-    navigate(`${PATH.PROFILE}/${dialog.id}`);
+    navigate(`${PATH.PROFILE}/${id}`);
   };
 
   return (
     <Link
-      className={s.wrapper}
-      to={`${PATH.DIALOGS}/${dialog.id}`}
-      style={{ width: "fit-content" }}
+      to={`${PATH.DIALOGS}/${id}`}
     >
-      <Badge
-        count={dialog.hasNewMessages ? dialog.newMessagesCount : 0}
+      <S.StyledBadge
+        count={hasNewMessages ? newMessagesCount : 0}
         overflowCount={10}
       >
-        <Card
-          style={{
-            minWidth: 200,
-            maxWidth: 600,
-            width: "100%",
-            backgroundColor: dialog.hasNewMessages
-              ? "rgba(22,119,255,0.5)"
-              : "",
-          }}
+        <S.StyledCard
+          isNewMessages={hasNewMessages}
         >
-          <Card.Meta
+          <S.StyledCardMeta
             avatar={
-              <Avatar
-                size={isTabletWidth ? 40 : 86}
+              <S.StyledAvatar
                 icon={<UserOutlined />}
-                src={dialog.photos.small || null}
+                src={photos.small || null}
                 alt={"profile-photo"}
                 onClick={onAvatarUserClick}
               />
             }
-            title={dialog.userName}
+            title={userName}
             description={
-              <>
                 <p>
                   Last activity:{" "}
-                  {getLastSeenStatus(dialog.lastUserActivityDate)}
+                  {getLastSeenStatus(lastUserActivityDate)}
                 </p>
-              </>
             }
           />
-        </Card>
-      </Badge>
+        </S.StyledCard>
+      </S.StyledBadge>
     </Link>
   );
 };
