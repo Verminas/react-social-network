@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { PATH } from "common/router/router";
@@ -29,7 +29,7 @@ export const SocialNetwork = () => {
   } = theme.useToken();
 
   if (!isLoggedIn) {
-    navigate(PATH.LOGIN);
+    return <Navigate to={PATH.LOGIN} />;
   }
 
   return (

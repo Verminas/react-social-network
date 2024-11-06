@@ -3,17 +3,18 @@ import { authActions, selectIsLoggedIn } from "features/Auth/model/authSlice";
 import { useAppDispatch } from "app/store";
 import { useEffect, useState } from "react";
 import { Form } from "antd";
-import { useNavigate } from "react-router-dom";
-import { PATH } from "common/router/router";
 
 export const useLogin = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch();
   const [errorFields, setErrorFields] = useState<FieldType>({});
   const [form] = Form.useForm();
-  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      return
+    }
+
     let timeoutId: NodeJS.Timeout;
     if (errorFields.email || errorFields.password) {
       timeoutId = setTimeout(() => {
@@ -22,11 +23,7 @@ export const useLogin = () => {
     }
 
     return () => clearTimeout(timeoutId);
-  }, [errorFields]);
-
-  if (isLoggedIn) {
-    navigate(PATH.COMMON);
-  }
+  }, [errorFields, isLoggedIn]);
 
   const emailRegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   const rulesEmail = [
@@ -55,7 +52,7 @@ export const useLogin = () => {
       });
   };
 
-  return { form, onSubmit, rulesEmail, rulesPassword, errorFields };
+  return { form, onSubmit, rulesEmail, rulesPassword, errorFields, isLoggedIn };
 };
 
 type Inputs = {

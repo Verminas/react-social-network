@@ -6,9 +6,16 @@ import {
   checkBoxStyles,
   formStyles,
 } from "features/Auth/ui/Login.styles";
+import { PATH } from "common/router/router";
+import { Navigate } from "react-router-dom";
+import React from "react";
 
 export const Login = () => {
-  const { form, onSubmit, errorFields, rulesPassword, rulesEmail } = useLogin();
+  const { form, onSubmit, errorFields, rulesPassword, rulesEmail, isLoggedIn } = useLogin();
+
+  if (isLoggedIn) {
+    return <Navigate to={PATH.COMMON} />;
+  }
   return (
     <Form
       form={form}
