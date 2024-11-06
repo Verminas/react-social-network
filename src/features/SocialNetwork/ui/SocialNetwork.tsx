@@ -15,6 +15,10 @@ export const SocialNetwork = () => {
   const currentUser = useSelector(selectCurrentUser);
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      return;
+    }
+
     if (currentUser.userId) {
       navigate(`${PATH.PROFILE}/${currentUser.userId}`);
     }
