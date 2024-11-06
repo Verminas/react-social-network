@@ -4,14 +4,14 @@ import { theme } from "common/styles/theme";
 import { Button } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
 
-const StyledCard = styled(common.StyledCard)<{isMyMessage?: boolean}>`
+const StyledCard = styled(common.StyledCard)<{ismymessage: string | undefined}>`
     max-width: 300px;
     margin-bottom: 10px;
     
-    ${props => props.isMyMessage && css`
+    ${props => props.ismymessage === 'true' && css`
         align-self: flex-end;
     `}
-    ${props => !props.isMyMessage && css`
+    ${props => props.ismymessage === 'false' && css`
         align-self: flex-start;
     `}
 `

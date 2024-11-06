@@ -30,7 +30,7 @@ export const DialogItem = ({ dialog }: Props) => {
         overflowCount={10}
       >
         <S.StyledCard
-          isNewMessages={hasNewMessages}
+          isnewmessages={hasNewMessages.toString() || undefined}
         >
           <S.StyledCardMeta
             avatar={

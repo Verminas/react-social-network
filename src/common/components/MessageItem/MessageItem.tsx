@@ -28,7 +28,7 @@ export const MessageItem = ({
   return (
     <S.StyledCard
       id={id}
-      isMyMessage={isMyMessage}
+      ismymessage={isMyMessage.toString() || undefined}
     >
       <S.StyledCardMeta
         avatar={

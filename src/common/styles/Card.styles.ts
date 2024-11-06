@@ -2,21 +2,18 @@ import styled, {css} from "styled-components";
 import { Avatar, Badge, Button, Card } from "antd";
 import {theme} from "common/styles/theme";
 
-const StyledCard = styled(Card)<{isNewMessages?: boolean}>`
+const StyledCard = styled(Card)`
     width: 100%;
     max-width: 500px;
 
     & .ant-card-body {
         padding: clamp(10px, 2.5vw, 24px);
     }
-
-    ${props => props.isNewMessages && css`
-        background-color: ${theme.colors.accentLight};
-    `}
 `
 
 const StyledBadge = styled(Badge)`
-  width: 100%;
+    width: 100%;
+    max-width: 500px;
 `
 
 const StyledCardMeta = styled(Card.Meta)`
