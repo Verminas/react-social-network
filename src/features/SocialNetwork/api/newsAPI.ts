@@ -29,7 +29,7 @@ export type NewsItemType = {
   url: string;
 };
 
-type GetNewsResponseType = {
+export type GetNewsResponseType = {
   data: NewsItemType[];
   pagination: {
     count: number;

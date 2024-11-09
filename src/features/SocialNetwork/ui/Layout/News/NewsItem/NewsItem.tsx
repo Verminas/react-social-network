@@ -18,7 +18,7 @@ export const NewsItem = ({ item }: Props) => {
     <Card
       title={item.source.toUpperCase()}
       extra={<a href={item.url}>{"More"}</a>}
-      style={{ minWidth: 200, maxWidth: 700, margin: "0 auto 20px" }}
+      style={{ minWidth: 200, maxWidth: 700 }}
     >
       <div
         style={{

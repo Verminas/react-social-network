@@ -1,5 +1,5 @@
 import { SubmitForm } from "common/components/SubmitForm/SubmitForm";
-import { MessageItem } from "common/components/MessageItem/MessageItem";
+import { MessageItem } from "./MessageItem/MessageItem";
 import Spinner from "common/components/Spinner/Spinner";
 import { Empty } from "antd";
 import { useMessages } from "features/SocialNetwork/lib/useMessages";

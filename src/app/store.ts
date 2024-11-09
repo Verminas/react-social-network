@@ -9,6 +9,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { authSlice } from "features/Auth/model/authSlice";
 import { dialogsReducer } from "features/SocialNetwork/model/dialogsSlice";
 import { messagesReducer } from "features/SocialNetwork/model/messagesSlice";
+import { newsReducer } from "../features/SocialNetwork/model/newsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
     userStatus: userStatusReducer,
     dialogs: dialogsReducer,
     messages: messagesReducer,
+    news: newsReducer
   },
 });
 
