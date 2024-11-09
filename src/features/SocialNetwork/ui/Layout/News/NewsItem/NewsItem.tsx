@@ -4,7 +4,7 @@ import { formatDate } from "common/utils/formatDate";
 import { NewsItemType } from "features/SocialNetwork/api/newsAPI";
 import { Card } from "antd";
 import { useContext } from "react";
-import { WindowWidthContext } from "app/App";
+// import { WindowWidthContext } from "app/App";
 
 const noImage =
   "https://png.pngtree.com/png-clipart/20190925/original/pngtree-no-avatar-vector-isolated-on-white-background-png-image_4979074.jpg";
@@ -13,7 +13,7 @@ type Props = {
   item: NewsItemType;
 };
 export const NewsItem = ({ item }: Props) => {
-  const { isTabletWidth } = useContext(WindowWidthContext);
+  // const { isTabletWidth } = useContext(WindowWidthContext);
   return (
     <Card
       title={item.source.toUpperCase()}
@@ -34,7 +34,8 @@ export const NewsItem = ({ item }: Props) => {
           <p>{item.author}</p>
           <p>{formatDate(item.published_at)}</p>
         </div>
-        {!isTabletWidth ? (
+        {/*заглушка вместо контекста ширины окна, показывать если больше 768*/}
+        {768 ? (
           <img
             src={item.image || noImage}
             alt="news url"

@@ -7,12 +7,12 @@ import { Info } from "features/SocialNetwork/ui/Layout/Profile/Content/Info/Info
 import { useContext } from "react";
 import { UserContext } from "features/SocialNetwork/ui/Layout/Profile/Profile";
 import { TypeMessageButton } from "common/components/TypeMessageButton/TypeMessageButton";
-import { WindowWidthContext } from "app/App";
+// import { WindowWidthContext } from "app/App";
 
 type Props = {};
 export const Content = (props: Props) => {
   const { user, isAuthUser } = useContext(UserContext);
-  const { isTabletWidth } = useContext(WindowWidthContext);
+  // const { isTabletWidth } = useContext(WindowWidthContext);
 
   const wrapperDesktopStyles = {
     display: "flex",
@@ -25,8 +25,11 @@ export const Content = (props: Props) => {
     gap: "15px",
     justifyContent: "space-evenly",
   } as const;
+
+  {/*заглушка вместо контекста ширины окна, показывать если больше 768*/}
   return (
-    <div style={isTabletWidth ? wrapperTabletStyles : wrapperDesktopStyles}>
+
+    <div style={0 > 768 ? wrapperTabletStyles : wrapperDesktopStyles}>
       <div
         style={{
           display: "flex",
