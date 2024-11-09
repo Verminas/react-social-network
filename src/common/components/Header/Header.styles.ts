@@ -27,7 +27,6 @@ const Logo = styled.img`
 const CollapsedButton = styled(Button)<{ isloggedin: string }>`
     font-size: 16px;
     width: 64px;
-    height: 6px;
     display: none;
 
     ${props => props.isloggedin === "true" && css`
