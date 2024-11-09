@@ -11,7 +11,7 @@ const StyledHeader = styled(Header)`
     background: ${theme.colors.backgroundColorLight};
     height: ${theme.height.header};
     
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     right: 0;

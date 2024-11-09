@@ -4,10 +4,11 @@ import { theme } from "common/styles/theme";
 
 const StyledSider = styled(Sider)`
     max-width: ${theme.width.navBar.max};
-    position: fixed;
+    position: sticky;
     top: ${theme.height.header};
     left: 0;
-    height: 100vh;
+    bottom: 0;
+    max-height: 100vh;
     z-index: 100;
 `
 

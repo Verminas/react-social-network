@@ -5,7 +5,7 @@ import { Layout } from "antd";
 const { Content } = Layout;
 
 const StyledContent = styled(Content)<{menucollapsed: string | undefined}>`
-    margin: clamp(5px, 3vw, 24px) clamp(5px, 3vw, 16px);
+    margin: clamp(5px, 3vw, 24px) clamp(5px, 3vw, 16px) 0;
     padding: clamp(5px, 2.5vw, 24px);
     height: 100%;
     min-height: 600px;
@@ -14,9 +14,6 @@ const StyledContent = styled(Content)<{menucollapsed: string | undefined}>`
     transition: all .4s ease-in-out;
 
     max-width: calc(100% - (${theme.width.navBar.max} + 50px));
-    position: relative;
-    top: ${theme.height.header};
-    left: ${theme.width.navBar.max};
 
     ${props => props.menucollapsed === 'true' && css`
         left: ${theme.width.navBar.min};
