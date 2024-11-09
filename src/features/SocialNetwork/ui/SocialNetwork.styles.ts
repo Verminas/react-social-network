@@ -13,12 +13,16 @@ const StyledContent = styled(Content)<{menucollapsed: string | undefined}>`
     border-radius: ${theme.borderRadius.main};
     transition: all .4s ease-in-out;
 
-    max-width: calc(100% - (${theme.width.navBar.max} + 50px));
+    max-width: calc(100% - (${theme.width.navBar.max} + 20px));
 
     ${props => props.menucollapsed === 'true' && css`
         left: ${theme.width.navBar.min};
-        max-width: calc(100% - (${theme.width.navBar.min} + 50px));
+        max-width: calc(100% - (${theme.width.navBar.min} + 20px));
     `}
+    
+    @media ${theme.media.small} {
+    max-width: calc(100% - (${theme.width.navBar.min} + 10px));
+}
 `
 
 export const S = {

@@ -1,6 +1,3 @@
-// @flow
-import * as React from "react";
-import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { UploadFile } from "common/components/UploadFile/UploadFile";
 import { Info } from "features/SocialNetwork/ui/Layout/Profile/Content/Info/Info";
@@ -8,74 +5,27 @@ import { useContext } from "react";
 import { UserContext } from "features/SocialNetwork/ui/Layout/Profile/Profile";
 import { TypeMessageButton } from "common/components/TypeMessageButton/TypeMessageButton";
 import { GetUserProfileResponseType } from "../../../../api/socialAPI";
-// import { WindowWidthContext } from "app/App";
+import { S } from "./Content.styles";
 
 
 export const Content = () => {
   const { user, isAuthUser } = useContext(UserContext);
-  const {userId, lookingForAJob} = user as GetUserProfileResponseType
-  // const { isTabletWidth } = useContext(WindowWidthContext);
+  const { userId, lookingForAJob } = user as GetUserProfileResponseType;
 
-
-  const wrapperDesktopStyles = {
-    display: "flex",
-    gap: "15px",
-    justifyContent: "space-evenly",
-  } as const;
-  const wrapperTabletStyles = {
-    display: "flex",
-    flexDirection: "column",
-    gap: "15px",
-    justifyContent: "space-evenly",
-  } as const;
-
-  {/*заглушка вместо контекста ширины окна, показывать если больше 768*/}
   return (
-
-    <div style={0 > 768 ? wrapperTabletStyles : wrapperDesktopStyles}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "15px",
-          alignItems: "center",
-        }}
-      >
-        <div style={{ position: "relative" }}>
-          <Avatar
-            size={200}
+    <S.Wrapper>
+      <S.WrapperPhotoButton>
+        <S.WrapperPhoto>
+          <S.StyledAvatar
             icon={<UserOutlined />}
             src={user?.photos.large || null}
             alt={"profile-photo"}
           />
-          {lookingForAJob ? (
-            <div
-              style={{
-                position: "absolute",
-                bottom: "-5px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                backgroundColor: "#1677FF",
-                color: "white",
-                padding: "5px 10px",
-                borderRadius: "20px",
-                fontFamily:
-                  "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
-              }}
-            >
-              #OPENTOWORK
-            </div>
-          ) : (
-            ""
-          )}
-        </div>
-        {isAuthUser ? (
-          <UploadFile />
-        ) : (
-          <TypeMessageButton userId={userId} />
-        )}
-      </div>
-      {user && <Info />}
-    </div>
+          {lookingForAJob && <S.Label>#OPENTOWORK</S.Label>}
+        </S.WrapperPhoto>
+        {isAuthUser ? <UploadFile /> : <TypeMessageButton userId={userId} />}
+      </S.WrapperPhotoButton>
+      <Info />
+    </S.Wrapper>
   );
 };
