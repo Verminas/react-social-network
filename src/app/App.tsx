@@ -1,5 +1,4 @@
 import React, { createContext, useEffect, useState } from "react";
-import "./App.css";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "./store";
