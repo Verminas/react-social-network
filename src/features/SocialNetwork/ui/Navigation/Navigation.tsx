@@ -1,5 +1,3 @@
-// @flow
-import * as React from "react";
 import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { PATH } from "common/router/router";
@@ -8,21 +6,22 @@ import {
   GlobalOutlined,
   SettingOutlined,
   UsergroupAddOutlined,
-  UserOutlined,
+  UserOutlined
 } from "@ant-design/icons";
-import { useContext } from "react";
+import { ReactElement, useContext } from "react";
 import { MenuContext } from "app/App";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "features/SocialNetwork/model/currentUserSlice";
+import { S } from "./Navigation.styles";
 
-type Props = {};
-export const Navigation = (props: Props) => {
+
+export const Navigation = () => {
   const navigate = useNavigate();
   const menuCollapsed = useContext(MenuContext);
   const currentUser = useSelector(selectCurrentUser);
   const location = useLocation();
-  // todo: узнать костыль или нет ->
+
   const selectedMenuItem = location.pathname.includes(PATH.DIALOGS)
     ? PATH.DIALOGS
     : location.pathname;
@@ -31,42 +30,41 @@ export const Navigation = (props: Props) => {
     {
       title: "Profile",
       path: `${PATH.PROFILE}/${currentUser.userId}`,
-      icon: <UserOutlined />,
+      icon: <UserOutlined />
     },
     {
       title: "Message",
       path: PATH.DIALOGS,
-      icon: <CommentOutlined />,
+      icon: <CommentOutlined />
     },
     {
       title: "News",
       path: PATH.NEWS,
-      icon: <GlobalOutlined />,
+      icon: <GlobalOutlined />
     },
     {
       title: "Settings",
       path: PATH.SETTINGS,
-      icon: <SettingOutlined />,
+      icon: <SettingOutlined />
     },
     {
       title: "Find Users",
       path: PATH.USERS,
-      icon: <UsergroupAddOutlined />,
-    },
+      icon: <UsergroupAddOutlined />
+    }
   ];
 
   const menuItems = navigationData.map((d) => ({
     label: d.title,
     key: d.path,
-    icon: d.icon,
+    icon: d.icon
   }));
 
   return (
-    <Sider
+    <S.StyledSider
       trigger={null}
       collapsible
       collapsed={menuCollapsed.collapsed}
-      style={{ width: "80%" }}
     >
       <div className="demo-logo-vertical" />
       <Menu
@@ -77,13 +75,13 @@ export const Navigation = (props: Props) => {
         items={menuItems}
         onClick={({ keyPath }) => navigate(keyPath[0])}
       />
-    </Sider>
+    </S.StyledSider>
   );
 };
 
 export type PageItemType = {
   title: string;
   path: string;
-  icon: React.ReactElement;
+  icon: ReactElement;
 };
 type NavigationDataType = PageItemType[];

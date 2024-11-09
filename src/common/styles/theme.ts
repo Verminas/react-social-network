@@ -28,7 +28,13 @@ export const theme = {
         mobileTs: 576,
     },
     height: {
-        header: "70px"
+        header: "65px"
+    },
+    width:{
+        navBar: {
+            max: "200px",
+            min: "80px"
+        }
     },
     borderRadius: {
         main: "8px"

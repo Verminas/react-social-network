@@ -8,8 +8,14 @@ const StyledHeader = styled(Header)`
     padding: 0 10px;
     display: flex;
     justify-content: space-between;
-    position: relative;
     background: ${theme.colors.backgroundColorLight};
+    height: ${theme.height.header};
+    
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
 `;
 
 const LogoButtonWrapper = styled.div`
