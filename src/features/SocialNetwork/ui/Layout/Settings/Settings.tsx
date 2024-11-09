@@ -1,62 +1,15 @@
 import React from "react";
-import { notification } from "antd";
-import { Button, Checkbox, Form, Input } from "antd";
-import { useAppDispatch } from "app/store";
-import { useSelector } from "react-redux";
-import {
-  currentUserActions,
-  selectCurrentUser,
-} from "features/SocialNetwork/model/currentUserSlice";
-import {
-  UpdateUserProfileRequestType,
-  UserProfileContacts,
-} from "features/SocialNetwork/api/socialAPI";
-const { TextArea } = Input;
+import { Checkbox, Form } from "antd";
+import { S } from "./Settings.styles";
+import { FieldsType, useSettings } from "../../../lib/useSettings";
 
 export const Settings = () => {
-  const [form] = Form.useForm();
-  const dispatch = useAppDispatch();
-  const currentUser = useSelector(selectCurrentUser);
-
-  const onSubmit = (formData: FieldsType) => {
-    const data: UpdateUserProfileRequestType = {
-      fullName: formData.fullName || currentUser.fullName,
-      aboutMe: formData.aboutMe || currentUser.aboutMe || "",
-      lookingForAJob: formData.lookingForAJob || currentUser.lookingForAJob,
-      lookingForAJobDescription:
-        formData.lookingForAJobDescription ||
-        currentUser.lookingForAJobDescription,
-      contacts: {
-        facebook: formData.facebook || currentUser.contacts.facebook,
-        twitter: formData.twitter || currentUser.contacts.twitter,
-        vk: formData.vk || currentUser.contacts.vk,
-        instagram: formData.instagram || currentUser.contacts.instagram,
-        github: formData.github || currentUser.contacts.github,
-        youtube: formData.youtube || currentUser.contacts.youtube,
-        mainLink: formData.mainLink || currentUser.contacts.mainLink,
-        website: formData.website || currentUser.contacts.website,
-      },
-    };
-
-    dispatch(currentUserActions.updateCurrentUserProfile(data))
-      .unwrap()
-      .then(() =>
-        notification.success({ message: "Profile info updated successfully." }),
-      )
-      .catch((err) => {
-        if (err.messages?.length) {
-          notification.error({ message: err.messages[0] });
-        }
-      });
-  };
+  const { form, onSubmit, currentUser } = useSettings();
 
   return (
-    <Form
+    <S.StyledForm
       form={form}
       name="settings"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
-      style={{ maxWidth: 600, alignSelf: "center", margin: "0 auto" }}
       initialValues={{ remember: true }}
       onFinish={onSubmit}
       autoComplete="off"
@@ -66,7 +19,7 @@ export const Settings = () => {
         name="fullName"
         initialValue={currentUser.fullName || ""}
       >
-        <Input placeholder={"Enter you full name"} />
+        <S.StyledInput placeholder={"Enter you full name"} />
       </Form.Item>
 
       <Form.Item<FieldsType>
@@ -74,18 +27,16 @@ export const Settings = () => {
         name="aboutMe"
         initialValue={currentUser.aboutMe || ""}
       >
-        <TextArea
+        <S.StyledTextArea
           showCount
           maxLength={100}
           placeholder="Enter something about you"
-          style={{ height: 60, resize: "none" }}
         />
       </Form.Item>
 
       <Form.Item<FieldsType>
         name="lookingForAJob"
         valuePropName="checked"
-        wrapperCol={{ offset: 8, span: 16 }}
         initialValue={currentUser.lookingForAJob || false}
       >
         <Checkbox>Looking for a job</Checkbox>
@@ -96,22 +47,21 @@ export const Settings = () => {
         name="lookingForAJobDescription"
         initialValue={currentUser.lookingForAJobDescription || ""}
       >
-        <TextArea
+        <S.StyledTextArea
           showCount
           maxLength={100}
           placeholder="Enter something about a job"
-          style={{ height: 60, resize: "none" }}
         />
       </Form.Item>
 
-      <Form.Item label="Contacts"></Form.Item>
+      <Form.Item label="Contacts" />
 
       <Form.Item<FieldsType>
         label="Facebook"
         name="facebook"
         initialValue={currentUser.contacts?.facebook || ""}
       >
-        <Input placeholder={"Enter your contact"} />
+        <S.StyledInput placeholder={"Enter your contact"} />
       </Form.Item>
 
       <Form.Item<FieldsType>
@@ -119,7 +69,7 @@ export const Settings = () => {
         name="github"
         initialValue={currentUser.contacts?.github || ""}
       >
-        <Input placeholder={"Enter your contact"} />
+        <S.StyledInput placeholder={"Enter your contact"} />
       </Form.Item>
 
       <Form.Item<FieldsType>
@@ -127,7 +77,7 @@ export const Settings = () => {
         name="instagram"
         initialValue={currentUser.contacts?.instagram || ""}
       >
-        <Input placeholder={"Enter your contact"} />
+        <S.StyledInput placeholder={"Enter your contact"} />
       </Form.Item>
 
       <Form.Item<FieldsType>
@@ -135,7 +85,7 @@ export const Settings = () => {
         name="mainLink"
         initialValue={currentUser.contacts?.mainLink || ""}
       >
-        <Input placeholder={"Enter your contact"} />
+        <S.StyledInput placeholder={"Enter your contact"} />
       </Form.Item>
 
       <Form.Item<FieldsType>
@@ -143,7 +93,7 @@ export const Settings = () => {
         name="twitter"
         initialValue={currentUser.contacts?.twitter || ""}
       >
-        <Input placeholder={"Enter your contact"} />
+        <S.StyledInput placeholder={"Enter your contact"} />
       </Form.Item>
 
       <Form.Item<FieldsType>
@@ -151,7 +101,7 @@ export const Settings = () => {
         name="vk"
         initialValue={currentUser.contacts?.vk || ""}
       >
-        <Input placeholder={"Enter your contact"} />
+        <S.StyledInput placeholder={"Enter your contact"} />
       </Form.Item>
 
       <Form.Item<FieldsType>
@@ -159,7 +109,7 @@ export const Settings = () => {
         name="website"
         initialValue={currentUser.contacts?.website || ""}
       >
-        <Input placeholder={"Enter your contact"} />
+        <S.StyledInput placeholder={"Enter your contact"} />
       </Form.Item>
 
       <Form.Item<FieldsType>
@@ -167,18 +117,12 @@ export const Settings = () => {
         name="youtube"
         initialValue={currentUser.contacts?.youtube || ""}
       >
-        <Input placeholder={"Enter your contact"} />
+        <S.StyledInput placeholder={"Enter your contact"} />
       </Form.Item>
 
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+      <S.StyledButton type="primary" htmlType="submit">
+        Submit
+      </S.StyledButton>
+    </S.StyledForm>
   );
 };
-
-type FieldsType = Partial<
-  Omit<UpdateUserProfileRequestType, "contacts"> & UserProfileContacts
->;
