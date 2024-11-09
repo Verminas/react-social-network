@@ -8,23 +8,24 @@ import { authActions, selectIsLoggedIn } from "features/Auth/model/authSlice";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  LogoutOutlined,
+  LogoutOutlined
 } from "@ant-design/icons";
 import { Button, Layout, theme, Progress } from "antd";
 import { ErrorSnack } from "common/components/ErrorSnack/ErrorSnack";
 import { useWindowWidthResize } from "common/hooks/useWindowWidthResize";
-import logo from "assets/network.webp"
+import logo from "assets/network.webp";
+import { ProgressBar } from "common/components/ProgressBar/ProgressBar";
 
 const { Header } = Layout;
 
 export const MenuContext = createContext({ collapsed: false });
 export const WindowWidthContext = createContext({
   width: 0,
-  isTabletWidth: false,
+  isTabletWidth: false
 });
 
 export const DEVICES_WIDTH = {
-  TABLET: 768,
+  TABLET: 768
 };
 
 export function App() {
@@ -50,7 +51,7 @@ export function App() {
   // antd
   const [collapsed, setCollapsed] = useState(false);
   const {
-    token: { colorBgContainer },
+    token: { colorBgContainer }
   } = theme.useToken();
 
   const logOutHandler = () => {
@@ -65,7 +66,7 @@ export function App() {
     <WindowWidthContext.Provider
       value={{
         width: windowWidth,
-        isTabletWidth: windowWidth <= DEVICES_WIDTH.TABLET,
+        isTabletWidth: windowWidth <= DEVICES_WIDTH.TABLET
       }}
     >
       <MenuContext.Provider value={{ collapsed }}>
@@ -74,7 +75,7 @@ export function App() {
             style={{
               maxWidth: "1280px",
               margin: "0 auto",
-              overflowX: "hidden",
+              overflowX: "hidden"
             }}
           >
             <Layout style={{ minHeight: "100vh" }}>
@@ -84,27 +85,27 @@ export function App() {
                   background: colorBgContainer,
                   display: "flex",
                   justifyContent: "space-between",
-                  position: "relative",
+                  position: "relative"
                 }}
               >
-                <div style={{display: "flex", alignItems: 'center', justifyContent: 'space-evenly', minWidth: 120}}>
-                  <img src={logo} alt="social logo" style={{width: 40, height: 40}}/>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-evenly", minWidth: 120 }}>
+                  <img src={logo} alt="social logo" style={{ width: 40, height: 40 }} />
                   {windowWidth > DEVICES_WIDTH.TABLET && isLoggedIn ? (
 
-                      <Button
-                          type="text"
-                          icon={
-                            collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
-                          }
-                          onClick={() => setCollapsed(!collapsed)}
-                          style={{
-                            fontSize: "16px",
-                            width: 64,
-                            height: 64,
-                          }}
-                      />
+                    <Button
+                      type="text"
+                      icon={
+                        collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
+                      }
+                      onClick={() => setCollapsed(!collapsed)}
+                      style={{
+                        fontSize: "16px",
+                        width: 64,
+                        height: 64
+                      }}
+                    />
                   ) : (
-                      ""
+                    ""
                   )}
                 </div>
 
@@ -115,7 +116,7 @@ export function App() {
                     onClick={logOutHandler}
                     style={{
                       fontSize: "16px",
-                      height: 64,
+                      height: 64
                     }}
                   >
                     Log out
@@ -124,23 +125,7 @@ export function App() {
                   ""
                 )}
 
-                {status === "loading" && (
-                  <Progress
-                    percent={100}
-                    showInfo={false}
-                    style={{
-                      position: "absolute",
-                      bottom: 0,
-                      right: 0,
-                      width: "100%",
-                      lineHeight: 0,
-                    }}
-                    strokeLinecap={"square"}
-                    size={"small"}
-                    status="active"
-                    strokeColor={"rgba(22,119,255,0.5)"}
-                  />
-                )}
+                <ProgressBar />
               </Header>
 
               <ErrorSnack />
