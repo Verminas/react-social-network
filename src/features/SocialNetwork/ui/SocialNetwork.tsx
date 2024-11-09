@@ -1,13 +1,12 @@
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { PATH } from "common/router/router";
 import { selectCurrentUser } from "features/SocialNetwork/model/currentUserSlice";
 import { selectIsLoggedIn } from "features/Auth/model/authSlice";
-import { Layout, theme } from "antd";
+import { Layout } from "antd";
 import { Navigation } from "features/SocialNetwork/ui/Navigation/Navigation";
-
-const { Content } = Layout;
+import { S } from "./SocialNetwork.styles";
 
 export const SocialNetwork = () => {
   const navigate = useNavigate();
@@ -24,9 +23,6 @@ export const SocialNetwork = () => {
     }
   }, [currentUser.userId]);
 
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
 
   if (!isLoggedIn) {
     return <Navigate to={PATH.LOGIN} />;
@@ -35,17 +31,9 @@ export const SocialNetwork = () => {
   return (
     <Layout>
       <Navigation />
-      <Content
-        style={{
-          margin: "24px 16px",
-          padding: 24,
-          minHeight: 280,
-          background: colorBgContainer,
-          borderRadius: borderRadiusLG,
-        }}
-      >
+      <S.StyledContent>
         <Outlet />
-      </Content>
+      </S.StyledContent>
     </Layout>
   );
 };

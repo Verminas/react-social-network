@@ -13,7 +13,7 @@ export const theme = {
 
         borderMain: "rgba(0, 0, 0, 0.6)",
 
-        boxShadowMain: "#80808045"
+        boxShadowMain: "#80808045",
     },
     transition: {
         all: "all .4s ease-in-out"
@@ -29,5 +29,8 @@ export const theme = {
     },
     height: {
         header: "70px"
+    },
+    borderRadius: {
+        main: "8px"
     }
 }
