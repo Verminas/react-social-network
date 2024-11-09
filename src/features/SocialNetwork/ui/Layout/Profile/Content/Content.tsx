@@ -7,12 +7,15 @@ import { Info } from "features/SocialNetwork/ui/Layout/Profile/Content/Info/Info
 import { useContext } from "react";
 import { UserContext } from "features/SocialNetwork/ui/Layout/Profile/Profile";
 import { TypeMessageButton } from "common/components/TypeMessageButton/TypeMessageButton";
+import { GetUserProfileResponseType } from "../../../../api/socialAPI";
 // import { WindowWidthContext } from "app/App";
 
-type Props = {};
-export const Content = (props: Props) => {
+
+export const Content = () => {
   const { user, isAuthUser } = useContext(UserContext);
+  const {userId, lookingForAJob} = user as GetUserProfileResponseType
   // const { isTabletWidth } = useContext(WindowWidthContext);
+
 
   const wrapperDesktopStyles = {
     display: "flex",
@@ -45,7 +48,7 @@ export const Content = (props: Props) => {
             src={user?.photos.large || null}
             alt={"profile-photo"}
           />
-          {user.lookingForAJob ? (
+          {lookingForAJob ? (
             <div
               style={{
                 position: "absolute",
@@ -69,10 +72,10 @@ export const Content = (props: Props) => {
         {isAuthUser ? (
           <UploadFile />
         ) : (
-          <TypeMessageButton userId={user.userId} />
+          <TypeMessageButton userId={userId} />
         )}
       </div>
-      <Info />
+      {user && <Info />}
     </div>
   );
 };

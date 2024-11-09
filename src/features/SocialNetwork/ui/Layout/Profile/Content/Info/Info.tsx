@@ -10,9 +10,11 @@ import { UserContext } from "features/SocialNetwork/ui/Layout/Profile/Profile";
 import { ContactItem } from "common/components/ContactItem/ContactItem";
 import { InfoItem } from "common/components/InfoItem/InfoItem";
 import {NO_INFORMATION} from "common/constants/common";
+import { GetUserProfileResponseType } from "../../../../../api/socialAPI";
 
 export const Info = () => {
   const { user, isAuthUser } = useContext(UserContext);
+
   const {
     userId,
     lookingForAJobDescription,
@@ -20,7 +22,7 @@ export const Info = () => {
     aboutMe,
     fullName,
     contacts,
-  } = user;
+  } = user as GetUserProfileResponseType;
 
   const status = useSelector(selectUserStatus);
   const dispatch = useAppDispatch();

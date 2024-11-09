@@ -1,5 +1,3 @@
-// @flow
-import * as React from "react";
 import { createContext } from "react";
 import { GetUserProfileResponseType } from "features/SocialNetwork/api/socialAPI";
 import Spinner from "common/components/Spinner/Spinner";
@@ -8,7 +6,7 @@ import { Content } from "features/SocialNetwork/ui/Layout/Profile/Content/Conten
 import { useUserProfile } from "features/SocialNetwork/lib/useUserProfile";
 
 export const UserContext = createContext<{
-  user: GetUserProfileResponseType | any;
+  user: GetUserProfileResponseType | null;
   isAuthUser: boolean;
 }>({ user: null, isAuthUser: false });
 
