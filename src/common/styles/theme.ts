@@ -5,6 +5,7 @@ export const theme = {
         textLight: "rgb(255,252,252)",
 
         backgroundColor: "#f5f5f5",
+        backgroundColorLight: "#ffffff",
 
         accentLight: "rgba(22,119,255,0.5)",
         accent: "rgb(22, 119, 255)",

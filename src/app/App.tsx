@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "./store";
-import { selectAppIsInitialized, selectAppStatus } from "app/appSlice";
+import { selectAppIsInitialized } from "app/appSlice";
 import Spinner from "common/components/Spinner/Spinner";
 import { authActions, selectIsLoggedIn } from "features/Auth/model/authSlice";
 import {
@@ -10,13 +10,12 @@ import {
   MenuUnfoldOutlined,
   LogoutOutlined
 } from "@ant-design/icons";
-import { Button, Layout, theme, Progress } from "antd";
 import { ErrorSnack } from "common/components/ErrorSnack/ErrorSnack";
 import { useWindowWidthResize } from "common/hooks/useWindowWidthResize";
 import logo from "assets/network.webp";
 import { ProgressBar } from "common/components/ProgressBar/ProgressBar";
+import { S } from "./App.styles";
 
-const { Header } = Layout;
 
 export const MenuContext = createContext({ collapsed: false });
 export const WindowWidthContext = createContext({
@@ -32,7 +31,6 @@ export function App() {
   const dispatch = useAppDispatch();
   const isInitialized = useSelector(selectAppIsInitialized);
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const status = useSelector(selectAppStatus);
 
   const changeCollapsedWithWidth = () => {
     if (windowWidth <= DEVICES_WIDTH.TABLET) {
@@ -50,9 +48,6 @@ export function App() {
 
   // antd
   const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer }
-  } = theme.useToken();
 
   const logOutHandler = () => {
     dispatch(authActions.logOut());
@@ -70,70 +65,34 @@ export function App() {
       }}
     >
       <MenuContext.Provider value={{ collapsed }}>
-        <div style={{ backgroundColor: "#f5f5f5" }}>
-          <div
-            style={{
-              maxWidth: "1280px",
-              margin: "0 auto",
-              overflowX: "hidden"
-            }}
-          >
-            <Layout style={{ minHeight: "100vh" }}>
-              <Header
-                style={{
-                  padding: 0,
-                  background: colorBgContainer,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  position: "relative"
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-evenly", minWidth: 120 }}>
-                  <img src={logo} alt="social logo" style={{ width: 40, height: 40 }} />
-                  {windowWidth > DEVICES_WIDTH.TABLET && isLoggedIn ? (
+        <S.StyledLayout>
+          <S.StyledHeader>
+            <S.LogoButtonWrapper>
+              <S.Logo src={logo} alt="social logo" />
+              <S.CollapsedButton
+                type="text"
+                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                isloggedin={isLoggedIn.toString()}
+                onClick={() => setCollapsed(!collapsed)} />
+            </S.LogoButtonWrapper>
 
-                    <Button
-                      type="text"
-                      icon={
-                        collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
-                      }
-                      onClick={() => setCollapsed(!collapsed)}
-                      style={{
-                        fontSize: "16px",
-                        width: 64,
-                        height: 64
-                      }}
-                    />
-                  ) : (
-                    ""
-                  )}
-                </div>
+            <S.LogOutButton
+              type="text"
+              icon={<LogoutOutlined />}
+              onClick={logOutHandler}
+              isloggedin={isLoggedIn.toString()}
+            >
+              Log out
+            </S.LogOutButton>
 
-                {isLoggedIn ? (
-                  <Button
-                    type="text"
-                    icon={<LogoutOutlined />}
-                    onClick={logOutHandler}
-                    style={{
-                      fontSize: "16px",
-                      height: 64
-                    }}
-                  >
-                    Log out
-                  </Button>
-                ) : (
-                  ""
-                )}
+            <ProgressBar />
+          </S.StyledHeader>
 
-                <ProgressBar />
-              </Header>
+          <ErrorSnack />
 
-              <ErrorSnack />
+          <Outlet />
 
-              <Outlet />
-            </Layout>
-          </div>
-        </div>
+        </S.StyledLayout>
       </MenuContext.Provider>
     </WindowWidthContext.Provider>
   );
