@@ -4,17 +4,11 @@ import { useSelector } from "react-redux";
 import { useAppDispatch } from "./store";
 import { selectAppIsInitialized } from "app/appSlice";
 import Spinner from "common/components/Spinner/Spinner";
-import { authActions, selectIsLoggedIn } from "features/Auth/model/authSlice";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  LogoutOutlined
-} from "@ant-design/icons";
+import { authActions } from "features/Auth/model/authSlice";
 import { ErrorSnack } from "common/components/ErrorSnack/ErrorSnack";
 import { useWindowWidthResize } from "common/hooks/useWindowWidthResize";
-import logo from "assets/network.webp";
-import { ProgressBar } from "common/components/ProgressBar/ProgressBar";
 import { S } from "./App.styles";
+import { Header } from "common/components/Header/Header";
 
 
 export const MenuContext = createContext({ collapsed: false });
@@ -28,9 +22,13 @@ export const DEVICES_WIDTH = {
 };
 
 export function App() {
+  const [collapsed, setCollapsed] = useState(false);
   const dispatch = useAppDispatch();
   const isInitialized = useSelector(selectAppIsInitialized);
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  const changeCollapsed = () => {
+    setCollapsed(!collapsed)
+  }
 
   const changeCollapsedWithWidth = () => {
     if (windowWidth <= DEVICES_WIDTH.TABLET) {
@@ -46,13 +44,6 @@ export function App() {
     dispatch(authActions.initializeApp());
   }, []);
 
-  // antd
-  const [collapsed, setCollapsed] = useState(false);
-
-  const logOutHandler = () => {
-    dispatch(authActions.logOut());
-  };
-
   if (!isInitialized) {
     return <Spinner />;
   }
@@ -66,32 +57,9 @@ export function App() {
     >
       <MenuContext.Provider value={{ collapsed }}>
         <S.StyledLayout>
-          <S.StyledHeader>
-            <S.LogoButtonWrapper>
-              <S.Logo src={logo} alt="social logo" />
-              <S.CollapsedButton
-                type="text"
-                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                isloggedin={isLoggedIn.toString()}
-                onClick={() => setCollapsed(!collapsed)} />
-            </S.LogoButtonWrapper>
-
-            <S.LogOutButton
-              type="text"
-              icon={<LogoutOutlined />}
-              onClick={logOutHandler}
-              isloggedin={isLoggedIn.toString()}
-            >
-              Log out
-            </S.LogOutButton>
-
-            <ProgressBar />
-          </S.StyledHeader>
-
+          <Header changeCollapsed={changeCollapsed}/>
           <ErrorSnack />
-
           <Outlet />
-
         </S.StyledLayout>
       </MenuContext.Provider>
     </WindowWidthContext.Provider>
