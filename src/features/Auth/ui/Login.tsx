@@ -1,14 +1,9 @@
-import { Button, Checkbox, Form, Input } from "antd";
+import { Form, Input } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { FieldType, useLogin } from "features/Auth/lib/useLogin";
-import {
-  buttonStyles,
-  checkBoxStyles,
-  formStyles,
-} from "features/Auth/ui/Login.styles";
 import { PATH } from "common/router/router";
 import { Navigate } from "react-router-dom";
-import React from "react";
+import { S } from "./Login.styles";
 
 export const Login = () => {
   const { form, onSubmit, errorFields, rulesPassword, rulesEmail, isLoggedIn } = useLogin();
@@ -17,40 +12,26 @@ export const Login = () => {
     return <Navigate to={PATH.COMMON} />;
   }
   return (
-    <Form
+    <S.StyledForm
       form={form}
       name="basic"
-      style={formStyles}
       initialValues={{ remember: true }}
       onFinish={onSubmit}
       autoComplete="off"
       variant={"outlined"}
       size="large"
     >
-      <div
-        style={{
-          fontSize: "16px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-          marginBottom: "20px",
-          color: "#636363",
-        }}
-      >
+      <S.TextWrapper>
         <p>
           To log in get registered{" "}
-          <a
-            href="https://social-network.samuraijs.com/"
-            target="_blank"
-            style={{ color: "#1677FF" }}
-          >
+          <a href="https://social-network.samuraijs.com/" target="_blank">
             here
           </a>
         </p>
         <p>or use common test account credentials: </p>
         <p>Email: free@samuraijs.com</p>
         <p>Password: free</p>
-      </div>
+      </S.TextWrapper>
       <Form.Item<FieldType>
         name="email"
         rules={rulesEmail}
@@ -72,19 +53,18 @@ export const Login = () => {
         />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <S.FormItemCheckbox
         name="rememberMe"
         valuePropName="checked"
-        wrapperCol={{ offset: 8, span: 16 }}
       >
-        <Checkbox style={checkBoxStyles}>Remember me</Checkbox>
-      </Form.Item>
+        <S.StyledCheckbox>Remember me</S.StyledCheckbox>
+      </S.FormItemCheckbox>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" style={buttonStyles}>
+        <S.ButtonSubmit type="primary" htmlType="submit">
           Login
-        </Button>
+        </S.ButtonSubmit>
       </Form.Item>
-    </Form>
+    </S.StyledForm>
   );
 };

@@ -3,6 +3,7 @@ export const theme = {
         textMain: "#000000FF",
         textSecondary: "rgba(0, 0, 0, 0.6)",
         textLight: "rgb(255,252,252)",
+        textAdditional: "#636363",
 
         backgroundColor: "#f5f5f5",
         backgroundColorLight: "#ffffff",
@@ -11,6 +12,8 @@ export const theme = {
         accent: "rgb(22, 119, 255)",
 
         borderMain: "rgba(0, 0, 0, 0.6)",
+
+        boxShadowMain: "#80808045"
     },
     transition: {
         all: "all .4s ease-in-out"

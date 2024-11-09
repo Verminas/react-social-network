@@ -42,7 +42,8 @@ export const useLogin = () => {
     { message: "Password must not exceed 12 characters", max: 12 },
   ];
 
-  const onSubmit = (data: Inputs) => {
+  const onSubmit = (values: unknown) => {
+    const data = values as Inputs
     dispatch(authActions.logIn(data))
       .unwrap()
       .catch((err) => {
