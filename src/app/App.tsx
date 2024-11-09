@@ -8,11 +8,12 @@ import { authActions } from "features/Auth/model/authSlice";
 import { ErrorSnack } from "common/components/ErrorSnack/ErrorSnack";
 import { S } from "./App.styles";
 import { Header } from "common/components/Header/Header";
+import { theme } from "common/styles/theme";
 
-export const MenuContext = createContext({ collapsed: false });
+export const MenuContext = createContext({ collapsed: true });
 
 export function App() {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const dispatch = useAppDispatch();
   const isInitialized = useSelector(selectAppIsInitialized);
 
@@ -22,6 +23,9 @@ export function App() {
 
   useEffect(() => {
     dispatch(authActions.initializeApp());
+
+    const isTabletWidth = window.innerWidth <= theme.media.tabletTs
+    setCollapsed(isTabletWidth)
   }, []);
 
   if (!isInitialized) {
