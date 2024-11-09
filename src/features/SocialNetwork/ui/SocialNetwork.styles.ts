@@ -8,7 +8,7 @@ const StyledContent = styled(Content)<{menucollapsed: string | undefined}>`
     margin: clamp(5px, 3vw, 24px) clamp(5px, 3vw, 16px) 0;
     padding: clamp(5px, 2.5vw, 24px);
     height: 100%;
-    min-height: 600px;
+    min-height: calc(100vh - (${theme.height.header} + 30px));
     background: ${theme.colors.backgroundColorLight};
     border-radius: ${theme.borderRadius.main};
     transition: all .4s ease-in-out;

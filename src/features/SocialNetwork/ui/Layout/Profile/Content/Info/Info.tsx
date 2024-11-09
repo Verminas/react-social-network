@@ -38,7 +38,7 @@ export const Info = () => {
 
   const contactsInfo = Object.entries(contacts).reduce(
     (acc, [title, href], index) => {
-      if (href && typeof href === "string") {
+      if (href) {
         acc.push(<ContactItem title={title} href={href} key={title} />);
       }
 
