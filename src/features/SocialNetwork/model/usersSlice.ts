@@ -1,21 +1,30 @@
 import {
   GetUserProfileResponseType,
   socialAPI,
-  UserType,
+  UserType
 } from "features/SocialNetwork/api/socialAPI";
 import { asyncThunkCreator, buildCreateSlice } from "@reduxjs/toolkit";
+import { StatusType } from "app/appSlice";
 
 const createAppSlice = buildCreateSlice({
-  creators: { asyncThunk: asyncThunkCreator },
+  creators: { asyncThunk: asyncThunkCreator }
 });
+
+type InitialStateType = {
+  users: UserType[],
+  user: GetUserProfileResponseType,
+  totalCount: number,
+  status: StatusType
+};
 
 const slice = createAppSlice({
   name: "users",
   initialState: {
-    users: [] as UserType[],
+    users: [],
     user: {} as GetUserProfileResponseType,
-    totalCount: 0,
-  },
+    status: "idle",
+    totalCount: 0
+  } as InitialStateType,
   reducers: (creators) => {
     const createAThunk = creators.asyncThunk.withTypes<{
       rejectValue: null | unknown;
@@ -42,8 +51,15 @@ const slice = createAppSlice({
           fulfilled: (state, action) => {
             state.users = action.payload.users;
             state.totalCount = action.payload.totalCount;
+            state.status = "succeeded";
           },
-        },
+          pending: state => {
+            state.status = "loading";
+          },
+          rejected: state => {
+            state.status = "failed";
+          }
+        }
       ),
       getUserProfile: createAThunk<GetUserType, number>(
         async (userId, thunkAPI) => {
@@ -53,8 +69,8 @@ const slice = createAppSlice({
         {
           fulfilled: (state, action) => {
             state.user = action.payload.user;
-          },
-        },
+          }
+        }
       ),
       followUser: createAThunk<FollowUnfollowUserType, number>(
         async (userId, thunkAPI) => {
@@ -70,13 +86,13 @@ const slice = createAppSlice({
         {
           fulfilled: (state, action) => {
             const user = state.users.find(
-              (u) => u.id === action.payload.userId,
+              (u) => u.id === action.payload.userId
             );
             if (user) {
               user.followed = true;
             }
-          },
-        },
+          }
+        }
       ),
       unfollowUser: createAThunk<FollowUnfollowUserType, number>(
         async (userId, thunkAPI) => {
@@ -92,14 +108,14 @@ const slice = createAppSlice({
         {
           fulfilled: (state, action) => {
             const user = state.users.find(
-              (u) => u.id === action.payload.userId,
+              (u) => u.id === action.payload.userId
             );
             if (user) {
               user.followed = false;
             }
-          },
-        },
-      ),
+          }
+        }
+      )
     };
   },
   selectors: {
@@ -108,12 +124,13 @@ const slice = createAppSlice({
       return sliceState.user;
     },
     selectUsersTotalCount: (sliceState) => sliceState.totalCount,
-  },
+    selectStatus: (sliceState) => sliceState.status
+  }
 });
 
 export const usersSlice = slice.reducer;
 export const usersActions = slice.actions;
-export const { selectUser, selectUsersTotalCount, selectUsers } =
+export const { selectUser, selectUsersTotalCount, selectUsers, selectStatus} =
   slice.selectors;
 
 type FetchUsersType = {
