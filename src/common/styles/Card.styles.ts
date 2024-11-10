@@ -7,7 +7,7 @@ const StyledCard = styled(Card)`
     max-width: 500px;
     min-width: 200px;
     
-    @media ${theme.media.small}{
+    @media ${theme.media.mobile}{
         min-width: 100px;
     }
 
