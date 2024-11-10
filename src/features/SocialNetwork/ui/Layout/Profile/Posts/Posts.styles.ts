@@ -21,7 +21,8 @@ const Title = styled.h3`
 const Posts = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
+    padding-top: 20px;
 `
 
 export const S = {

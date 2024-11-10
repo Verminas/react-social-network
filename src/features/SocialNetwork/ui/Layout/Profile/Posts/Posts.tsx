@@ -1,13 +1,13 @@
-import { useContext } from "react";
 import { SubmitForm } from "common/components/SubmitForm/SubmitForm";
-import { UserContext } from "features/SocialNetwork/ui/Layout/Profile/Profile";
-import {S} from "./Posts.styles"
+import { S } from "./Posts.styles";
+import { PostItem } from "./PostItem/PostItem";
+import { usePosts } from "../../../../lib/usePosts";
 
 export const Posts = () => {
-  const {isAuthUser } = useContext(UserContext);
-  const onClickHandler = (value: string) => {
-    alert(value);
-  };
+  const { posts, isAuthUser, userId, onClickHandler, listRef, onDeletePost } = usePosts();
+
+  const postsElements = posts.map(p => <PostItem post={p} isMyPost={p.senderId === +userId} onClick={onDeletePost}
+                                                 key={p.messageId} />);
 
   return (
     <S.Wrapper>
@@ -18,7 +18,7 @@ export const Posts = () => {
           placeholder={"your news..."}
         />
       </S.Form>
-      <S.Posts></S.Posts>
+      <S.Posts ref={listRef}>{postsElements}</S.Posts>
     </S.Wrapper>
   );
 };
