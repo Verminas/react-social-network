@@ -1,4 +1,4 @@
-import { FindUserItem } from "common/components/FindUserItem/FindUserItem";
+import { FindUserItem } from "./FindUserItem/FindUserItem";
 import { SearchForm } from "common/components/SearchForm/SearchForm";
 import { Empty, Pagination, Statistic } from "antd";
 import { S } from "./FindUsers.styles";

@@ -5,6 +5,11 @@ import {theme} from "common/styles/theme";
 const StyledCard = styled(Card)`
     width: 100%;
     max-width: 500px;
+    min-width: 200px;
+    
+    @media ${theme.media.small}{
+        min-width: 100px;
+    }
 
     & .ant-card-body {
         padding: clamp(10px, 2.5vw, 24px);

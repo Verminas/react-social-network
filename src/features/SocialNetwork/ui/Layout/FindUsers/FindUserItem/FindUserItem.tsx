@@ -1,4 +1,4 @@
-import { UserType } from "features/SocialNetwork/api/socialAPI";
+import { UserType } from "../../../../api/socialAPI";
 import { Link } from "react-router-dom";
 import { MouseEvent } from "react";
 import { UserAddOutlined, UserOutlined } from "@ant-design/icons";
