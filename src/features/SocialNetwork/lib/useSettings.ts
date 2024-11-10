@@ -14,7 +14,7 @@ export const useSettings = () => {
     const data: UpdateUserProfileRequestType = {
       fullName: formData.fullName || currentUser.fullName,
       aboutMe: formData.aboutMe || currentUser.aboutMe || "",
-      lookingForAJob: formData.lookingForAJob || currentUser.lookingForAJob,
+      lookingForAJob: !!formData.lookingForAJob,
       lookingForAJobDescription:
         formData.lookingForAJobDescription ||
         currentUser.lookingForAJobDescription,
